@@ -16,11 +16,19 @@ import org.w3c.dom.Document;
 
 public class TranscoderDemo
 {
+	/**
+	 * FIXME remove, just for testing purposes
+	 * @param args
+	 */
 	public static void main(String args[])
+	{
+		writeSVG(new Project());
+	}
+
+	public static void writeSVG(Project p)
 	{
 		try
 		{
-			Project p = new Project();
 			
 			BufferedImage source = ImageIO.read(new File(p.getSourceFile()));
 			

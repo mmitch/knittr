@@ -141,6 +141,16 @@ public class Project implements Serializable
 	{
 		return targetFile;
 	}
+
+	public void setGridWidthSmall(float gridWidthSmall)
+	{
+		this.gridWidthSmall = gridWidthSmall;
+	}
+
+	public void setGridWidthBig(float gridWidthBig)
+	{
+		this.gridWidthBig = gridWidthBig;
+	}
 	
 	
 }
