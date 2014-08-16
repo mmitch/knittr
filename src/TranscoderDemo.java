@@ -20,29 +20,9 @@ public class TranscoderDemo
 	{
 		try
 		{
-			float GRID_WIDTH_SMALL = 0.5f;
-			float GRID_WIDTH_BIG   = 2f;
+			Project p = new Project();
 			
-			int MASCHEN = 24;
-			int REIHEN  = 32;
-			
-			int TOTAL_SCALE = 512;
-			
-			int GRIDTEXTMOD = 5;
-			
-			Color GRIDCOLOR = Color.BLACK; 
-
-			int SCALE_X = TOTAL_SCALE / MASCHEN;
-			int SCALE_Y = TOTAL_SCALE / REIHEN;
-			
-			int OFFSET = 3;
-			
-			String FONTNAME = "DialogInput";
-			Color TEXTCOLOR = Color.BLACK;
-			
-			
-			
-			BufferedImage source = ImageIO.read(new File("resource/image_test.png"));
+			BufferedImage source = ImageIO.read(new File(p.getSourceFile()));
 			
 			
 			// Get a DOMImplementation.
@@ -58,7 +38,7 @@ public class TranscoderDemo
 			
 			// convert
 			Raster r = source.getData();
-			svg.setStroke(new BasicStroke(GRID_WIDTH_SMALL));
+			svg.setStroke(new BasicStroke(p.getGridWidthSmall()));
 			int[] rgb = new int[4];
 			for (int x=0; x<r.getWidth(); x++)
 			{
@@ -66,45 +46,45 @@ public class TranscoderDemo
 				{
 					rgb = r.getPixel(x, y, rgb);
 					svg.setPaint(new Color(rgb[0], rgb[1], rgb[2]));
-					svg.fill(new Rectangle( x*SCALE_X, y*SCALE_Y, SCALE_X, SCALE_Y));
-					svg.setPaint(GRIDCOLOR);
-					svg.draw(new Rectangle( x*SCALE_X, y*SCALE_Y, SCALE_X, SCALE_Y));
+					svg.fill(new Rectangle( x * p.getScaleX(), y*p.getScaleY(), p.getScaleX(), p.getScaleY()));
+					svg.setPaint(p.getGridColor());
+					svg.draw(new Rectangle( x * p.getScaleX(), y*p.getScaleY(), p.getScaleX(), p.getScaleY()));
 				}
 			}
 			
 			// text + thick grid
-			int max_x = r.getWidth()  * SCALE_X + 1;
-			int max_y = r.getHeight() * SCALE_Y + 1;
-			svg.setFont(new Font(FONTNAME, Font.PLAIN, SCALE_Y - OFFSET * 2));
-			svg.setStroke(new BasicStroke(GRID_WIDTH_BIG));
+			int max_x = r.getWidth()  * p.getScaleX() + 1;
+			int max_y = r.getHeight() * p.getScaleY() + 1;
+			svg.setFont(new Font(p.getFontName(), Font.PLAIN, p.getScaleY() - p.getOffset() * 2));
+			svg.setStroke(new BasicStroke(p.getGridWidthBig()));
 			
 			for (int x=0, col=r.getWidth(); x<r.getWidth(); x++, col--)
 			{
-				if (col % GRIDTEXTMOD == 0)
+				if (col % p.getGridTextMod() == 0)
 				{
-					svg.setPaint(TEXTCOLOR);
-					svg.drawString(String.valueOf(col), x * SCALE_X + OFFSET, max_y - OFFSET);
-					svg.drawString(String.valueOf(col), x * SCALE_X + OFFSET, SCALE_Y - OFFSET);
-					svg.setPaint(GRIDCOLOR);
-					svg.drawLine(x * SCALE_X, 0, x * SCALE_X, max_y);
+					svg.setPaint(p.getTextColor());
+					svg.drawString(String.valueOf(col), x * p.getScaleX() + p.getOffset(), max_y - p.getOffset());
+					svg.drawString(String.valueOf(col), x * p.getScaleX() + p.getOffset(), p.getScaleY() - p.getOffset());
+					svg.setPaint(p.getGridColor());
+					svg.drawLine(x * p.getScaleX(), 0, x * p.getScaleX(), max_y);
 				}
 			}			
 			for (int y=0, row=r.getHeight()+1; y<r.getHeight(); y++, row--)
 			{
-				if (row % GRIDTEXTMOD == 0)
+				if (row % p.getGridTextMod() == 0)
 				{
-					svg.setPaint(TEXTCOLOR);
-					svg.drawString(String.valueOf(row), OFFSET, 				  y * SCALE_Y - OFFSET);
-					svg.drawString(String.valueOf(row), max_x - SCALE_X + OFFSET, y * SCALE_Y - OFFSET);
+					svg.setPaint(p.getTextColor());
+					svg.drawString(String.valueOf(row), p.getOffset(), 				  y * p.getScaleY() - p.getOffset());
+					svg.drawString(String.valueOf(row), max_x - p.getScaleX() + p.getOffset(), y * p.getScaleY() - p.getOffset());
 				}
-				if (row % GRIDTEXTMOD == 1)
+				if (row % p.getGridTextMod() == 1)
 				{
-					svg.setPaint(GRIDCOLOR);
-					svg.drawLine(0, y * SCALE_Y, max_x, y * SCALE_Y);
+					svg.setPaint(p.getGridColor());
+					svg.drawLine(0, y * p.getScaleY(), max_x, y * p.getScaleY());
 				}
 			}			
 
-			svg.stream("/tmp/test.svg", true);
+			svg.stream(p.getTargetFile(), true);
 		}
 		catch (IllegalArgumentException e)
 		{
