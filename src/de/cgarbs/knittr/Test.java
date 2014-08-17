@@ -1,4 +1,4 @@
-package de.cgarbs.knitter;
+package de.cgarbs.knittr;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,8 +10,8 @@ import org.apache.batik.transcoder.TranscoderInput;
 import org.apache.batik.transcoder.TranscoderOutput;
 import org.apache.fop.svg.PDFTranscoder;
 
-import de.cgarbs.knitter.data.Project;
-import de.cgarbs.knitter.render.SVGWriter;
+import de.cgarbs.knittr.data.Project;
+import de.cgarbs.knittr.render.SVGWriter;
 
 public class Test
 {

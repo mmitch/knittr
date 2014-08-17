@@ -1,10 +1,10 @@
-package de.cgarbs.knitter;
+package de.cgarbs.knittr;
 
 import java.awt.EventQueue;
 
-import de.cgarbs.knitter.view.MainWindow;
+import de.cgarbs.knittr.view.MainWindow;
 
-public class Knitter
+public class Knittr
 {
 	
 	/**

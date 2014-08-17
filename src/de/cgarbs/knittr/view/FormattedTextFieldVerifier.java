@@ -1,4 +1,4 @@
-package de.cgarbs.knitter.view;
+package de.cgarbs.knittr.view;
 
 import java.awt.Color;
 import java.text.ParseException;

@@ -1,4 +1,4 @@
-package de.cgarbs.knitter.render;
+package de.cgarbs.knittr.render;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
@@ -10,7 +10,7 @@ import org.apache.batik.svggen.SVGGraphics2D;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 
-import de.cgarbs.knitter.data.Project;
+import de.cgarbs.knittr.data.Project;
 
 /**
  * SVG rendering backend

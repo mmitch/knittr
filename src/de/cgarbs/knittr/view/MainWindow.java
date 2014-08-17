@@ -1,4 +1,4 @@
-package de.cgarbs.knitter.view;
+package de.cgarbs.knittr.view;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -17,8 +17,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.text.NumberFormatter;
 
 
-import de.cgarbs.knitter.data.Project;
-import de.cgarbs.knitter.render.SVGWriter;
+import de.cgarbs.knittr.data.Project;
+import de.cgarbs.knittr.render.SVGWriter;
 
 
 

@@ -1,4 +1,4 @@
-package de.cgarbs.knitter.render;
+package de.cgarbs.knittr.render;
 
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
@@ -9,7 +9,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import de.cgarbs.knitter.data.Project;
+import de.cgarbs.knittr.data.Project;
 
 /**
  * base class for rendering backends
