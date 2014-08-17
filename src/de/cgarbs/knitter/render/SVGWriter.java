@@ -199,11 +199,11 @@ public class SVGWriter extends AbstractRenderer
 		}			
 		for (int ys=Y, yt=0, row=R+H+1; ys<Y+H; ys++, yt+=SCALE_Y, row--)
 		{
-			if (row % GRIDTEXTMOD == 0)
+			if (row % GRIDTEXTMOD == 1)
 			{
 				svg.setPaint(TEXTCOLOR);
-				svg.drawString(String.valueOf(row), OFFSET, 				   yt - OFFSET);
-				svg.drawString(String.valueOf(row), MAX_XT - SCALE_X + OFFSET, yt - OFFSET);
+				svg.drawString(String.valueOf(row-1), OFFSET, 				   yt - OFFSET + SCALE_Y);
+				svg.drawString(String.valueOf(row-1), MAX_XT - SCALE_X + OFFSET, yt - OFFSET + SCALE_Y);
 			}
 		}
 		
