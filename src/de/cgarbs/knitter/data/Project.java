@@ -162,5 +162,15 @@ public class Project implements Serializable
 	{
 		this.targetFile = targetFile;
 	}
+
+	public void setMaschen(int maschen)
+	{
+		this.maschen = maschen;
+	}
+
+	public void setReihen(int reihen)
+	{
+		this.reihen = reihen;
+	}
 	
 }
