@@ -71,7 +71,7 @@ public class Project implements Serializable
 
 		scaleX = totalScale / maschen;
 		scaleY = totalScale / reihen;
-}
+	}
 	
 	public float getGridWidthSmall()
 	{
@@ -153,5 +153,14 @@ public class Project implements Serializable
 		this.gridWidthBig = gridWidthBig;
 	}
 	
+	public void setSourceFile(String sourceFile)
+	{
+		this.sourceFile = sourceFile;
+	}
+
+	public void setTargetFile(String targetFile)
+	{
+		this.targetFile = targetFile;
+	}
 	
 }
