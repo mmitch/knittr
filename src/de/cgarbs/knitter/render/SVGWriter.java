@@ -55,6 +55,16 @@ public class SVGWriter extends AbstractRenderer
 				double pixelAspect = (double) p.getScaleX() / (double) p.getScaleY(); 
 				
 				int pageHeight = (int) Math.floor(r.getWidth() * pageAspect * pixelAspect);
+				// calculate height of last page
+				int lastPageHeight = r.getHeight() % pageHeight;
+				while (lastPageHeight > 0 && lastPageHeight < pageHeight * 0.1)
+				{
+					// last page less than 10% filled, rescale to get rid of it
+					// this could be calculated, but I don't want to think of a formula, just use a loop :-)
+					pageHeight++;
+					lastPageHeight = r.getHeight() % pageHeight;
+				}
+
 				int pageNo = 1;
 				int height = pageHeight;
 				for (int y=0; y<r.getHeight(); y+=pageHeight, pageNo++)
