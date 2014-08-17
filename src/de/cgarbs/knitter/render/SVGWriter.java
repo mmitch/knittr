@@ -99,7 +99,7 @@ public class SVGWriter extends AbstractRenderer
 		int[] rgb = new int[4];
 		SVGGraphics2D svg = initSVG();
 		
-		// cache calues
+		// cache values
 		int SCALE_X = p.getScaleX();
 		int SCALE_Y = p.getScaleY();
 		int OFFSET  = p.getOffset();
@@ -111,33 +111,80 @@ public class SVGWriter extends AbstractRenderer
 
 		// render pixels into squares
 		svg.setStroke(new BasicStroke(p.getGridWidthSmall()));
-		for (int xs=X, xt=0; xs<X+W; xs++, xt+=SCALE_X)
+		for (int ys=Y, yt=0; ys<Y+H; ys++, yt+=SCALE_Y)
 		{
-			for (int ys=Y, yt=0; ys<Y+H; ys++, yt+=SCALE_Y)
+			// OPTIMIZATION: use only one block for adjacent pixels with the same color
+			int lastXt = 0;
+			Color lastColor = null;
+			for (int xs=X, xt=0; xs<X+W; xs++, xt+=SCALE_X)
 			{
 				rgb = r.getPixel(xs, ys, rgb);
-				// draw colored box
-				svg.setPaint(new Color(rgb[0], rgb[1], rgb[2]));
-				svg.fill(new Rectangle( xt, yt, SCALE_X, SCALE_Y));
-				// draw grid
-				svg.setPaint(p.getGridColor());
-				svg.draw(new Rectangle( xt, yt, SCALE_X, SCALE_Y));
+				Color newColor = new Color(rgb[0], rgb[1], rgb[2]);
+				if (newColor.equals(lastColor))
+				{
+					// just stack this for larger blocks
+				}
+				else
+				{
+					if (lastColor != null)
+					{
+						svg.setPaint(lastColor);
+						svg.fill(new Rectangle( lastXt, yt, xt - lastXt, SCALE_Y));
+					}
+					lastColor = newColor;
+					lastXt = xt;
+				}
 			}
+			svg.setPaint(lastColor);
+			svg.fill(new Rectangle( lastXt, yt, MAX_XT - lastXt, SCALE_Y));
 		}
 		
-		// text + thick grid
-		svg.setFont(new Font(p.getFontName(), Font.PLAIN, SCALE_Y - OFFSET * 2));
+		// thin grid
+		svg.setPaint(GRIDCOLOR);
+		for (int xs=X, xt=0, col=C+W; xs<X+W; xs++, xt+=SCALE_X, col--)
+		{
+			if (col % GRIDTEXTMOD != 0)
+			{
+				svg.drawLine(xt, 0, xt, MAX_YT);
+			}
+		}
+		for (int ys=Y, yt=0, row=R+H+1; ys<Y+H; ys++, yt+=SCALE_Y, row--)
+		{
+			if (row % GRIDTEXTMOD != 1)
+			{
+				svg.drawLine(0, yt, MAX_XT, yt);
+			}
+		}
+		svg.drawLine(MAX_XT, 0, MAX_XT, MAX_YT);
+		svg.drawLine(0, MAX_YT, MAX_XT, MAX_YT);
+
+		// thick grid
 		svg.setStroke(new BasicStroke(p.getGridWidthBig(), BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER));
+		for (int xs=X, xt=0, col=C+W; xs<X+W; xs++, xt+=SCALE_X, col--)
+		{
+			if (col % GRIDTEXTMOD == 0)
+			{
+				svg.drawLine(xt, 0, xt, MAX_YT);
+			}
+		}
+		for (int ys=Y, yt=0, row=R+H+1; ys<Y+H; ys++, yt+=SCALE_Y, row--)
+		{
+			if (row % GRIDTEXTMOD == 1)
+			{
+				svg.drawLine(0, yt, MAX_XT, yt);
+			}
+		}
+
+		// texts
+		svg.setFont(new Font(p.getFontName(), Font.PLAIN, SCALE_Y - OFFSET * 2));
+		svg.setPaint(TEXTCOLOR);
 					
 		for (int xs=X, xt=0, col=C+W; xs<X+W; xs++, xt+=SCALE_X, col--)
 		{
 			if (col % GRIDTEXTMOD == 0)
 			{
-				svg.setPaint(TEXTCOLOR);
 				svg.drawString(String.valueOf(col), xt + OFFSET, MAX_YT  - OFFSET);
 				svg.drawString(String.valueOf(col), xt + OFFSET, SCALE_Y - OFFSET);
-				svg.setPaint(GRIDCOLOR);
-				svg.drawLine(xt, 0, xt, MAX_YT);
 			}
 		}			
 		for (int ys=Y, yt=0, row=R+H+1; ys<Y+H; ys++, yt+=SCALE_Y, row--)
@@ -147,11 +194,6 @@ public class SVGWriter extends AbstractRenderer
 				svg.setPaint(TEXTCOLOR);
 				svg.drawString(String.valueOf(row), OFFSET, 				   yt - OFFSET);
 				svg.drawString(String.valueOf(row), MAX_XT - SCALE_X + OFFSET, yt - OFFSET);
-			}
-			if (row % GRIDTEXTMOD == 1)
-			{
-				svg.setPaint(GRIDCOLOR);
-				svg.drawLine(0, yt, MAX_XT, yt);
 			}
 		}
 		
