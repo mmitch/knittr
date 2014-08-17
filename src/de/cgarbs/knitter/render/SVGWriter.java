@@ -2,7 +2,10 @@ package de.cgarbs.knitter.render;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import org.apache.batik.dom.GenericDOMImplementation;
@@ -35,11 +38,40 @@ public class SVGWriter extends AbstractRenderer
 	{
 		try
 		{
-			// TODO multipage!
-			SVGGraphics2D svg = renderPage(0, 0, r.getWidth(), r.getHeight(), 0, 0);
-
-			// write SVG to target file
-			svg.stream(p.getTargetFile(), true);
+			// RENDER WHOLE PAGE
+			{ 
+				SVGGraphics2D svg = renderPage(0, 0, r.getWidth(), r.getHeight(), 0, 0);
+	
+				// write SVG to target file
+				svg.stream(p.getTargetFile(), true);
+			}
+			
+			// RENDER MULTIPAGE
+			{
+				String filename = p.getTargetFile();
+				filename = filename.replace(".svg", "");
+				
+				ensurePortrait();
+				
+				// DIN A aspect ratio - landscape format
+				double pageAspect  = 210d / 297d; // landscape
+				double pixelAspect = (double) p.getScaleX() / (double) p.getScaleY(); 
+				
+				int pageHeight = (int) Math.floor(r.getWidth() * pageAspect * pixelAspect);
+				int pageNo = 1;
+				int height = pageHeight;
+				for (int y=0; y<r.getHeight(); y+=pageHeight, pageNo++)
+				{
+					if (y + height > r.getHeight())
+					{
+						height = r.getHeight() - y;
+					}
+					
+					SVGGraphics2D svg = renderPage(0, y, r.getWidth(), height, 0, r.getHeight() - pageHeight - y);
+					
+					svg.stream(filename + "." + pageNo + ".svg", true);
+				}
+			}
 		}
 		catch (IllegalArgumentException e)
 		{
@@ -64,6 +96,8 @@ public class SVGWriter extends AbstractRenderer
 	 */
 	private SVGGraphics2D renderPage(int X, int Y, int W, int H, int C, int R)
 	{
+		// FIXME: C and R really needed?
+		
 		// init variables
 		int[] rgb = new int[4];
 		SVGGraphics2D svg = initSVG();
@@ -109,7 +143,7 @@ public class SVGWriter extends AbstractRenderer
 				svg.drawLine(xt, 0, xt, MAX_YT);
 			}
 		}			
-		for (int ys=0, yt=0, row=R+H+1; ys<Y+H; ys++, yt+=SCALE_Y, row--)
+		for (int ys=Y, yt=0, row=R+H+1; ys<Y+H; ys++, yt+=SCALE_Y, row--)
 		{
 			if (row % GRIDTEXTMOD == 0)
 			{

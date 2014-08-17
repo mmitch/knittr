@@ -1,5 +1,8 @@
 package de.cgarbs.knitter.render;
 
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 import java.awt.image.Raster;
 import java.io.File;
 import java.io.IOException;
@@ -17,8 +20,8 @@ import de.cgarbs.knitter.data.Project;
 public abstract class AbstractRenderer
 {
 	protected Project p;
+	protected BufferedImage bi;
 	protected Raster r;
-	
 	
 	/**
 	 * Default constructor for a renderer
@@ -27,7 +30,8 @@ public abstract class AbstractRenderer
 	public AbstractRenderer(Project project) throws IOException
 	{
 		p = project;
-		r = getSourceImage();
+		bi = getSourceImage();
+		r = bi.getRaster();
 	}
 	
 	/**
@@ -41,8 +45,31 @@ public abstract class AbstractRenderer
 	 * @throws IOException 
 	 * @returns the source image
 	 */
-	Raster getSourceImage() throws IOException
+	BufferedImage getSourceImage() throws IOException
 	{
-		return ImageIO.read(new File(p.getSourceFile())).getRaster();
+		return ImageIO.read(new File(p.getSourceFile()));
+	}
+	
+	/**
+	 * rotates the image into portrait mode if needed
+	 */
+	void ensurePortrait()
+	{
+		if (r.getHeight() < r.getWidth())
+		{
+			BufferedImage biNew = new BufferedImage(
+					bi.getHeight(),
+					bi.getWidth(),
+					bi.getType());
+
+			AffineTransform at = new AffineTransform();
+			at.translate(biNew.getWidth(), 0);
+			at.rotate(Math.PI/2, 0, 0);
+			Graphics2D g = biNew.createGraphics();
+			g.drawImage(bi, at, null);
+		
+			bi = biNew;
+			r = bi.getRaster();
+		}
 	}
 }
