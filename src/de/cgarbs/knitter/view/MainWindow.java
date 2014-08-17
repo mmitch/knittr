@@ -5,6 +5,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.text.NumberFormat;
 
 import javax.swing.JButton;
@@ -15,8 +16,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.NumberFormatter;
 
-import de.cgarbs.knitter.Project;
-import de.cgarbs.knitter.TranscoderDemo;
+
+import de.cgarbs.knitter.data.Project;
+import de.cgarbs.knitter.render.SVGWriter;
 
 
 
@@ -106,7 +108,14 @@ public class MainWindow extends JFrame {
 		JButton btnRender = new JButton("Render to SVG");
 		btnRender.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				TranscoderDemo.writeSVG(getData());
+				try
+				{
+					new SVGWriter(getData()).render();
+				}
+				catch (IOException e)
+				{
+					e.printStackTrace();
+				}
 			}
 		});
 		

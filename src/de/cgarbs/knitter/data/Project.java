@@ -1,4 +1,4 @@
-package de.cgarbs.knitter;
+package de.cgarbs.knitter.data;
 import java.awt.Color;
 import java.io.Serializable;
 
