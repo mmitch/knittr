@@ -1,17 +1,22 @@
-package de.cgarbs.knitter;
+package de.cgarbs.knitter.view;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
 
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.NumberFormatter;
+
+import de.cgarbs.knitter.Project;
+import de.cgarbs.knitter.TranscoderDemo;
 
 
 
@@ -23,13 +28,26 @@ public class MainWindow extends JFrame {
 	private static final long serialVersionUID = -6117333503098355182L;
 	
 	private JPanel contentPane;
-	private JTextField tfGridWidthSmall;
-	private JTextField tfGridWidthBig;
+	private JFormattedTextField tfGridWidthSmall;
+	private JFormattedTextField tfGridWidthBig;
 	
 	/**
 	 * Create the frame.
 	 */
 	public MainWindow() {
+
+		// FIXME MOVE THIS SOMEWHERE ELSE - ideally some VObject like superclass for every data value
+		NumberFormat gridWidthFormat = NumberFormat.getNumberInstance();
+		gridWidthFormat.setMinimumFractionDigits(0);
+		gridWidthFormat.setMaximumFractionDigits(2);
+		gridWidthFormat.setMinimumIntegerDigits(1);
+		gridWidthFormat.setMaximumIntegerDigits(3);
+		NumberFormatter gridWidthFormatter = new NumberFormatter(gridWidthFormat);
+//		gridWidthFormatter.setValueClass(Float.class);
+		gridWidthFormatter.setMinimum(0);
+//		gridWidthFormatter.setAllowsInvalid(true);
+		
+		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -56,7 +74,9 @@ public class MainWindow extends JFrame {
 		gbc_lblNewLabel_1.gridy = 0;
 		pnlGrid.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
-		tfGridWidthSmall = new JTextField();
+		tfGridWidthSmall = new JFormattedTextField(gridWidthFormatter);
+		tfGridWidthSmall.setFocusLostBehavior(JFormattedTextField.COMMIT);
+		tfGridWidthSmall.setInputVerifier(new FormattedTextFieldVerifier());
 		GridBagConstraints gbc_tfGridWidthSmall = new GridBagConstraints();
 		gbc_tfGridWidthSmall.insets = new Insets(0, 0, 5, 0);
 		gbc_tfGridWidthSmall.gridx = 0;
@@ -64,7 +84,9 @@ public class MainWindow extends JFrame {
 		pnlGrid.add(tfGridWidthSmall, gbc_tfGridWidthSmall);
 		tfGridWidthSmall.setColumns(10);
 		
-		tfGridWidthBig = new JTextField();
+		tfGridWidthBig = new JFormattedTextField(gridWidthFormatter);
+		tfGridWidthBig.setFocusLostBehavior(JFormattedTextField.COMMIT);
+		tfGridWidthBig.setInputVerifier(new FormattedTextFieldVerifier());
 		GridBagConstraints gbc_tfGridWidthBig = new GridBagConstraints();
 		gbc_tfGridWidthBig.insets = new Insets(0, 0, 5, 0);
 		gbc_tfGridWidthBig.gridx = 1;
@@ -123,8 +145,8 @@ public class MainWindow extends JFrame {
 	 */
 	private void setData(Project project)
 	{
-		tfGridWidthBig.setText(String.valueOf(project.getGridWidthBig()));
-		tfGridWidthSmall.setText(String.valueOf(project.getGridWidthSmall()));
+		tfGridWidthBig.setValue((Float) project.getGridWidthBig());
+		tfGridWidthSmall.setValue((Float) project.getGridWidthSmall());
 		// TODO variables missing
 	}
 
@@ -139,7 +161,7 @@ public class MainWindow extends JFrame {
 		
 		try
 		{
-			project.setGridWidthBig(Float.parseFloat(tfGridWidthBig.getText()));
+			project.setGridWidthBig((Float) tfGridWidthBig.getValue());
 		}
 		catch (NumberFormatException e)
 		{
@@ -148,7 +170,7 @@ public class MainWindow extends JFrame {
 		
 		try
 		{
-			project.setGridWidthSmall(Float.parseFloat(tfGridWidthSmall.getText()));
+			project.setGridWidthSmall(Float.valueOf(String.valueOf(tfGridWidthSmall.getValue())));
 		}
 		catch (NumberFormatException e)
 		{

@@ -2,6 +2,8 @@ package de.cgarbs.knitter;
 
 import java.awt.EventQueue;
 
+import de.cgarbs.knitter.view.MainWindow;
+
 public class Knitter
 {
 	
