@@ -10,6 +10,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import de.cgarbs.knittr.data.Project;
+import de.cgarbs.lib.exception.DataException;
 
 /**
  * base class for rendering backends
@@ -26,8 +27,9 @@ public abstract class AbstractRenderer
 	/**
 	 * Default constructor for a renderer
 	 * @throws IOException 
+	 * @throws DataException 
 	 */
-	public AbstractRenderer(Project project) throws IOException
+	public AbstractRenderer(Project project) throws IOException, DataException
 	{
 		p = project;
 		bi = getSourceImage();
@@ -43,11 +45,12 @@ public abstract class AbstractRenderer
 	/**
 	 * reads the source image from the project
 	 * @throws IOException 
+	 * @throws DataException 
 	 * @returns the source image
 	 */
-	BufferedImage getSourceImage() throws IOException
+	BufferedImage getSourceImage() throws IOException, DataException
 	{
-		return ImageIO.read(new File(p.getSourceFile()));
+		return ImageIO.read(new File((String)p.getValue(Project.SOURCE_FILE)));
 	}
 	
 	/**

@@ -12,6 +12,7 @@ import org.apache.fop.svg.PDFTranscoder;
 
 import de.cgarbs.knittr.data.Project;
 import de.cgarbs.knittr.render.SVGWriter;
+import de.cgarbs.lib.exception.DataException;
 
 public class Test
 {
@@ -32,15 +33,15 @@ public class Test
 			t.transcode(input, output);
 			System.out.println("default PDF rendered");
 			
-			p.setSourceFile("/home/mitch/Dropbox/schnucki/Rainbowdashvornefertig.png");
-			p.setTargetFile("/home/mitch/Dropbox/schnucki/Rainbowdashvornefertig.svg");
+			p.setValue(Project.SOURCE_FILE, "/home/mitch/Dropbox/schnucki/Rainbowdashvornefertig.png");
+			p.setValue(Project.TARGET_FILE, "/home/mitch/Dropbox/schnucki/Rainbowdashvornefertig.svg");
 			p.setMaschen(22);
 			p.setReihen(33);
 			new SVGWriter(p).render();
 			System.out.println("dash front rendered");
 			
-			p.setSourceFile("/home/mitch/Dropbox/schnucki/Rainbowdashhintenfertig.png");
-			p.setTargetFile("/home/mitch/Dropbox/schnucki/Rainbowdashhintenfertig.svg");
+			p.setValue(Project.SOURCE_FILE, "/home/mitch/Dropbox/schnucki/Rainbowdashhintenfertig.png");
+			p.setValue(Project.TARGET_FILE, "/home/mitch/Dropbox/schnucki/Rainbowdashhintenfertig.svg");
 			p.setMaschen(22);
 			p.setReihen(33);
 			new SVGWriter(p).render();
@@ -53,6 +54,10 @@ public class Test
 			e.printStackTrace();
 		}
 		catch (TranscoderException e)
+		{
+			e.printStackTrace();
+		}
+		catch (DataException e)
 		{
 			e.printStackTrace();
 		}

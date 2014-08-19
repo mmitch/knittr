@@ -1,20 +1,15 @@
 package de.cgarbs.knittr.data;
 import java.awt.Color;
-import java.io.Serializable;
+
+import de.cgarbs.lib.data.DataObject;
+import de.cgarbs.lib.data.types.FloatAttribute;
+import de.cgarbs.lib.data.types.IntAttribute;
+import de.cgarbs.lib.data.types.StringAttribute;
+import de.cgarbs.lib.exception.DataException;
 
 
-public class Project implements Serializable
+public class Project extends DataObject
 {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -8797415297158373144L;
-	
-	
-	/** stroke width for normal grid line */
-	private float gridWidthSmall;
-	/** stroke width for thicker grid line */
-	private float gridWidthBig;
 	
 	/** Maschen pro 10 cm */
 	private int maschen;
@@ -23,9 +18,6 @@ public class Project implements Serializable
 	
 	/** arbitrary global size factor */
 	private int totalScale;
-	
-	/** text and thicker grid line every n cells */
-	private int gridTextMod;
 	
 	/** color for grid lines */
 	private Color gridColor; 
@@ -43,22 +35,29 @@ public class Project implements Serializable
 	/** color for texts */
 	private Color textColor;
 	
-	/** source filename (PNG) */
-	private String sourceFile;
-	/** target filename (SVG) */
-	private String targetFile;
+	public static final String SOURCE_FILE = "SOURCE_FILE";
+	public static final String TARGET_FILE = "TARGET_FILE";
+	public static final String GRIDTEXTMOD = "GRIDTEXTMOD";
+	public static final String GRIDWIDTHSMALL = "GRIDWIDTHSMALL";
+	public static final String GRIDWIDTHBIG = "GRIDWIDTHBIG";
 	
 	/**
 	 * generate a project with default settings
 	 */
-	public Project()
+	public Project() throws DataException
 	{
-		sourceFile = "resource/image_test.png";
-		targetFile = "/tmp/test.svg";
+		addAttribute(SOURCE_FILE, StringAttribute.builder().setNullable(false).setMinLength(1).build());
+		addAttribute(TARGET_FILE, StringAttribute.builder().setNullable(false).setMinLength(1).build());
+		addAttribute(GRIDTEXTMOD, IntAttribute.builder().setNullable(false).setMinValue(1).build());
+		addAttribute(GRIDWIDTHSMALL, FloatAttribute.builder().build());
+		addAttribute(GRIDWIDTHBIG, FloatAttribute.builder().build());
 		
-		gridWidthSmall = 0.5f;
-		gridWidthBig   = 2f;
-		gridTextMod = 5;
+		setValue(SOURCE_FILE, "resource/image_test.png");
+		setValue(TARGET_FILE, "/tmp/test.svg");
+		
+		setValue(GRIDWIDTHSMALL, 0.5f);
+		setValue(GRIDWIDTHBIG, 2f);
+		setValue(GRIDTEXTMOD, 5);
 		totalScale = 512;
 		maschen = 24;
 		reihen  = 32;
@@ -71,16 +70,6 @@ public class Project implements Serializable
 
 		scaleX = totalScale / maschen;
 		scaleY = totalScale / reihen;
-	}
-	
-	public float getGridWidthSmall()
-	{
-		return gridWidthSmall;
-	}
-	
-	public float getGridWidthBig()
-	{
-		return gridWidthBig;
 	}
 	
 	public int getMaschen()
@@ -96,11 +85,6 @@ public class Project implements Serializable
 	public int getTotalScale()
 	{
 		return totalScale;
-	}
-	
-	public int getGridTextMod()
-	{
-		return gridTextMod;
 	}
 	
 	public Color getGridColor()
@@ -131,36 +115,6 @@ public class Project implements Serializable
 	public Color getTextColor()
 	{
 		return textColor;
-	}
-
-	public String getSourceFile()
-	{
-		return sourceFile;
-	}
-
-	public String getTargetFile()
-	{
-		return targetFile;
-	}
-
-	public void setGridWidthSmall(float gridWidthSmall)
-	{
-		this.gridWidthSmall = gridWidthSmall;
-	}
-
-	public void setGridWidthBig(float gridWidthBig)
-	{
-		this.gridWidthBig = gridWidthBig;
-	}
-	
-	public void setSourceFile(String sourceFile)
-	{
-		this.sourceFile = sourceFile;
-	}
-
-	public void setTargetFile(String targetFile)
-	{
-		this.targetFile = targetFile;
 	}
 
 	public void setMaschen(int maschen)

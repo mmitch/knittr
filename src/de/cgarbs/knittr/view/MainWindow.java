@@ -19,6 +19,7 @@ import javax.swing.text.NumberFormatter;
 
 import de.cgarbs.knittr.data.Project;
 import de.cgarbs.knittr.render.SVGWriter;
+import de.cgarbs.lib.exception.DataException;
 
 
 
@@ -113,6 +114,10 @@ public class MainWindow extends JFrame {
 					new SVGWriter(getData()).render();
 				}
 				catch (IOException e)
+				{
+					e.printStackTrace();
+				}
+				catch (DataException e)
 				{
 					e.printStackTrace();
 				}

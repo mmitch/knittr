@@ -11,6 +11,7 @@ import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 
 import de.cgarbs.knittr.data.Project;
+import de.cgarbs.lib.exception.DataException;
 
 /**
  * SVG rendering backend
@@ -21,7 +22,7 @@ import de.cgarbs.knittr.data.Project;
 public class SVGWriter extends AbstractRenderer
 {
 	
-	public SVGWriter(Project project) throws IOException
+	public SVGWriter(Project project) throws IOException, DataException
 	{
 		super(project);
 	}
@@ -40,12 +41,12 @@ public class SVGWriter extends AbstractRenderer
 				SVGGraphics2D svg = renderPage(0, 0, r.getWidth(), r.getHeight(), 0, 0);
 	
 				// write SVG to target file
-				svg.stream(p.getTargetFile(), true);
+				svg.stream((String)p.getValue(Project.TARGET_FILE), true);
 			}
 			
 			// RENDER MULTIPAGE
 			{
-				String filename = p.getTargetFile();
+				String filename = (String)p.getValue(Project.TARGET_FILE);
 				filename = filename.replace(".svg", "");
 				
 				ensurePortrait();
@@ -88,6 +89,10 @@ public class SVGWriter extends AbstractRenderer
 		{
 			e.printStackTrace();
 		}
+		catch (DataException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -100,8 +105,9 @@ public class SVGWriter extends AbstractRenderer
 	 * @param C columns offset of rendered page
 	 * @param R row offset of rendered page
 	 * @return rendered page
+	 * @throws DataException 
 	 */
-	private SVGGraphics2D renderPage(int X, int Y, int W, int H, int C, int R)
+	private SVGGraphics2D renderPage(int X, int Y, int W, int H, int C, int R) throws DataException
 	{
 		// FIXME: C and R really needed?
 		
@@ -115,12 +121,12 @@ public class SVGWriter extends AbstractRenderer
 		int OFFSET  = p.getOffset();
 		int MAX_XT = W * SCALE_X;
 		int MAX_YT = H * SCALE_Y;
-		int GRIDTEXTMOD = p.getGridTextMod();
+		int GRIDTEXTMOD = (Integer) p.getValue(Project.GRIDTEXTMOD);
 		Color TEXTCOLOR = p.getTextColor();
 		Color GRIDCOLOR = p.getGridColor();
 
 		// render pixels into squares
-		svg.setStroke(new BasicStroke(p.getGridWidthSmall()));
+		svg.setStroke(new BasicStroke((Float)p.getValue(Project.GRIDWIDTHSMALL)));
 		for (int ys=Y, yt=0; ys<Y+H; ys++, yt+=SCALE_Y)
 		{
 			// OPTIMIZATION: use only one block for adjacent pixels with the same color
@@ -169,7 +175,7 @@ public class SVGWriter extends AbstractRenderer
 		svg.drawLine(0, MAX_YT, MAX_XT, MAX_YT);
 
 		// thick grid
-		svg.setStroke(new BasicStroke(p.getGridWidthBig(), BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER));
+		svg.setStroke(new BasicStroke((Float)p.getValue(Project.GRIDWIDTHBIG), BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER));
 		for (int xs=X, xt=0, col=C+W; xs<X+W; xs++, xt+=SCALE_X, col--)
 		{
 			if (col % GRIDTEXTMOD == 0)
