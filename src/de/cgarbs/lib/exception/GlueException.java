@@ -3,7 +3,7 @@ package de.cgarbs.lib.exception;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DataException extends Exception
+public class GlueException extends Exception
 {
 	private static final long serialVersionUID = -2514745080334864317L;
 	
@@ -12,34 +12,28 @@ public class DataException extends Exception
 	
 	public enum ERROR {
 		UNDEFINED,
-		DUPLICATE_ATTRIBUTE,
-		DUPLICATE_USAGE,
-		UNKNOWN_ATTRIBUTE,
-		INVALID_VALUE,
-		VALIDATION_ERROR
+		BINDING_NOT_IMPLEMENTED,
+		LAYOUT_MANAGER_WRONG
 	}
 
 	static {
 		ERRORTEXT.put(ERROR.UNDEFINED, "undefined");
-		ERRORTEXT.put(ERROR.DUPLICATE_ATTRIBUTE, "duplicate attribute name");
-		ERRORTEXT.put(ERROR.DUPLICATE_USAGE, "attribute used in multiple models");
-		ERRORTEXT.put(ERROR.UNKNOWN_ATTRIBUTE, "unknown attribute");
-		ERRORTEXT.put(ERROR.INVALID_VALUE, "invalid value");
-		ERRORTEXT.put(ERROR.VALIDATION_ERROR, "validation error");
+		ERRORTEXT.put(ERROR.BINDING_NOT_IMPLEMENTED, "binding not implemented");
+		ERRORTEXT.put(ERROR.LAYOUT_MANAGER_WRONG, "layout manager wrong");
 	};
 	
-	public DataException(ERROR error)
+	public GlueException(ERROR error)
 	{
 		this.error = error;
 	}
 	
-	public DataException(ERROR error, String message)
+	public GlueException(ERROR error, String message)
 	{
 		super(message);
 		this.error = error;
 	}
 	
-	public DataException(ERROR error, String message, Throwable t)
+	public GlueException(ERROR error, String message, Throwable t)
 	{
 		super(message, t);
 		this.error = error;
@@ -61,9 +55,9 @@ public class DataException extends Exception
 		return error;
 	}
 	
-	public DataException prependMessage(String prefix)
+	public GlueException prependMessage(String prefix)
 	{
-		return new DataException(
+		return new GlueException(
 				this.error,
 				prefix + "::" + super.getMessage(),
 				this.getCause()

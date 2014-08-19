@@ -3,6 +3,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Rectangle;
+import java.io.File;
 import java.io.IOException;
 
 import org.apache.batik.dom.GenericDOMImplementation;
@@ -41,12 +42,12 @@ public class SVGWriter extends AbstractRenderer
 				SVGGraphics2D svg = renderPage(0, 0, r.getWidth(), r.getHeight(), 0, 0);
 	
 				// write SVG to target file
-				svg.stream((String)p.getValue(Project.TARGET_FILE), true);
+				svg.stream(((File)p.getValue(Project.TARGET_FILE)).getAbsolutePath(), true);
 			}
 			
 			// RENDER MULTIPAGE
 			{
-				String filename = (String)p.getValue(Project.TARGET_FILE);
+				String filename = ((File)p.getValue(Project.TARGET_FILE)).getAbsolutePath();
 				filename = filename.replace(".svg", "");
 				
 				ensurePortrait();

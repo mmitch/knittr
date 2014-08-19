@@ -50,7 +50,7 @@ public abstract class AbstractRenderer
 	 */
 	BufferedImage getSourceImage() throws IOException, DataException
 	{
-		return ImageIO.read(new File((String)p.getValue(Project.SOURCE_FILE)));
+		return ImageIO.read((File)p.getValue(Project.SOURCE_FILE));
 	}
 	
 	/**

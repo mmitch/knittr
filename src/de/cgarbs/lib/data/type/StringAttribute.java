@@ -1,4 +1,4 @@
-package de.cgarbs.lib.data.types;
+package de.cgarbs.lib.data.type;
 
 import de.cgarbs.lib.data.DataAttribute;
 import de.cgarbs.lib.exception.DataException;
@@ -64,7 +64,7 @@ public class StringAttribute extends DataAttribute
 	}
 
 	@Override
-	public Object getValue() throws DataException
+	public Object getValue()
 	{
 		return value;
 	}

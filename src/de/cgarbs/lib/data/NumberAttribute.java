@@ -37,7 +37,7 @@ public abstract class NumberAttribute extends DataAttribute
 	// Builder pattern end
 
 	@Override
-	public Object getValue() throws DataException
+	public Object getValue()
 	{
 		return value;
 	}

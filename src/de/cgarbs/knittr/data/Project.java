@@ -1,14 +1,14 @@
 package de.cgarbs.knittr.data;
 import java.awt.Color;
 
-import de.cgarbs.lib.data.DataObject;
-import de.cgarbs.lib.data.types.FloatAttribute;
-import de.cgarbs.lib.data.types.IntAttribute;
-import de.cgarbs.lib.data.types.StringAttribute;
+import de.cgarbs.lib.data.DataModel;
+import de.cgarbs.lib.data.type.FileAttribute;
+import de.cgarbs.lib.data.type.FloatAttribute;
+import de.cgarbs.lib.data.type.IntAttribute;
 import de.cgarbs.lib.exception.DataException;
 
 
-public class Project extends DataObject
+public class Project extends DataModel
 {
 	
 	/** Maschen pro 10 cm */
@@ -46,8 +46,8 @@ public class Project extends DataObject
 	 */
 	public Project() throws DataException
 	{
-		addAttribute(SOURCE_FILE, StringAttribute.builder().setNullable(false).setMinLength(1).build());
-		addAttribute(TARGET_FILE, StringAttribute.builder().setNullable(false).setMinLength(1).build());
+		addAttribute(SOURCE_FILE, FileAttribute.builder().setNullable(false).setMustExist(true).setMustRead(true).build());
+		addAttribute(TARGET_FILE, FileAttribute.builder().setNullable(false).setMustWrite(true).build());
 		addAttribute(GRIDTEXTMOD, IntAttribute.builder().setNullable(false).setMinValue(1).build());
 		addAttribute(GRIDWIDTHSMALL, FloatAttribute.builder().build());
 		addAttribute(GRIDWIDTHBIG, FloatAttribute.builder().build());
@@ -125,6 +125,12 @@ public class Project extends DataObject
 	public void setReihen(int reihen)
 	{
 		this.reihen = reihen;
+	}
+
+	@Override
+	public String getModelName()
+	{
+		return "KnittrProject";
 	}
 	
 }

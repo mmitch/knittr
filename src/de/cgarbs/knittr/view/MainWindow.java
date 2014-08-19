@@ -6,49 +6,43 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.text.NumberFormat;
 
 import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.text.NumberFormatter;
-
 
 import de.cgarbs.knittr.data.Project;
 import de.cgarbs.knittr.render.SVGWriter;
 import de.cgarbs.lib.exception.DataException;
+import de.cgarbs.lib.exception.GlueException;
+import de.cgarbs.lib.glue.Binding;
+import de.cgarbs.lib.glue.Glue;
 
 
 
 public class MainWindow extends JFrame {
 
+	Glue<Project> glue = new Glue<Project>(new Project());
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -6117333503098355182L;
 	
 	private JPanel contentPane;
-	private JFormattedTextField tfGridWidthSmall;
-	private JFormattedTextField tfGridWidthBig;
 	
 	/**
 	 * Create the frame.
+	 * @throws DataException 
+	 * @throws GlueException 
 	 */
-	public MainWindow() {
+	public MainWindow() throws GlueException, DataException
+	{
 
-		// FIXME MOVE THIS SOMEWHERE ELSE - ideally some VObject like superclass for every data value
-		NumberFormat gridWidthFormat = NumberFormat.getNumberInstance();
-		gridWidthFormat.setMinimumFractionDigits(0);
-		gridWidthFormat.setMaximumFractionDigits(2);
-		gridWidthFormat.setMinimumIntegerDigits(1);
-		gridWidthFormat.setMaximumIntegerDigits(3);
-		NumberFormatter gridWidthFormatter = new NumberFormatter(gridWidthFormat);
-//		gridWidthFormatter.setValueClass(Float.class);
-		gridWidthFormatter.setMinimum(0);
-//		gridWidthFormatter.setAllowsInvalid(true);
+		// add bindings
+		Binding b_gridtextmod = glue.addBinding(Project.GRIDTEXTMOD);
 		
 		
 		
@@ -76,26 +70,10 @@ public class MainWindow extends JFrame {
 		gbc_lblNewLabel_1.gridx = 0;
 		gbc_lblNewLabel_1.gridy = 0;
 		pnlGrid.add(lblNewLabel_1, gbc_lblNewLabel_1);
+
 		
-		tfGridWidthSmall = new JFormattedTextField(gridWidthFormatter);
-		tfGridWidthSmall.setFocusLostBehavior(JFormattedTextField.COMMIT);
-		tfGridWidthSmall.setInputVerifier(new FormattedTextFieldVerifier());
-		GridBagConstraints gbc_tfGridWidthSmall = new GridBagConstraints();
-		gbc_tfGridWidthSmall.insets = new Insets(0, 0, 5, 0);
-		gbc_tfGridWidthSmall.gridx = 0;
-		gbc_tfGridWidthSmall.gridy = 1;
-		pnlGrid.add(tfGridWidthSmall, gbc_tfGridWidthSmall);
-		tfGridWidthSmall.setColumns(10);
+		b_gridtextmod.addToContainer(pnlGrid, 0, 1);
 		
-		tfGridWidthBig = new JFormattedTextField(gridWidthFormatter);
-		tfGridWidthBig.setFocusLostBehavior(JFormattedTextField.COMMIT);
-		tfGridWidthBig.setInputVerifier(new FormattedTextFieldVerifier());
-		GridBagConstraints gbc_tfGridWidthBig = new GridBagConstraints();
-		gbc_tfGridWidthBig.insets = new Insets(0, 0, 5, 0);
-		gbc_tfGridWidthBig.gridx = 1;
-		gbc_tfGridWidthBig.gridy = 1;
-		pnlGrid.add(tfGridWidthBig, gbc_tfGridWidthBig);
-		tfGridWidthBig.setColumns(10);
 		
 		JPanel pnlActions = new JPanel();
 		GridBagConstraints gbc_pnlActions = new GridBagConstraints();
@@ -111,7 +89,8 @@ public class MainWindow extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				try
 				{
-					new SVGWriter(getData()).render();
+					glue.syncToModel();
+					new SVGWriter(glue.getModel()).render();
 				}
 				catch (IOException e)
 				{
@@ -149,49 +128,7 @@ public class MainWindow extends JFrame {
 		});
 
 
-		// init data
-		setData(new Project());
+		// show data
+		glue.syncToView();
 	}
-
-	/**
-	 * move project data to fields in view
-	 * @param project the project
-	 */
-	private void setData(Project project)
-	{
-		tfGridWidthBig.setValue((Float) project.getGridWidthBig());
-		tfGridWidthSmall.setValue((Float) project.getGridWidthSmall());
-		// TODO variables missing
-	}
-
-	/**
-	 * get project data from fields in view
-	 * @returns the project data
-	 */
-	private Project getData()
-	{
-		Project project = new Project();
-		// TODO variables missing, too much default configuration
-		
-		try
-		{
-			project.setGridWidthBig((Float) tfGridWidthBig.getValue());
-		}
-		catch (NumberFormatException e)
-		{
-			// TODO display error instead of silently keeping the default value
-		}
-		
-		try
-		{
-			project.setGridWidthSmall(Float.valueOf(String.valueOf(tfGridWidthSmall.getValue())));
-		}
-		catch (NumberFormatException e)
-		{
-			// TODO display error instead of silently keeping the default value
-		}
-		
-		return project;
-	}
-
 }

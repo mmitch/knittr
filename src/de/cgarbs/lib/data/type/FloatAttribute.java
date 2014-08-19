@@ -1,4 +1,4 @@
-package de.cgarbs.lib.data.types;
+package de.cgarbs.lib.data.type;
 
 import de.cgarbs.lib.data.NumberAttribute;
 import de.cgarbs.lib.exception.DataException;
