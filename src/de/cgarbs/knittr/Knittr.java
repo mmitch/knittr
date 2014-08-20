@@ -2,7 +2,7 @@ package de.cgarbs.knittr;
 
 import java.awt.EventQueue;
 
-import de.cgarbs.knittr.view.MainWindow;
+import de.cgarbs.knittr.ui.MainWindow;
 
 public class Knittr
 {

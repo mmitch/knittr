@@ -1,4 +1,4 @@
-package de.cgarbs.knittr.view;
+package de.cgarbs.knittr.ui;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
