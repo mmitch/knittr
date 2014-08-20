@@ -35,15 +35,15 @@ public class Test
 			
 			p.setValue(Project.SOURCE_FILE, "/home/mitch/Dropbox/schnucki/Rainbowdashvornefertig.png");
 			p.setValue(Project.TARGET_FILE, "/home/mitch/Dropbox/schnucki/Rainbowdashvornefertig.svg");
-			p.setMaschen(22);
-			p.setReihen(33);
+			p.setMaschen(24);
+			p.setReihen(34);
 			new SVGWriter(p).render();
 			System.out.println("dash front rendered");
 			
 			p.setValue(Project.SOURCE_FILE, "/home/mitch/Dropbox/schnucki/Rainbowdashhintenfertig.png");
 			p.setValue(Project.TARGET_FILE, "/home/mitch/Dropbox/schnucki/Rainbowdashhintenfertig.svg");
-			p.setMaschen(22);
-			p.setReihen(33);
+			p.setMaschen(24);
+			p.setReihen(34);
 			new SVGWriter(p).render();
 			System.out.println("dash back rendered");
 

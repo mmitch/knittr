@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,33 +20,36 @@ import de.cgarbs.lib.exception.DataException;
 import de.cgarbs.lib.exception.GlueException;
 import de.cgarbs.lib.glue.Binding;
 import de.cgarbs.lib.glue.Glue;
+import de.cgarbs.lib.ui.SimpleTabbedLayout;
 
-
-
-public class MainWindow extends JFrame {
+public class MainWindow extends JFrame
+{
 
 	Glue<Project> glue = new Glue<Project>(new Project());
-	
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -6117333503098355182L;
-	
+
 	private JPanel contentPane;
-	
+
 	/**
 	 * Create the frame.
-	 * @throws DataException 
-	 * @throws GlueException 
+	 * 
+	 * @throws DataException
+	 * @throws GlueException
 	 */
 	public MainWindow() throws GlueException, DataException
 	{
 
 		// add bindings
 		Binding b_gridtextmod = glue.addBinding(Project.GRIDTEXTMOD);
-		
-		
-		
+		Binding b_gridwidthsmall = glue.addBinding(Project.GRIDWIDTHSMALL);
+		Binding b_gridwidthbig = glue.addBinding(Project.GRIDWIDTHBIG);
+		Binding b_source_file = glue.addBinding(Project.SOURCE_FILE);
+		Binding b_target_file = glue.addBinding(Project.TARGET_FILE);
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -53,28 +57,22 @@ public class MainWindow extends JFrame {
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		contentPane.setLayout(gbl_contentPane);
-		
-		JPanel pnlGrid = new JPanel();
+
+//		JComponent jthingie = SimpleVerticalLayout.builder()
+		JComponent jthingie = SimpleTabbedLayout.builder()
+//		JComponent jthingie = BorderedVerticalLayout.builder()
+				.startNextGroup("grid settings").addAttribute(b_gridtextmod)
+				.addAttribute(b_gridwidthbig).addAttribute(b_gridwidthsmall)
+				.startNextGroup("files").addAttribute(b_source_file)
+				.addAttribute(b_target_file).build();
+
 		GridBagConstraints gbc_pnlGrid = new GridBagConstraints();
 		gbc_pnlGrid.insets = new Insets(0, 0, 5, 5);
 		gbc_pnlGrid.fill = GridBagConstraints.BOTH;
 		gbc_pnlGrid.gridx = 0;
 		gbc_pnlGrid.gridy = 0;
-		contentPane.add(pnlGrid, gbc_pnlGrid);
-		GridBagLayout gbl_pnlGrid = new GridBagLayout();
-		pnlGrid.setLayout(gbl_pnlGrid);
-		
-		JLabel lblNewLabel_1 = new JLabel("Grid settings:");
-		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 0);
-		gbc_lblNewLabel_1.gridx = 0;
-		gbc_lblNewLabel_1.gridy = 0;
-		pnlGrid.add(lblNewLabel_1, gbc_lblNewLabel_1);
+		contentPane.add(jthingie, gbc_pnlGrid);
 
-		
-		b_gridtextmod.addToContainer(pnlGrid, 0, 1);
-		
-		
 		JPanel pnlActions = new JPanel();
 		GridBagConstraints gbc_pnlActions = new GridBagConstraints();
 		gbc_pnlActions.insets = new Insets(0, 0, 5, 5);
@@ -83,10 +81,11 @@ public class MainWindow extends JFrame {
 		contentPane.add(pnlActions, gbc_pnlActions);
 		GridBagLayout gbl_pnlActions = new GridBagLayout();
 		pnlActions.setLayout(gbl_pnlActions);
-		
+
 		JButton btnRender = new JButton("Render to SVG");
 		btnRender.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent arg0)
+			{
 				try
 				{
 					glue.syncToModel();
@@ -102,7 +101,7 @@ public class MainWindow extends JFrame {
 				}
 			}
 		});
-		
+
 		JLabel lblNewLabel = new JLabel("Actions:");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
@@ -114,7 +113,7 @@ public class MainWindow extends JFrame {
 		gbc_btnRender.gridx = 0;
 		gbc_btnRender.gridy = 1;
 		pnlActions.add(btnRender, gbc_btnRender);
-		
+
 		JButton btnQuit = new JButton("QUIT");
 		GridBagConstraints gbc_btnQuit = new GridBagConstraints();
 		gbc_btnQuit.insets = new Insets(0, 0, 0, 5);
@@ -122,11 +121,11 @@ public class MainWindow extends JFrame {
 		gbc_btnQuit.gridy = 1;
 		pnlActions.add(btnQuit, gbc_btnQuit);
 		btnQuit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e)
+			{
 				MainWindow.this.dispose();
 			}
 		});
-
 
 		// show data
 		glue.syncToView();

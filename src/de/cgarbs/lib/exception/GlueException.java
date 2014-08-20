@@ -13,13 +13,11 @@ public class GlueException extends Exception
 	public enum ERROR {
 		UNDEFINED,
 		BINDING_NOT_IMPLEMENTED,
-		LAYOUT_MANAGER_WRONG
 	}
 
 	static {
 		ERRORTEXT.put(ERROR.UNDEFINED, "undefined");
 		ERRORTEXT.put(ERROR.BINDING_NOT_IMPLEMENTED, "binding not implemented");
-		ERRORTEXT.put(ERROR.LAYOUT_MANAGER_WRONG, "layout manager wrong");
 	};
 	
 	public GlueException(ERROR error)

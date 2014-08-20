@@ -19,26 +19,14 @@ abstract public class Binding
 	abstract public void syncToView();
 	abstract public void syncToModel() throws DataException;
 
-	public void addToContainer(JComponent parent, int gridx, int gridy) throws GlueException
+	public JComponent getJLabel()
 	{
-		if (! (parent.getLayout() instanceof GridBagLayout))
-		{
-			throw new GlueException(
-					GlueException.ERROR.LAYOUT_MANAGER_WRONG,
-					parent.getLayout().getClass().getName()
-					);
-		}
-		
-		GridBagConstraints gbc1 = new GridBagConstraints();
-		gbc1.gridx = gridx;
-		gbc1.gridy = gridy;
-		
-		GridBagConstraints gbc2 = new GridBagConstraints();
-		gbc2.gridx = gridx + 1;
-		gbc2.gridy = gridy;
-		
-		parent.add(jLabel, gbc1);
-		parent.add(jData,  gbc2);
+		return jLabel;
+	}
+	
+	public JComponent getJData()
+	{
+		return jData;
 	}
 
 	public Binding(DataAttribute attribute)
@@ -48,7 +36,7 @@ abstract public class Binding
 		this.jData  = createDataEntryComponent();
 	}
 	
-	abstract protected JComponent createDataEntryComponent();
+	abstract protected JComponent createDataEntryComponent(); // FIXME NAME cdec <-> JData
 
 	
 	private JLabel createJLabel(String label)

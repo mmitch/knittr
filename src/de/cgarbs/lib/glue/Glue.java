@@ -5,10 +5,14 @@ import java.util.List;
 
 import de.cgarbs.lib.data.DataAttribute;
 import de.cgarbs.lib.data.DataModel;
+import de.cgarbs.lib.data.type.FileAttribute;
+import de.cgarbs.lib.data.type.FloatAttribute;
 import de.cgarbs.lib.data.type.IntAttribute;
 import de.cgarbs.lib.data.type.StringAttribute;
 import de.cgarbs.lib.exception.DataException;
 import de.cgarbs.lib.exception.GlueException;
+import de.cgarbs.lib.glue.type.FileBinding;
+import de.cgarbs.lib.glue.type.FloatBinding;
 import de.cgarbs.lib.glue.type.IntBinding;
 import de.cgarbs.lib.glue.type.StringBinding;
 
@@ -24,6 +28,7 @@ public class Glue<T extends DataModel>
 	
 	public Binding addBinding(String key) throws GlueException, DataException
 	{
+		// FIXME catch duplicate bindings (same key)
 		Binding binding;
 		DataAttribute attribute = model.getAttribute(key);
 		if (attribute instanceof StringAttribute)
@@ -33,6 +38,14 @@ public class Glue<T extends DataModel>
 		else if (attribute instanceof IntAttribute)
 		{
 			binding = new IntBinding(attribute);
+		}
+		else if (attribute instanceof FloatAttribute)
+		{
+			binding = new FloatBinding(attribute);
+		}
+		else if (attribute instanceof FileAttribute)
+		{
+			binding = new FileBinding(attribute);
 		}
 		else
 		{
