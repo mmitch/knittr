@@ -1,0 +1,29 @@
+TODO:
+
+=== UI ===
+
+- i18n
+  - property handling for both app and lib (exceptions, validation)
+  - prepend with EXC_, LBL_, TXT_, ...
+  
+- validation
+  - message footer
+  - validate before setValue
+    - needs parseValue()
+    - change validate() to validate(Object)
+
+- auto layouts
+  - add more Builder options
+  	- addLabel()
+  	- addJComponent() [with label, without label, wide]
+  - more layouts
+    - 2 columns with auto-placement
+
+=== DATA ===
+
+- serialization
+
+=== GLUE ===
+
+- dirty/clean flag
+  - keep copy of model in clean state, use equals 
