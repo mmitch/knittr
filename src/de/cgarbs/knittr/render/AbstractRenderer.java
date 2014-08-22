@@ -23,6 +23,9 @@ public abstract class AbstractRenderer
 	protected Project p;
 	protected BufferedImage bi;
 	protected Raster r;
+
+	// MAGIC CONSTANT - can this change? where does this come from?
+	protected double BATIK_DPI = 96;
 	
 	/**
 	 * Default constructor for a renderer
@@ -74,5 +77,31 @@ public abstract class AbstractRenderer
 			bi = biNew;
 			r = bi.getRaster();
 		}
+	}
+
+	// FIXME make this stuff configurable!
+	int getPageBordersMM()
+	{
+		return 15;
+	}
+
+	public int getTotalPageWidthMM()
+	{
+		return 210;
+	}
+
+	public int getTotalPageHeightMM()
+	{
+		return 297;
+	}
+
+	public int getUsablePageWidthMM()
+	{
+		return getTotalPageWidthMM() - (2 * getPageBordersMM());
+	}
+
+	public int getUsablePageHeightMM()
+	{
+		return getTotalPageHeightMM() - (2 * getPageBordersMM());
 	}
 }

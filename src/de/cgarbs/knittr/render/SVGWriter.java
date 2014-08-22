@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.batik.dom.GenericDOMImplementation;
+import org.apache.batik.dom.svg.SVGDOMImplementation;
 import org.apache.batik.svggen.SVGGraphics2D;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
@@ -53,7 +54,7 @@ public class SVGWriter extends AbstractRenderer
 				ensurePortrait();
 				
 				// DIN A aspect ratio - landscape format
-				double pageAspect  = 210d / 297d; // landscape
+				double pageAspect  = (double)getUsablePageWidthMM() / (double)getUsablePageHeightMM(); // landscape
 				double pixelAspect = (double) p.getScaleX() / (double) p.getScaleY(); 
 				
 				int pageHeight = (int) Math.floor(r.getWidth() * pageAspect * pixelAspect);
@@ -125,6 +126,30 @@ public class SVGWriter extends AbstractRenderer
 		int GRIDTEXTMOD = (Integer) p.getValue(Project.GRIDTEXTMOD);
 		Color TEXTCOLOR = p.getTextColor();
 		Color GRIDCOLOR = p.getGridColor();
+
+		// set a scale factor to start calculationg in mm
+		// initially: 1 coordinate = 1 pixel
+		// Batik uses BATIK_DPI pixels per inch
+		// there are 25.4mm to an inch
+		//
+		//      BATIK_DPI px = 1 in
+		// <=>          1 px = 1/BATIK_DPI in
+		// <=>     1/25.4 px = 1/BATIK_DPI mm
+		// <=>          1 px = 25.4/BATIK_DPI mm
+		double factor = BATIK_DPI/25.4d;
+
+		// translate to page start (skip the border)
+		svg.translate(getPageBordersMM() * factor, -getPageBordersMM() * factor * 2);
+
+		// we produce and calculate landscape, but for easier printing portrait is better
+		// just rotate EVERYTHING once we're finished
+		// rotation center found by good old trial&error!
+		double center = (getTotalPageHeightMM()) / 2 * factor;
+		svg.rotate(-Math.PI/2, center, center);
+
+		// scale to fit page contents
+		factor = (double) (getUsablePageHeightMM()-getPageBordersMM()) / (double) MAX_XT * factor; // we scale to fit on X, so take this as the factor 
+		svg.scale(factor, factor); // keep aspect ratio, same factor in both dimensions
 
 		// render pixels into squares
 		svg.setStroke(new BasicStroke((Float)p.getValue(Project.GRIDWIDTHSMALL)));
@@ -213,7 +238,7 @@ public class SVGWriter extends AbstractRenderer
 				svg.drawString(String.valueOf(row-1), MAX_XT - SCALE_X + OFFSET, yt - OFFSET + SCALE_Y);
 			}
 		}
-		
+
 		return svg;
 	}
 
@@ -224,8 +249,17 @@ public class SVGWriter extends AbstractRenderer
 				.getDOMImplementation();
 
 		// Create an instance of org.w3c.dom.Document.
-		String svgNS = "http://www.w3.org/2000/svg";
+		String svgNS = SVGDOMImplementation.SVG_NAMESPACE_URI;
 		Document document = domImpl.createDocument(svgNS, "svg", null);
+
+		// add page size data
+		// scaling see here: http://stackoverflow.com/questions/1346922/
+		// after this, 1 unit is 1 mm and the printable area is 1 page
+		// FIXME: REMOVE
+//		Element root = document.getDocumentElement();
+//		root.setAttributeNS(null, "width", getTotalPageWidthMM()+"mm");
+//		root.setAttributeNS(null, "height", getTotalPageHeightMM()+"mm");
+//		root.setAttributeNS(null, "viewbox", "0 0 " + getTotalPageWidthMM() + "0 "+ getTotalPageHeightMM() + "0");
 
 		// Create an instance of the SVG Generator.
 		return new SVGGraphics2D(document);

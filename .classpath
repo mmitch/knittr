@@ -8,7 +8,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="import/batik-1.7/lib/batik-dom.jar"/>
-	<classpathentry kind="lib" path="import/batik-1.7/lib/batik-svggen.jar"/>
+	<classpathentry kind="lib" path="import/batik-1.7/lib/batik-svggen.jar" sourcepath="/home/mitch/workspace/batik-src-1.7.zip"/>
 	<classpathentry kind="lib" path="import/batik-1.7/lib/batik-transcoder.jar"/>
 	<classpathentry kind="lib" path="import/batik-1.7/lib/pdf-transcoder.jar"/>
 	<classpathentry kind="lib" path="import/batik-1.7/lib/batik-awt-util.jar"/>
