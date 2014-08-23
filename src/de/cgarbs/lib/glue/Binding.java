@@ -1,14 +1,10 @@
 package de.cgarbs.lib.glue;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 
 import de.cgarbs.lib.data.DataAttribute;
 import de.cgarbs.lib.exception.DataException;
-import de.cgarbs.lib.exception.GlueException;
 
 abstract public class Binding
 {
