@@ -21,7 +21,7 @@ import de.cgarbs.lib.exception.DataException;
 import de.cgarbs.lib.exception.GlueException;
 import de.cgarbs.lib.glue.Binding;
 import de.cgarbs.lib.glue.Glue;
-import de.cgarbs.lib.ui.BorderedVerticalLayout;
+import de.cgarbs.lib.ui.SimpleTabbedLayout;
 
 public class MainWindow extends JFrame
 {
@@ -73,8 +73,8 @@ public class MainWindow extends JFrame
 		infoText.setText("Knittr\n2014 (C) by Christian Garbs <mitch@cgarbs.de>\nlicensed under GNU GPL v3 or later\nhttps://github.com/mmitch/knittr/");
 
 //		JComponent jthingie = SimpleVerticalLayout.builder()
-//		JComponent jthingie = SimpleTabbedLayout.builder()
-		JComponent jthingie = BorderedVerticalLayout.builder()
+		JComponent jthingie = SimpleTabbedLayout.builder()
+//		JComponent jthingie = BorderedVerticalLayout.builder()
 				.startNextGroup("files")
 				.addAttribute(b_source_file).addAttribute(b_target_file)
 				.startNextGroup("maschenprobe")
