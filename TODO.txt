@@ -2,21 +2,29 @@ TODO:
 
 === UI ===
 
+- use SpringLayout instead of GridBagLayout
+
 - i18n
   - property handling for both app and lib (exceptions, validation)
   - prepend with EXC_, LBL_, TXT_, ...
 
 - validation
-  - message footer
-  - validate before setValue
+  - validation error text box before printing
+  - later: print validation error for every element
+    - needs message footer
     - needs parseValue()
     - change validate() to validate(Object)
+    - later: use message footer to print help text for current element
 
 - auto layouts
   - more layouts
     - 2 columns with auto-placement
 
 === DATA ===
+
+- validation
+  - don't validate within setValue, use extra method
+  - validate whole model, get list of exceptions back
 
 - "editable" attribute for all attribute types
 
