@@ -34,8 +34,22 @@ public class Project extends DataModel
 		addAttribute(SOURCE_FILE, FileAttribute.builder().setNullable(false).setMustExist(true).setMustRead(true).build());
 		addAttribute(TARGET_FILE, FileAttribute.builder().setNullable(false).setMustWrite(true).build());
 
-		setValue(SOURCE_FILE, "resource/image_test.png");
-		setValue(TARGET_FILE, "/tmp/test.svg");
+		try
+		{
+			setValue(SOURCE_FILE, "resource/image_test.png");
+			setValue(TARGET_FILE, "/tmp/test.svg");
+		}
+		catch (DataException e)
+		{
+			if (e.getError() == DataException.ERROR.VALIDATION_ERROR)
+			{
+				// this is OK, perhaps the default file does not exist...
+			}
+			else
+			{
+				throw e;
+			}
+		}
 
 		// calculation
 		addAttribute(TOTALSCALE, IntAttribute.builder().setNullable(false).setMinValue(1).build());
