@@ -4,6 +4,11 @@ import de.cgarbs.lib.exception.DataException;
 
 public abstract class NumberAttribute extends DataAttribute
 {
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+
 	protected Number value;
 
 	private final Number minValue;

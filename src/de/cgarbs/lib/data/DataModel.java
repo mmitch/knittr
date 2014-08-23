@@ -1,12 +1,26 @@
 package de.cgarbs.lib.data;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import de.cgarbs.lib.exception.DataException;
 
-abstract public class DataModel
+abstract public class DataModel implements Serializable
 {
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+
+
 	private Map<String, DataAttribute> attributes = new LinkedHashMap<String, DataAttribute>();
 
 	public void addAttribute(String key, DataAttribute attribute) throws DataException
@@ -73,4 +87,23 @@ abstract public class DataModel
 	abstract public String getModelName();
 
 	// FIXME -> toString() bauen!
+
+	public void writeToFile(File file) throws FileNotFoundException, IOException // FIXME wrap exceptions or not?!
+	{
+		ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file));
+		out.writeObject(this);
+		out.close();
+	}
+
+	public void readFromFile(File file) throws FileNotFoundException, IOException, ClassNotFoundException, DataException
+	{
+		ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
+		DataModel d = (DataModel) in.readObject();
+		in.close();
+
+		for (String key: d.attributes.keySet())
+		{
+			this.setValue(key, d.getValue(key));
+		}
+	}
 }

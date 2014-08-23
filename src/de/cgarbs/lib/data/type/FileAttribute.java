@@ -8,6 +8,11 @@ import de.cgarbs.lib.exception.DataException;
 
 public class FileAttribute extends DataAttribute
 {
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private File value;
 
 	private final boolean mustExist;

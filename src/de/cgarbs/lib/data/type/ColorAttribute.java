@@ -7,6 +7,11 @@ import de.cgarbs.lib.exception.DataException;
 
 public class ColorAttribute extends DataAttribute
 {
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private Color value;
 
 	// Builder pattern start

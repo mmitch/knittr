@@ -5,6 +5,11 @@ import de.cgarbs.lib.exception.DataException;
 
 public class IntAttribute extends NumberAttribute
 {
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+
 	// Builder pattern start
 	public static class Builder extends NumberAttribute.Builder<Integer>
 	{

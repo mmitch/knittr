@@ -5,6 +5,10 @@ import de.cgarbs.lib.exception.DataException;
 
 public class FloatAttribute extends NumberAttribute
 {
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
 
 	// FIXME add decimal places
 

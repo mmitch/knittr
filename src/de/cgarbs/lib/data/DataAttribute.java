@@ -1,9 +1,17 @@
 package de.cgarbs.lib.data;
 
+import java.io.Serializable;
+
 import de.cgarbs.lib.exception.DataException;
 
-abstract public class DataAttribute
+abstract public class DataAttribute implements Serializable
 {
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+
+
 	private final boolean nullable;
 	private String attributeName;
 

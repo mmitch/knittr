@@ -12,6 +12,11 @@ import de.cgarbs.lib.exception.DataException;
 
 public class Project extends DataModel
 {
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public static final String SOURCE_FILE = "SOURCE_FILE";
 	public static final String TARGET_FILE = "TARGET_FILE";
 	public static final String GRIDTEXTMOD = "GRIDTEXTMOD";

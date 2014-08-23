@@ -18,9 +18,7 @@ TODO:
 
 === DATA ===
 
-- serialization
-
-- editable attribute for all attribute types
+- "editable" attribute for all attribute types
 
 === GLUE ===
 

@@ -5,12 +5,14 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
@@ -26,7 +28,9 @@ import de.cgarbs.lib.ui.SimpleTabbedLayout;
 public class MainWindow extends JFrame
 {
 
-	Glue<Project> glue = new Glue<Project>(new Project());
+	private File currentFile;
+
+	private Glue<Project> glue = new Glue<Project>(new Project());
 
 	/**
 	 *
@@ -103,6 +107,78 @@ public class MainWindow extends JFrame
 		GridBagLayout gbl_pnlActions = new GridBagLayout();
 		pnlActions.setLayout(gbl_pnlActions);
 
+		JButton btnLoad = new JButton("LOAD");
+		GridBagConstraints gbc_btnLoad = new GridBagConstraints();
+		gbc_btnLoad.insets = new Insets(0, 0, 0, 5);
+		gbc_btnLoad.gridx = 0;
+		gbc_btnLoad.gridy = 0;
+		pnlActions.add(btnLoad, gbc_btnLoad);
+		btnLoad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e)
+			{
+				File chosen = MainWindow.this.chooseFile("load project");
+				if (chosen != null)
+				{
+					currentFile = chosen;
+					try
+					{
+						glue.getModel().readFromFile(chosen);
+						glue.syncToView();
+					}
+					catch (FileNotFoundException e1)
+					{
+						e1.printStackTrace();
+					}
+					catch (IOException e1)
+					{
+						e1.printStackTrace();
+					}
+					catch (ClassNotFoundException e1)
+					{
+						e1.printStackTrace();
+					}
+					catch (DataException e1)
+					{
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
+
+		JButton btnSave = new JButton("SAVE");
+		GridBagConstraints gbc_btnSave = new GridBagConstraints();
+		gbc_btnSave.insets = new Insets(0, 0, 0, 5);
+		gbc_btnSave.gridx = 1;
+		gbc_btnSave.gridy = 0;
+		pnlActions.add(btnSave, gbc_btnSave);
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e)
+			{
+				File chosen = MainWindow.this.chooseFile("save project");
+				if (chosen != null)
+				{
+					currentFile = chosen;
+					try
+					{
+						glue.syncToModel();
+						glue.getModel().writeToFile(chosen);
+					}
+					catch (FileNotFoundException e1)
+					{
+						e1.printStackTrace();
+					}
+					catch (IOException e1)
+					{
+						e1.printStackTrace();
+					}
+					catch (DataException e1)
+					{
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
+
 		JButton btnRender = new JButton("Render to SVG");
 		btnRender.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0)
@@ -123,23 +199,17 @@ public class MainWindow extends JFrame
 			}
 		});
 
-		JLabel lblNewLabel = new JLabel("Actions:");
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.gridx = 0;
-		gbc_lblNewLabel.gridy = 0;
-		pnlActions.add(lblNewLabel, gbc_lblNewLabel);
 		GridBagConstraints gbc_btnRender = new GridBagConstraints();
 		gbc_btnRender.insets = new Insets(0, 0, 0, 5);
-		gbc_btnRender.gridx = 0;
-		gbc_btnRender.gridy = 1;
+		gbc_btnRender.gridx = 2;
+		gbc_btnRender.gridy = 0;
 		pnlActions.add(btnRender, gbc_btnRender);
 
 		JButton btnQuit = new JButton("QUIT");
 		GridBagConstraints gbc_btnQuit = new GridBagConstraints();
 		gbc_btnQuit.insets = new Insets(0, 0, 0, 5);
-		gbc_btnQuit.gridx = 1;
-		gbc_btnQuit.gridy = 1;
+		gbc_btnQuit.gridx = 3;
+		gbc_btnQuit.gridy = 0;
 		pnlActions.add(btnQuit, gbc_btnQuit);
 		btnQuit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
@@ -150,5 +220,23 @@ public class MainWindow extends JFrame
 
 		// show data
 		glue.syncToView();
+	}
+
+	private File chooseFile(String label)
+	{
+		JFileChooser fc = new JFileChooser();
+		if (currentFile != null)
+		{
+			fc.setSelectedFile(currentFile);
+		}
+		if (fc.showDialog(MainWindow.this, label) // FIXME i18n
+				== JFileChooser.APPROVE_OPTION)
+		{
+			return fc.getSelectedFile();
+		}
+		else
+		{
+			return null;
+		}
 	}
 }

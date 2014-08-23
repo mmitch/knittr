@@ -37,6 +37,7 @@ public class DataException extends Exception
 	{
 		super(message);
 		this.error = error;
+		System.err.println(this.toString());
 	}
 
 	public DataException(ERROR error, String message, Throwable t)

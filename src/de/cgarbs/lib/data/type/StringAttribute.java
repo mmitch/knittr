@@ -5,6 +5,11 @@ import de.cgarbs.lib.exception.DataException;
 
 public class StringAttribute extends DataAttribute
 {
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private String value;
 
 	private final Integer minLength;
