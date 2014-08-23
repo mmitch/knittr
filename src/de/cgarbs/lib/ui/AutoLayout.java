@@ -22,6 +22,12 @@ abstract public class AutoLayout
 			return this;
 		}
 
+		public Builder<T> addComponent(JComponent component)
+		{
+			getCurrentGroup().addComponent(component);
+			return this;
+		}
+
 		public Builder<T> startNextGroup(String label)
 		{
 			groups.add(new Group(label));

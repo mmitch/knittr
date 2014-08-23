@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import de.cgarbs.lib.exception.GlueException;
-import de.cgarbs.lib.glue.Binding;
 
 public class SimpleVerticalLayout extends AutoLayout
 {
@@ -29,10 +28,9 @@ public class SimpleVerticalLayout extends AutoLayout
 			{
 				panel.add(new JLabel(group.getTitle()), position(0, line, 2, 1));
 				line++;
-				for (Binding binding : group.getBindings())
+				for (Element element: group.getElements())
 				{
-					panel.add(binding.getJLabel(), position(0, line, 1, 1));
-					panel.add(binding.getJData(),  position(1, line, 1, 1));
+					element.addToComponent(panel, 0, line);
 					line++;
 				}
 			}
@@ -41,6 +39,7 @@ public class SimpleVerticalLayout extends AutoLayout
 		}
 		
 		private GridBagConstraints position(int x, int y, int w, int h)
+		// FIXME move somewhere better, duplicate code with Elements!
 		{
 			GridBagConstraints gbc = new GridBagConstraints();
 			gbc.gridx = x;

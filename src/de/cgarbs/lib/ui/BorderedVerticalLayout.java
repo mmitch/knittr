@@ -1,19 +1,15 @@
 package de.cgarbs.lib.ui;
 
-import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.border.Border;
 
 import de.cgarbs.lib.exception.GlueException;
-import de.cgarbs.lib.glue.Binding;
 
 public class BorderedVerticalLayout extends AutoLayout
 {
@@ -25,8 +21,7 @@ public class BorderedVerticalLayout extends AutoLayout
 		public JComponent build() throws GlueException
 		{
 			JPanel panel = new JPanel();
-			panel.setLayout(new GridLayout());
-			// FIXME fill vertical missing
+			panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 	
 			for (Group group : (List<Group>) groups) // FIXME why cast here?!
 			{
@@ -36,10 +31,9 @@ public class BorderedVerticalLayout extends AutoLayout
 				groupPanel.setBorder(newBorder);
 				int line = 0;
 				
-				for (Binding binding : group.getBindings())
+				for (Element element : group.getElements())
 				{
-					groupPanel.add(binding.getJLabel(), position(0, line, 1, 1));
-					groupPanel.add(binding.getJData(),  position(1, line, 1, 1));
+					element.addToComponent(groupPanel, 0, line);
 					line++;
 				}
 				
@@ -47,17 +41,6 @@ public class BorderedVerticalLayout extends AutoLayout
 			}
 	
 			return panel;
-		}
-		
-		private GridBagConstraints position(int x, int y, int w, int h)
-		{
-			GridBagConstraints gbc = new GridBagConstraints();
-			gbc.gridx = x;
-			gbc.gridy = y;
-			gbc.gridwidth = w;
-			gbc.gridheight = h;
-			gbc.anchor = GridBagConstraints.NORTHWEST;
-			return gbc;
 		}
 	}
 	

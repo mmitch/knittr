@@ -12,6 +12,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
 import de.cgarbs.knittr.data.Project;
@@ -20,7 +21,7 @@ import de.cgarbs.lib.exception.DataException;
 import de.cgarbs.lib.exception.GlueException;
 import de.cgarbs.lib.glue.Binding;
 import de.cgarbs.lib.glue.Glue;
-import de.cgarbs.lib.ui.SimpleTabbedLayout;
+import de.cgarbs.lib.ui.BorderedVerticalLayout;
 
 public class MainWindow extends JFrame
 {
@@ -67,9 +68,13 @@ public class MainWindow extends JFrame
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		contentPane.setLayout(gbl_contentPane);
 
+		JTextArea infoText = new JTextArea();
+		infoText.setEditable(false);
+		infoText.setText("Knittr\n2014 (C) by Christian Garbs <mitch@cgarbs.de>\nlicensed under GNU GPL v3 or later\nhttps://github.com/mmitch/knittr/");
+		
 //		JComponent jthingie = SimpleVerticalLayout.builder()
-		JComponent jthingie = SimpleTabbedLayout.builder()
-//		JComponent jthingie = BorderedVerticalLayout.builder()
+//		JComponent jthingie = SimpleTabbedLayout.builder()
+		JComponent jthingie = BorderedVerticalLayout.builder()
 				.startNextGroup("files")
 				.addAttribute(b_source_file).addAttribute(b_target_file)
 				.startNextGroup("maschenprobe")
@@ -78,6 +83,8 @@ public class MainWindow extends JFrame
 				.addAttribute(b_gridtextmod).addAttribute(b_gridwidthbig).addAttribute(b_gridwidthsmall).addAttribute(b_gridcolor)
 				.startNextGroup("font")
 				.addAttribute(b_textcolor).addAttribute(b_fontname).addAttribute(b_offset)
+				.startNextGroup("about")
+				.addComponent(infoText)
 				.build();
 
 		GridBagConstraints gbc_pnlGrid = new GridBagConstraints();

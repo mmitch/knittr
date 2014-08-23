@@ -13,9 +13,6 @@ TODO:
     - change validate() to validate(Object)
 
 - auto layouts
-  - add more Builder options
-  	- addLabel()
-  	- addJComponent() [with label, without label, wide]
   - more layouts
     - 2 columns with auto-placement
 

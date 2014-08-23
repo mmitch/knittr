@@ -3,11 +3,13 @@ package de.cgarbs.lib.ui;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JComponent;
+
 import de.cgarbs.lib.glue.Binding;
 
 public class Group
 {
-	private List<Binding> bindings = new ArrayList<Binding>();
+	private List<Element> elements = new ArrayList<Element>();
 	private String title;
 
 	public Group(String title)
@@ -17,7 +19,12 @@ public class Group
 
 	public void addBinding(Binding binding)
 	{
-		bindings.add(binding);
+		elements.add(new BindingElement(binding));
+	}
+
+	public void addComponent(JComponent component)
+	{
+		elements.add(new JComponentElement(component));
 	}
 
 	public String getTitle()
@@ -25,8 +32,8 @@ public class Group
 		return this.title;
 	}
 
-	public List<Binding> getBindings()
+	public List<Element> getElements()
 	{
-		return bindings;
+		return elements;
 	}
 }

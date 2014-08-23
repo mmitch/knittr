@@ -1,18 +1,13 @@
 package de.cgarbs.lib.ui;
 
-import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.util.List;
 
-import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.border.Border;
 
 import de.cgarbs.lib.exception.GlueException;
-import de.cgarbs.lib.glue.Binding;
 
 public class SimpleTabbedLayout extends AutoLayout
 {
@@ -31,10 +26,9 @@ public class SimpleTabbedLayout extends AutoLayout
 				panel.setLayout(new GridBagLayout());
 				int line = 0;
 				
-				for (Binding binding : group.getBindings())
+				for (Element element: group.getElements())
 				{
-					panel.add(binding.getJLabel(), position(0, line, 1, 1));
-					panel.add(binding.getJData(),  position(1, line, 1, 1));
+					element.addToComponent(panel,  0,  line);
 					line++;
 				}
 				
@@ -42,17 +36,6 @@ public class SimpleTabbedLayout extends AutoLayout
 			}
 	
 			return component;
-		}
-		
-		private GridBagConstraints position(int x, int y, int w, int h)
-		{
-			GridBagConstraints gbc = new GridBagConstraints();
-			gbc.gridx = x;
-			gbc.gridy = y;
-			gbc.gridwidth = w;
-			gbc.gridheight = h;
-			gbc.anchor = GridBagConstraints.NORTHWEST;
-			return gbc;
 		}
 	}
 	
