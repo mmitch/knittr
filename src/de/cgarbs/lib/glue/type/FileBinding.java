@@ -1,5 +1,7 @@
 package de.cgarbs.lib.glue.type;
 
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -58,7 +60,19 @@ public class FileBinding extends TextFieldBinding
 		});
 
 		JPanel combiPanel = new JPanel();
-		combiPanel.add(jTextField);
+		combiPanel.setLayout(new GridBagLayout());
+
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+		gbc.weightx = 1;
+		gbc.weighty = 1;
+		combiPanel.add(jTextField, gbc);
+
+		gbc.gridx = 1;
+		gbc.fill = GridBagConstraints.NONE;
+		gbc.weightx = 0.2;
 		combiPanel.add(jButton);
 		return combiPanel;
 	}

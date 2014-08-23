@@ -23,10 +23,20 @@ public class SimpleVerticalLayout extends AutoLayout
 			JPanel panel = new JPanel();
 			panel.setLayout(new GridBagLayout());
 
+			GridBagConstraints gbc_title = new GridBagConstraints();
+			gbc_title.gridx = 0;
+			gbc_title.gridwidth = 2;
+			gbc_title.gridheight = 1;
+			gbc_title.weightx = 1;
+			gbc_title.weighty = 1;
+			gbc_title.anchor = GridBagConstraints.FIRST_LINE_START;
+			gbc_title.fill = GridBagConstraints.HORIZONTAL;
+
 			int line = 0;
 			for (Group group : (List<Group>) groups) // FIXME why cast here?!
 			{
-				panel.add(new JLabel(group.getTitle()), position(0, line, 2, 1));
+				gbc_title.gridy = line;
+				panel.add(new JLabel(group.getTitle()), gbc_title);
 				line++;
 				for (Element element: group.getElements())
 				{
@@ -35,19 +45,8 @@ public class SimpleVerticalLayout extends AutoLayout
 				}
 			}
 
-			return new JScrollPane(panel);
-		}
-
-		private GridBagConstraints position(int x, int y, int w, int h)
-		// FIXME move somewhere better, duplicate code with Elements!
-		{
-			GridBagConstraints gbc = new GridBagConstraints();
-			gbc.gridx = x;
-			gbc.gridy = y;
-			gbc.gridwidth = w;
-			gbc.gridheight = h;
-			gbc.anchor = GridBagConstraints.NORTHWEST;
-			return gbc;
+			JScrollPane scroller = new JScrollPane(panel);
+			return scroller;
 		}
 	}
 

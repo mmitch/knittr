@@ -1,5 +1,6 @@
 package de.cgarbs.knittr.ui;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -9,6 +10,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
@@ -65,7 +67,7 @@ public class MainWindow extends JFrame
 		Binding b_offset = glue.addBinding(Project.OFFSET);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setMinimumSize(new Dimension(500, 300));
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -92,17 +94,22 @@ public class MainWindow extends JFrame
 				.build();
 
 		GridBagConstraints gbc_pnlGrid = new GridBagConstraints();
-		gbc_pnlGrid.insets = new Insets(0, 0, 5, 5);
+//		gbc_pnlGrid.insets = new Insets(0, 0, 5, 5);
 		gbc_pnlGrid.fill = GridBagConstraints.BOTH;
 		gbc_pnlGrid.gridx = 0;
 		gbc_pnlGrid.gridy = 0;
+		gbc_pnlGrid.weightx = 1;
+		gbc_pnlGrid.weighty = 1;
 		contentPane.add(jthingie, gbc_pnlGrid);
 
 		JPanel pnlActions = new JPanel();
 		GridBagConstraints gbc_pnlActions = new GridBagConstraints();
-		gbc_pnlActions.insets = new Insets(0, 0, 5, 5);
+//		gbc_pnlActions.insets = new Insets(0, 0, 5, 5);
+		gbc_pnlActions.fill = GridBagConstraints.HORIZONTAL;
 		gbc_pnlActions.gridx = 0;
 		gbc_pnlActions.gridy = 1;
+		gbc_pnlActions.weightx = 1;
+		gbc_pnlActions.weighty = 0;
 		contentPane.add(pnlActions, gbc_pnlActions);
 		GridBagLayout gbl_pnlActions = new GridBagLayout();
 		pnlActions.setLayout(gbl_pnlActions);
@@ -179,6 +186,13 @@ public class MainWindow extends JFrame
 			}
 		});
 
+		GridBagConstraints gbc_spacer1 = new GridBagConstraints();
+		gbc_spacer1.gridx = 2;
+		gbc_spacer1.gridy = 0;
+		gbc_spacer1.weightx = 0.5;
+		gbc_spacer1.fill = GridBagConstraints.HORIZONTAL;
+		pnlActions.add(Box.createGlue(), gbc_spacer1);
+
 		JButton btnRender = new JButton("Render to SVG");
 		btnRender.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0)
@@ -201,14 +215,21 @@ public class MainWindow extends JFrame
 
 		GridBagConstraints gbc_btnRender = new GridBagConstraints();
 		gbc_btnRender.insets = new Insets(0, 0, 0, 5);
-		gbc_btnRender.gridx = 2;
+		gbc_btnRender.gridx = 3;
 		gbc_btnRender.gridy = 0;
 		pnlActions.add(btnRender, gbc_btnRender);
+
+		GridBagConstraints gbc_spacer2 = new GridBagConstraints();
+		gbc_spacer2.gridx = 4;
+		gbc_spacer2.gridy = 0;
+		gbc_spacer2.weightx = 0.5;
+		gbc_spacer2.fill = GridBagConstraints.HORIZONTAL;
+		pnlActions.add(Box.createGlue(), gbc_spacer2);
 
 		JButton btnQuit = new JButton("QUIT");
 		GridBagConstraints gbc_btnQuit = new GridBagConstraints();
 		gbc_btnQuit.insets = new Insets(0, 0, 0, 5);
-		gbc_btnQuit.gridx = 3;
+		gbc_btnQuit.gridx = 5;
 		gbc_btnQuit.gridy = 0;
 		pnlActions.add(btnQuit, gbc_btnQuit);
 		btnQuit.addActionListener(new ActionListener() {

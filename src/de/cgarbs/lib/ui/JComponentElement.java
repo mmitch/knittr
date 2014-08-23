@@ -14,6 +14,6 @@ public class JComponentElement extends Element
 	@Override
 	public void addToComponent(JComponent component, int x, int y)
 	{
-		component.add(this.component, position(x, y, 2, 1));
+		component.add(this.component, pos_value(x, y, 2, 1));
 	}
 }

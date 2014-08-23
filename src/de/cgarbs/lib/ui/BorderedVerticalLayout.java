@@ -1,10 +1,10 @@
 package de.cgarbs.lib.ui;
 
+import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
@@ -21,7 +21,13 @@ public class BorderedVerticalLayout extends AutoLayout
 		public JComponent build() throws GlueException
 		{
 			JPanel panel = new JPanel();
-			panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+			panel.setLayout(new GridBagLayout());
+			GridBagConstraints gbc = new GridBagConstraints();
+			gbc.fill = GridBagConstraints.BOTH;
+			gbc.gridx = 0;
+			gbc.gridy = 0;
+			gbc.weightx = 1;
+			gbc.weighty = 1;
 
 			for (Group group : (List<Group>) groups) // FIXME why cast here?!
 			{
@@ -37,7 +43,8 @@ public class BorderedVerticalLayout extends AutoLayout
 					line++;
 				}
 
-				panel.add(groupPanel);
+				panel.add(groupPanel, gbc);
+				gbc.gridy++;
 			}
 
 			return panel;

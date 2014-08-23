@@ -16,7 +16,7 @@ public class BindingElement extends Element
 	@Override
 	public void addToComponent(JComponent component, int x, int y)
 	{
-		component.add(binding.getJLabel(), position(x,   y, 1, 1));
-		component.add(binding.getJData(),  position(x+1, y, 1, 1));
+		component.add(binding.getJLabel(), pos_label(x,   y, 1, 1));
+		component.add(binding.getJData(),  pos_value(x+1, y, 1, 1));
 	}
 }
