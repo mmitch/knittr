@@ -23,6 +23,8 @@ TODO:
 
 - serialization
 
+- editable attribute for all attribute types 
+
 === GLUE ===
 
 - dirty/clean flag
