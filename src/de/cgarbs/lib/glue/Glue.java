@@ -5,12 +5,14 @@ import java.util.List;
 
 import de.cgarbs.lib.data.DataAttribute;
 import de.cgarbs.lib.data.DataModel;
+import de.cgarbs.lib.data.type.ColorAttribute;
 import de.cgarbs.lib.data.type.FileAttribute;
 import de.cgarbs.lib.data.type.FloatAttribute;
 import de.cgarbs.lib.data.type.IntAttribute;
 import de.cgarbs.lib.data.type.StringAttribute;
 import de.cgarbs.lib.exception.DataException;
 import de.cgarbs.lib.exception.GlueException;
+import de.cgarbs.lib.glue.type.ColorBinding;
 import de.cgarbs.lib.glue.type.FileBinding;
 import de.cgarbs.lib.glue.type.FloatBinding;
 import de.cgarbs.lib.glue.type.IntBinding;
@@ -46,6 +48,10 @@ public class Glue<T extends DataModel>
 		else if (attribute instanceof FileAttribute)
 		{
 			binding = new FileBinding(attribute);
+		}
+		else if (attribute instanceof ColorAttribute)
+		{
+			binding = new ColorBinding(attribute);
 		}
 		else
 		{

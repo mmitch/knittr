@@ -44,11 +44,20 @@ public class MainWindow extends JFrame
 	{
 
 		// add bindings
-		Binding b_gridtextmod = glue.addBinding(Project.GRIDTEXTMOD);
-		Binding b_gridwidthsmall = glue.addBinding(Project.GRIDWIDTHSMALL);
-		Binding b_gridwidthbig = glue.addBinding(Project.GRIDWIDTHBIG);
 		Binding b_source_file = glue.addBinding(Project.SOURCE_FILE);
 		Binding b_target_file = glue.addBinding(Project.TARGET_FILE);
+
+		Binding b_maschen = glue.addBinding(Project.MASCHEN);
+		Binding b_reihen = glue.addBinding(Project.REIHEN);
+		
+		Binding b_gridwidthsmall = glue.addBinding(Project.GRIDWIDTHSMALL);
+		Binding b_gridwidthbig = glue.addBinding(Project.GRIDWIDTHBIG);
+		Binding b_gridtextmod = glue.addBinding(Project.GRIDTEXTMOD);
+		Binding b_gridcolor = glue.addBinding(Project.GRIDCOLOR);
+
+		Binding b_textcolor = glue.addBinding(Project.TEXTCOLOR);
+		Binding b_fontname = glue.addBinding(Project.FONTNAME);
+		Binding b_offset = glue.addBinding(Project.OFFSET);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -61,10 +70,15 @@ public class MainWindow extends JFrame
 //		JComponent jthingie = SimpleVerticalLayout.builder()
 		JComponent jthingie = SimpleTabbedLayout.builder()
 //		JComponent jthingie = BorderedVerticalLayout.builder()
-				.startNextGroup("grid settings").addAttribute(b_gridtextmod)
-				.addAttribute(b_gridwidthbig).addAttribute(b_gridwidthsmall)
-				.startNextGroup("files").addAttribute(b_source_file)
-				.addAttribute(b_target_file).build();
+				.startNextGroup("files")
+				.addAttribute(b_source_file).addAttribute(b_target_file)
+				.startNextGroup("maschenprobe")
+				.addAttribute(b_maschen).addAttribute(b_reihen)
+				.startNextGroup("grid")
+				.addAttribute(b_gridtextmod).addAttribute(b_gridwidthbig).addAttribute(b_gridwidthsmall).addAttribute(b_gridcolor)
+				.startNextGroup("font")
+				.addAttribute(b_textcolor).addAttribute(b_fontname).addAttribute(b_offset)
+				.build();
 
 		GridBagConstraints gbc_pnlGrid = new GridBagConstraints();
 		gbc_pnlGrid.insets = new Insets(0, 0, 5, 5);
