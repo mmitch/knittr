@@ -218,7 +218,7 @@ public class SVGWriter extends AbstractRenderer
 		}
 
 		// texts
-		svg.setFont(new Font(p.getFontName(), Font.PLAIN, SCALE_Y - OFFSET * 2));
+		svg.setFont(new Font(p.getFontName(), Font.BOLD, SCALE_Y - OFFSET * 2));
 		svg.setPaint(TEXTCOLOR);
 					
 		for (int xs=X, xt=0, col=C+W; xs<X+W; xs++, xt+=SCALE_X, col--)

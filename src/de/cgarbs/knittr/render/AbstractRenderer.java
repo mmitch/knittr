@@ -82,7 +82,7 @@ public abstract class AbstractRenderer
 	// FIXME make this stuff configurable!
 	int getPageBordersMM()
 	{
-		return 15;
+		return 10;
 	}
 
 	public int getTotalPageWidthMM()
