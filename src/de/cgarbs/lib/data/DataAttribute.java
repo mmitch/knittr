@@ -17,6 +17,7 @@ abstract public class DataAttribute
 	{
 		public abstract DataAttribute build();
 
+		@SuppressWarnings("unchecked")
 		public T setNullable(Boolean nullable)
 		{
 			this.nullable = nullable;
