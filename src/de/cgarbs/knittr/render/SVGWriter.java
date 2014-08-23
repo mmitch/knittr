@@ -55,7 +55,7 @@ public class SVGWriter extends AbstractRenderer
 				
 				// DIN A aspect ratio - landscape format
 				double pageAspect  = (double)getUsablePageWidthMM() / (double)getUsablePageHeightMM(); // landscape
-				double pixelAspect = (double) p.getScaleX() / (double) p.getScaleY(); 
+				double pixelAspect = (double) getScaleX(p) / (double) getScaleY(p); 
 				
 				int pageHeight = (int) Math.floor(r.getWidth() * pageAspect * pixelAspect);
 				// calculate height of last page
@@ -111,21 +111,23 @@ public class SVGWriter extends AbstractRenderer
 	 */
 	private SVGGraphics2D renderPage(int X, int Y, int W, int H, int C, int R) throws DataException
 	{
-		// FIXME: C and R really needed?
 		
 		// init variables
 		int[] rgb = new int[4];
 		SVGGraphics2D svg = initSVG();
 		
 		// cache values
-		int SCALE_X = p.getScaleX();
-		int SCALE_Y = p.getScaleY();
-		int OFFSET  = p.getOffset();
+
+		// FIXME better use doubles? or set TOTAL_SCALE to higher value?
+		int SCALE_X = (int) Math.round(getScaleX(p));
+		int SCALE_Y = (int) Math.round(getScaleY(p));
+
+		int OFFSET  = (Integer) p.getValue(Project.OFFSET);
 		int MAX_XT = W * SCALE_X;
 		int MAX_YT = H * SCALE_Y;
 		int GRIDTEXTMOD = (Integer) p.getValue(Project.GRIDTEXTMOD);
-		Color TEXTCOLOR = p.getTextColor();
-		Color GRIDCOLOR = p.getGridColor();
+		Color TEXTCOLOR = (Color) p.getValue(Project.TEXTCOLOR);
+		Color GRIDCOLOR = (Color) p.getValue(Project.GRIDCOLOR);
 
 		// set a scale factor to start calculationg in mm
 		// initially: 1 coordinate = 1 pixel
@@ -218,7 +220,7 @@ public class SVGWriter extends AbstractRenderer
 		}
 
 		// texts
-		svg.setFont(new Font(p.getFontName(), Font.BOLD, SCALE_Y - OFFSET * 2));
+		svg.setFont(new Font((String) p.getValue(Project.FONTNAME), Font.BOLD, SCALE_Y - OFFSET * 2));
 		svg.setPaint(TEXTCOLOR);
 					
 		for (int xs=X, xt=0, col=C+W; xs<X+W; xs++, xt+=SCALE_X, col--)
@@ -263,5 +265,19 @@ public class SVGWriter extends AbstractRenderer
 
 		// Create an instance of the SVG Generator.
 		return new SVGGraphics2D(document);
+	}
+
+	// FIXME move where? to Project?
+	double getScaleX(Project p) throws DataException
+	{
+		double scale = (Integer) p.getValue(Project.TOTALSCALE);
+		double value = (Integer) p.getValue(Project.MASCHEN); 
+		return scale / value;
+	}
+	double getScaleY(Project p) throws DataException
+	{
+		double scale = (Integer) p.getValue(Project.TOTALSCALE);
+		double value = (Integer) p.getValue(Project.REIHEN); 
+		return scale / value;
 	}
 }

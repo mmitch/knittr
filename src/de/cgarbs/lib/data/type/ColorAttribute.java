@@ -38,10 +38,12 @@ public class ColorAttribute extends DataAttribute
 		}
 		else if (newValue instanceof Color)
 		{
+			Color color = (Color)newValue;
 			value = new Color(
-					((Color) newValue).getColorSpace(),
-					((Color) newValue).getColorComponents(null),
-					((Color) newValue).getAlpha()
+					color.getRed(),
+					color.getGreen(),
+					color.getBlue(),
+					color.getAlpha()
 					);
 		}
 		else

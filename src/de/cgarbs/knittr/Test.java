@@ -33,17 +33,17 @@ public class Test
 			t.transcode(input, output);
 			System.out.println("default PDF rendered");
 			
-			p.setValue(Project.SOURCE_FILE, "/home/mitch/Dropbox/schnucki/Rainbowdashvornefertig.png");
-			p.setValue(Project.TARGET_FILE, "/home/mitch/Dropbox/schnucki/Rainbowdashvornefertig.svg");
-			p.setMaschen(24);
-			p.setReihen(34);
+			p.setValue(Project.SOURCE_FILE, "/home/mitch/Dropbox/schnucki/RainbowDashStrick/Rainbowdashvornefertig.png");
+			p.setValue(Project.TARGET_FILE, "/home/mitch/Dropbox/schnucki/RainbowDashStrick/Rainbowdashvornefertig.svg");
+			p.setValue(Project.MASCHEN, 24);
+			p.setValue(Project.REIHEN, 34);
 			new SVGWriter(p).render();
 			System.out.println("dash front rendered");
 			
-			p.setValue(Project.SOURCE_FILE, "/home/mitch/Dropbox/schnucki/Rainbowdashhintenfertig.png");
-			p.setValue(Project.TARGET_FILE, "/home/mitch/Dropbox/schnucki/Rainbowdashhintenfertig.svg");
-			p.setMaschen(24);
-			p.setReihen(34);
+			p.setValue(Project.SOURCE_FILE, "/home/mitch/Dropbox/schnucki/RainbowDashStrick/Rainbowdashhintenfertig.png");
+			p.setValue(Project.TARGET_FILE, "/home/mitch/Dropbox/schnucki/RainbowDashStrick/Rainbowdashhintenfertig.svg");
+			p.setValue(Project.MASCHEN, 24);
+			p.setValue(Project.REIHEN, 34);
 			new SVGWriter(p).render();
 			System.out.println("dash back rendered");
 
