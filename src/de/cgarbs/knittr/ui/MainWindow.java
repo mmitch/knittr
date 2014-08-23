@@ -49,7 +49,7 @@ public class MainWindow extends JFrame
 
 		Binding b_maschen = glue.addBinding(Project.MASCHEN);
 		Binding b_reihen = glue.addBinding(Project.REIHEN);
-		
+
 		Binding b_gridwidthsmall = glue.addBinding(Project.GRIDWIDTHSMALL);
 		Binding b_gridwidthbig = glue.addBinding(Project.GRIDWIDTHBIG);
 		Binding b_gridtextmod = glue.addBinding(Project.GRIDTEXTMOD);
