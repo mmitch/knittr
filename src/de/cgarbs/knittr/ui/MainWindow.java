@@ -29,7 +29,7 @@ public class MainWindow extends JFrame
 	Glue<Project> glue = new Glue<Project>(new Project());
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -6117333503098355182L;
 
@@ -37,7 +37,7 @@ public class MainWindow extends JFrame
 
 	/**
 	 * Create the frame.
-	 * 
+	 *
 	 * @throws DataException
 	 * @throws GlueException
 	 */
@@ -71,7 +71,7 @@ public class MainWindow extends JFrame
 		JTextArea infoText = new JTextArea();
 		infoText.setEditable(false);
 		infoText.setText("Knittr\n2014 (C) by Christian Garbs <mitch@cgarbs.de>\nlicensed under GNU GPL v3 or later\nhttps://github.com/mmitch/knittr/");
-		
+
 //		JComponent jthingie = SimpleVerticalLayout.builder()
 //		JComponent jthingie = SimpleTabbedLayout.builder()
 		JComponent jthingie = BorderedVerticalLayout.builder()

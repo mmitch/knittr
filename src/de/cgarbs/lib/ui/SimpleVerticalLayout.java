@@ -16,13 +16,13 @@ public class SimpleVerticalLayout extends AutoLayout
 	// Builder pattern start
 	public static class Builder extends AutoLayout.Builder<Builder>
 	{
-		
+
 		@Override
 		public JComponent build() throws GlueException
 		{
 			JPanel panel = new JPanel();
 			panel.setLayout(new GridBagLayout());
-	
+
 			int line = 0;
 			for (Group group : (List<Group>) groups) // FIXME why cast here?!
 			{
@@ -34,10 +34,10 @@ public class SimpleVerticalLayout extends AutoLayout
 					line++;
 				}
 			}
-	
+
 			return new JScrollPane(panel);
 		}
-		
+
 		private GridBagConstraints position(int x, int y, int w, int h)
 		// FIXME move somewhere better, duplicate code with Elements!
 		{
@@ -50,7 +50,7 @@ public class SimpleVerticalLayout extends AutoLayout
 			return gbc;
 		}
 	}
-	
+
 	public static Builder builder()
 	{
 		return new Builder();

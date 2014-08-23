@@ -24,7 +24,7 @@ public class Project extends DataModel
 	public static final String TOTALSCALE = "TOTALSCALE";
 	public static final String REIHEN = "REIHEN";
 	public static final String MASCHEN = "MASCHEN";
-	
+
 	/**
 	 * generate a project with default settings
 	 */
@@ -62,13 +62,13 @@ public class Project extends DataModel
 		setValue(TEXTCOLOR, Color.BLACK);
 		setValue(FONTNAME, "DialogInput");
 		setValue(OFFSET, 3);
-		
+
 	}
-	
+
 	@Override
 	public String getModelName()
 	{
 		return "KnittrProject";
 	}
-	
+
 }

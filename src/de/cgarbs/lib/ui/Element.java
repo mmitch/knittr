@@ -11,7 +11,7 @@ public abstract class Element
 	{
 		super();
 	}
-	
+
 	public abstract void addToComponent(JComponent component, int x, int y);
 
 	protected GridBagConstraints position(int x, int y, int w,

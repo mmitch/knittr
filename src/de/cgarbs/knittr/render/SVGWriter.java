@@ -17,13 +17,13 @@ import de.cgarbs.lib.exception.DataException;
 
 /**
  * SVG rendering backend
- * 
+ *
  * @author mitch
  *
  */
 public class SVGWriter extends AbstractRenderer
 {
-	
+
 	public SVGWriter(Project project) throws IOException, DataException
 	{
 		super(project);
@@ -39,24 +39,24 @@ public class SVGWriter extends AbstractRenderer
 		try
 		{
 			// RENDER WHOLE PAGE
-			{ 
+			{
 				SVGGraphics2D svg = renderPage(0, 0, r.getWidth(), r.getHeight(), 0, 0);
-	
+
 				// write SVG to target file
 				svg.stream(((File)p.getValue(Project.TARGET_FILE)).getAbsolutePath(), true);
 			}
-			
+
 			// RENDER MULTIPAGE
 			{
 				String filename = ((File)p.getValue(Project.TARGET_FILE)).getAbsolutePath();
 				filename = filename.replace(".svg", "");
-				
+
 				ensurePortrait();
-				
+
 				// DIN A aspect ratio - landscape format
 				double pageAspect  = (double)getUsablePageWidthMM() / (double)getUsablePageHeightMM(); // landscape
-				double pixelAspect = (double) getScaleX(p) / (double) getScaleY(p); 
-				
+				double pixelAspect = (double) getScaleX(p) / (double) getScaleY(p);
+
 				int pageHeight = (int) Math.floor(r.getWidth() * pageAspect * pixelAspect);
 				// calculate height of last page
 				int lastPageHeight = r.getHeight() % pageHeight;
@@ -76,9 +76,9 @@ public class SVGWriter extends AbstractRenderer
 					{
 						height = r.getHeight() - y;
 					}
-					
+
 					SVGGraphics2D svg = renderPage(0, y, r.getWidth(), height, 0, r.getHeight() - pageHeight - y);
-					
+
 					svg.stream(filename + "." + pageNo + ".svg", true);
 				}
 			}
@@ -99,7 +99,7 @@ public class SVGWriter extends AbstractRenderer
 
 	/**
 	 * renders a single page
-	 * 
+	 *
 	 * @param X x start position to render
 	 * @param Y y start position to render
 	 * @param W width to render
@@ -107,15 +107,15 @@ public class SVGWriter extends AbstractRenderer
 	 * @param C columns offset of rendered page
 	 * @param R row offset of rendered page
 	 * @return rendered page
-	 * @throws DataException 
+	 * @throws DataException
 	 */
 	private SVGGraphics2D renderPage(int X, int Y, int W, int H, int C, int R) throws DataException
 	{
-		
+
 		// init variables
 		int[] rgb = new int[4];
 		SVGGraphics2D svg = initSVG();
-		
+
 		// cache values
 
 		// FIXME better use doubles? or set TOTAL_SCALE to higher value?
@@ -150,7 +150,7 @@ public class SVGWriter extends AbstractRenderer
 		svg.rotate(-Math.PI/2, center, center);
 
 		// scale to fit page contents
-		factor = (double) (getUsablePageHeightMM()-getPageBordersMM()) / (double) MAX_XT * factor; // we scale to fit on X, so take this as the factor 
+		factor = (double) (getUsablePageHeightMM()-getPageBordersMM()) / (double) MAX_XT * factor; // we scale to fit on X, so take this as the factor
 		svg.scale(factor, factor); // keep aspect ratio, same factor in both dimensions
 
 		// render pixels into squares
@@ -182,7 +182,7 @@ public class SVGWriter extends AbstractRenderer
 			svg.setPaint(lastColor);
 			svg.fill(new Rectangle( lastXt, yt, MAX_XT - lastXt, SCALE_Y));
 		}
-		
+
 		// thin grid
 		svg.setPaint(GRIDCOLOR);
 		for (int xs=X, xt=0, col=C+W; xs<X+W; xs++, xt+=SCALE_X, col--)
@@ -222,7 +222,7 @@ public class SVGWriter extends AbstractRenderer
 		// texts
 		svg.setFont(new Font((String) p.getValue(Project.FONTNAME), Font.BOLD, SCALE_Y - OFFSET * 2));
 		svg.setPaint(TEXTCOLOR);
-					
+
 		for (int xs=X, xt=0, col=C+W; xs<X+W; xs++, xt+=SCALE_X, col--)
 		{
 			if (col % GRIDTEXTMOD == 0)
@@ -230,7 +230,7 @@ public class SVGWriter extends AbstractRenderer
 				svg.drawString(String.valueOf(col), xt + OFFSET, MAX_YT  - OFFSET);
 				svg.drawString(String.valueOf(col), xt + OFFSET, SCALE_Y - OFFSET);
 			}
-		}			
+		}
 		for (int ys=Y, yt=0, row=R+H+1; ys<Y+H; ys++, yt+=SCALE_Y, row--)
 		{
 			if (row % GRIDTEXTMOD == 1)
@@ -271,13 +271,13 @@ public class SVGWriter extends AbstractRenderer
 	double getScaleX(Project p) throws DataException
 	{
 		double scale = (Integer) p.getValue(Project.TOTALSCALE);
-		double value = (Integer) p.getValue(Project.MASCHEN); 
+		double value = (Integer) p.getValue(Project.MASCHEN);
 		return scale / value;
 	}
 	double getScaleY(Project p) throws DataException
 	{
 		double scale = (Integer) p.getValue(Project.TOTALSCALE);
-		double value = (Integer) p.getValue(Project.REIHEN); 
+		double value = (Integer) p.getValue(Project.REIHEN);
 		return scale / value;
 	}
 }

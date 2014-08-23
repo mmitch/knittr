@@ -9,7 +9,7 @@ import de.cgarbs.lib.exception.DataException;
 public class FileAttribute extends DataAttribute
 {
 	private File value;
-	
+
 	private final boolean mustExist;
 	private final boolean mustRead;
 	private final boolean mustWrite;
@@ -36,12 +36,12 @@ public class FileAttribute extends DataAttribute
 			this.mustWrite = mustWrite;
 			return this;
 		}
-		
+
 		private boolean mustExist = false;
 		private boolean mustRead  = false;
 		private boolean mustWrite = false;
 	}
-	
+
 	public static Builder builder()
 	{
 		return new Builder();
@@ -95,11 +95,11 @@ public class FileAttribute extends DataAttribute
 	protected void validate() throws DataException
 	{
 		super.validate(value);
-		
+
 		boolean exists   = value.exists();
 		boolean writable = value.canWrite();
 		boolean readable = value.canRead();
-		
+
 		if (mustExist && ! exists)
 		{
 			throw new DataException(

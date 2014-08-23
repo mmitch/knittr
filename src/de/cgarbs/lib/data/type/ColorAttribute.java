@@ -17,7 +17,7 @@ public class ColorAttribute extends DataAttribute
 			return new ColorAttribute(this);
 		}
 	}
-	
+
 	public static Builder builder()
 	{
 		return new Builder();

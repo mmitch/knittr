@@ -13,12 +13,12 @@ public class IntAttribute extends NumberAttribute
 			return new IntAttribute(this);
 		}
 	}
-	
+
 	public static Builder builder()
 	{
 		return new Builder();
 	}
-	
+
 	private IntAttribute(Builder builder)
 	{
 		super(builder);

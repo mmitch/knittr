@@ -6,10 +6,10 @@ import java.util.Map;
 public class DataException extends Exception
 {
 	private static final long serialVersionUID = -2514745080334864317L;
-	
+
 	private static final Map<ERROR, String> ERRORTEXT = new HashMap<ERROR, String>();
 	private ERROR error = ERROR.UNDEFINED;
-	
+
 	public enum ERROR {
 		UNDEFINED,
 		DUPLICATE_ATTRIBUTE,
@@ -27,24 +27,24 @@ public class DataException extends Exception
 		ERRORTEXT.put(ERROR.INVALID_VALUE, "invalid value");
 		ERRORTEXT.put(ERROR.VALIDATION_ERROR, "validation error");
 	};
-	
+
 	public DataException(ERROR error)
 	{
 		this.error = error;
 	}
-	
+
 	public DataException(ERROR error, String message)
 	{
 		super(message);
 		this.error = error;
 	}
-	
+
 	public DataException(ERROR error, String message, Throwable t)
 	{
 		super(message, t);
 		this.error = error;
 	}
-	
+
 	@Override
 	public String getMessage()
 	{
@@ -60,7 +60,7 @@ public class DataException extends Exception
 	{
 		return error;
 	}
-	
+
 	public DataException prependMessage(String prefix)
 	{
 		return new DataException(

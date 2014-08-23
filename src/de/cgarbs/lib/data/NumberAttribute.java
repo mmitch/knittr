@@ -8,7 +8,7 @@ public abstract class NumberAttribute extends DataAttribute
 
 	private final Number minValue;
 	private final Number maxValue;
-	
+
 	// Builder pattern start
 	public abstract static class Builder<N extends Number> extends DataAttribute.Builder<Builder<N>>
 	{
@@ -22,18 +22,18 @@ public abstract class NumberAttribute extends DataAttribute
 			this.maxValue = maxValue;
 			return this;
 		}
-		
+
 		private Number minValue;
 		private Number maxValue;
 	}
-	
+
 	protected NumberAttribute(Builder<?> builder)
 	{
 		super(builder);
 		minValue = builder.minValue;
 		maxValue = builder.maxValue;
 	}
-	
+
 	// Builder pattern end
 
 	@Override
@@ -46,9 +46,9 @@ public abstract class NumberAttribute extends DataAttribute
 	protected void validate() throws DataException
 	{
 		super.validate(value);
-		
+
 		double dvalue = value.doubleValue();
-		
+
 		if (minValue != null && dvalue < minValue.doubleValue())
 		{
 			throw new DataException(

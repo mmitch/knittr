@@ -5,7 +5,7 @@ TODO:
 - i18n
   - property handling for both app and lib (exceptions, validation)
   - prepend with EXC_, LBL_, TXT_, ...
-  
+
 - validation
   - message footer
   - validate before setValue
@@ -20,9 +20,9 @@ TODO:
 
 - serialization
 
-- editable attribute for all attribute types 
+- editable attribute for all attribute types
 
 === GLUE ===
 
 - dirty/clean flag
-  - keep copy of model in clean state, use equals 
+  - keep copy of model in clean state, use equals

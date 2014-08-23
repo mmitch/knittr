@@ -5,9 +5,9 @@ import de.cgarbs.lib.exception.DataException;
 
 public class FloatAttribute extends NumberAttribute
 {
-	
+
 	// FIXME add decimal places
-	
+
 	// Builder pattern start
 	public static class Builder extends NumberAttribute.Builder<Float>
 	{
@@ -16,12 +16,12 @@ public class FloatAttribute extends NumberAttribute
 			return new FloatAttribute(this);
 		}
 	}
-	
+
 	public static Builder builder()
 	{
 		return new Builder();
 	}
-	
+
 	private FloatAttribute(Builder builder)
 	{
 		super(builder);

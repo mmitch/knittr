@@ -21,13 +21,13 @@ import de.cgarbs.lib.glue.type.StringBinding;
 public class Glue<T extends DataModel>
 {
 	List<Binding> bindings = new ArrayList<Binding>();
-	T model;	
-	
+	T model;
+
 	public Glue(T model)
 	{
 		this.model = model;
 	}
-	
+
 	public Binding addBinding(String key) throws GlueException, DataException
 	{
 		// FIXME catch duplicate bindings (same key)
@@ -63,7 +63,7 @@ public class Glue<T extends DataModel>
 		bindings.add(binding);
 		return binding;
 	}
-	
+
 	public void syncToView()
 	{
 		for (Binding binding: bindings)
@@ -71,7 +71,7 @@ public class Glue<T extends DataModel>
 			binding.syncToView();
 		}
 	}
-	
+
 	public void syncToModel() throws DataException
 	{
 		for (Binding binding: bindings)
@@ -79,9 +79,9 @@ public class Glue<T extends DataModel>
 			binding.syncToModel();
 		}
 	}
-	
+
 	// FIXME check if syncToModel()+getModel() should be combined
-	
+
 	public T getModel()
 	{
 		return model;

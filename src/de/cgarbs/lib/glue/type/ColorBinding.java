@@ -17,7 +17,7 @@ public class ColorBinding extends Binding
 {
 	protected JPanel jPanel;
 	protected JButton jButton;
-	
+
 	public ColorBinding(DataAttribute attribute)
 	{
 		super(attribute);
@@ -47,7 +47,7 @@ public class ColorBinding extends Binding
 			{
 				Color newColor = JColorChooser.showDialog(
 						jButton,
-						"choose color", // FIXME i18n  
+						"choose color", // FIXME i18n
 						jPanel.getBackground());
 				if (newColor != null)
 				{
@@ -61,5 +61,5 @@ public class ColorBinding extends Binding
 		combiPanel.add(jButton);
 		return combiPanel;
 	}
-	
+
 }

@@ -8,7 +8,7 @@ import de.cgarbs.lib.exception.DataException;
 abstract public class DataModel
 {
 	private Map<String, DataAttribute> attributes = new LinkedHashMap<String, DataAttribute>();
-	
+
 	public void addAttribute(String key, DataAttribute attribute) throws DataException
 	{
 		if (attributes.containsKey(key))
@@ -18,9 +18,9 @@ abstract public class DataModel
 					key
 					);
 		}
-		
+
 		String newAttributeName = getModelName() + "." + key;
-		
+
 		if (attribute.getAttributeName() != null)
 		{
 			throw new DataException(
@@ -31,7 +31,7 @@ abstract public class DataModel
 		attribute.setAttributeName(newAttributeName);
 		attributes.put(key, attribute);
 	}
-	
+
 	public void setValue(String key, Object value) throws DataException
 	{
 		checkForAttribute(key);
@@ -44,7 +44,7 @@ abstract public class DataModel
 			throw dex.prependMessage("attribute " + key);
 		}
 	}
-	
+
 	/**
 	 * FIXME return Object -> not type safe!
 	 */
@@ -52,13 +52,13 @@ abstract public class DataModel
 	{
 		return getAttribute(key).getValue();
 	}
-	
+
 	public DataAttribute getAttribute(String key) throws DataException
 	{
 		checkForAttribute(key);
 		return attributes.get(key);
 	}
-	
+
 	private void checkForAttribute(String key) throws DataException
 	{
 		if (!attributes.containsKey(key))
@@ -69,8 +69,8 @@ abstract public class DataModel
 					);
 		}
 	}
-	
+
 	abstract public String getModelName();
-	
+
 	// FIXME -> toString() bauen!
 }

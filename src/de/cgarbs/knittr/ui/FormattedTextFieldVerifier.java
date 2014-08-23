@@ -44,7 +44,7 @@ class FormattedTextFieldVerifier extends InputVerifier
 
 	/**
 	 * get the default color for a textfield
-	 * 
+	 *
 	 * @return the color
 	 */
 	Color getColorTextFieldOK()
@@ -54,7 +54,7 @@ class FormattedTextFieldVerifier extends InputVerifier
 
 	/**
 	 * get the error color for a textfield
-	 * 
+	 *
 	 * @return the color
 	 */
 	Color getColorTextFieldERROR()

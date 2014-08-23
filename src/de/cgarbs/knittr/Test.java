@@ -26,20 +26,20 @@ public class Test
 			Project p = new Project();
 			new SVGWriter(p).render();
 			System.out.println("default rendered");
-			
+
 			PDFTranscoder t = new PDFTranscoder();
 			TranscoderInput input = new TranscoderInput(new FileInputStream(new File("/tmp/test.svg")));
 			TranscoderOutput output = new TranscoderOutput(new FileOutputStream(new File("/tmp/test.pdf")));
 			t.transcode(input, output);
 			System.out.println("default PDF rendered");
-			
+
 			p.setValue(Project.SOURCE_FILE, "/home/mitch/Dropbox/schnucki/RainbowDashStrick/Rainbowdashvornefertig.png");
 			p.setValue(Project.TARGET_FILE, "/home/mitch/Dropbox/schnucki/RainbowDashStrick/Rainbowdashvornefertig.svg");
 			p.setValue(Project.MASCHEN, 24);
 			p.setValue(Project.REIHEN, 34);
 			new SVGWriter(p).render();
 			System.out.println("dash front rendered");
-			
+
 			p.setValue(Project.SOURCE_FILE, "/home/mitch/Dropbox/schnucki/RainbowDashStrick/Rainbowdashhintenfertig.png");
 			p.setValue(Project.TARGET_FILE, "/home/mitch/Dropbox/schnucki/RainbowDashStrick/Rainbowdashhintenfertig.svg");
 			p.setValue(Project.MASCHEN, 24);

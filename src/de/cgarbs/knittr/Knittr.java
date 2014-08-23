@@ -6,7 +6,7 @@ import de.cgarbs.knittr.ui.MainWindow;
 
 public class Knittr
 {
-	
+
 	/**
 	 * Launch the application.
 	 */

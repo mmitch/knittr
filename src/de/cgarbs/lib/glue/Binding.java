@@ -23,7 +23,7 @@ abstract public class Binding
 	{
 		return jLabel;
 	}
-	
+
 	public JComponent getJData()
 	{
 		return jData;
@@ -35,10 +35,10 @@ abstract public class Binding
 		this.jLabel = createJLabel(attribute.getAttributeName());
 		this.jData  = createDataEntryComponent();
 	}
-	
+
 	abstract protected JComponent createDataEntryComponent(); // FIXME NAME cdec <-> JData
 
-	
+
 	private JLabel createJLabel(String label)
 	{
 		return new JLabel(label);

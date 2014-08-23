@@ -9,7 +9,7 @@ public class StringAttribute extends DataAttribute
 
 	private final Integer minLength;
 	private final Integer maxLength;
-	
+
 	// Builder pattern start
 	public static class Builder extends DataAttribute.Builder<Builder>
 	{
@@ -27,11 +27,11 @@ public class StringAttribute extends DataAttribute
 			this.maxLength = maxLength;
 			return this;
 		}
-		
+
 		private Integer minLength;
 		private Integer maxLength;
 	}
-	
+
 	public static Builder builder()
 	{
 		return new Builder();

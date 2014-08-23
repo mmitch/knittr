@@ -14,7 +14,7 @@ import de.cgarbs.lib.exception.DataException;
 
 /**
  * base class for rendering backends
- * 
+ *
  * @author mitch
  *
  */
@@ -26,11 +26,11 @@ public abstract class AbstractRenderer
 
 	// MAGIC CONSTANT - can this change? where does this come from?
 	protected double BATIK_DPI = 96;
-	
+
 	/**
 	 * Default constructor for a renderer
-	 * @throws IOException 
-	 * @throws DataException 
+	 * @throws IOException
+	 * @throws DataException
 	 */
 	public AbstractRenderer(Project project) throws IOException, DataException
 	{
@@ -38,24 +38,24 @@ public abstract class AbstractRenderer
 		bi = getSourceImage();
 		r = bi.getRaster();
 	}
-	
+
 	/**
 	 * renders a whole project
 	 * @param p the project
 	 */
 	abstract public void render();
-	
+
 	/**
 	 * reads the source image from the project
-	 * @throws IOException 
-	 * @throws DataException 
+	 * @throws IOException
+	 * @throws DataException
 	 * @returns the source image
 	 */
 	BufferedImage getSourceImage() throws IOException, DataException
 	{
 		return ImageIO.read((File)p.getValue(Project.SOURCE_FILE));
 	}
-	
+
 	/**
 	 * rotates the image into portrait mode if needed
 	 */
@@ -73,7 +73,7 @@ public abstract class AbstractRenderer
 			at.rotate(Math.PI/2, 0, 0);
 			Graphics2D g = biNew.createGraphics();
 			g.drawImage(bi, at, null);
-		
+
 			bi = biNew;
 			r = bi.getRaster();
 		}
