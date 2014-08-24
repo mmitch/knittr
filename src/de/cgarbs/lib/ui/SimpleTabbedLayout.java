@@ -1,8 +1,11 @@
 package de.cgarbs.lib.ui;
 
+import java.awt.Component;
+import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.List;
 
+import javax.swing.Box;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -31,6 +34,17 @@ public class SimpleTabbedLayout extends AutoLayout
 					element.addToComponent(panel,  0,  line);
 					line++;
 				}
+
+				Component remainder = Box.createGlue();
+				GridBagConstraints gbc = new GridBagConstraints();
+				gbc.gridx = 0;
+				gbc.gridy = line;
+				gbc.gridwidth = 2;
+				gbc.gridheight = 1;
+				gbc.weightx = 1;
+				gbc.weighty = 1;
+				gbc.fill = GridBagConstraints.VERTICAL;
+				panel.add(remainder, gbc);
 
 				component.add(group.getTitle(), panel);
 			}
