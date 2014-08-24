@@ -1,5 +1,6 @@
 package de.cgarbs.knittr.data;
 import java.awt.Color;
+import java.io.File;
 
 import de.cgarbs.lib.data.DataModel;
 import de.cgarbs.lib.data.type.ColorAttribute;
@@ -8,6 +9,7 @@ import de.cgarbs.lib.data.type.FloatAttribute;
 import de.cgarbs.lib.data.type.IntAttribute;
 import de.cgarbs.lib.data.type.StringAttribute;
 import de.cgarbs.lib.exception.DataException;
+import de.cgarbs.lib.exception.ValidationError;
 
 
 public class Project extends DataModel
@@ -74,6 +76,31 @@ public class Project extends DataModel
 	public String getModelName()
 	{
 		return "KnittrProject";
+	}
+
+	@Override
+	public void additionalValidation() throws ValidationError
+	{
+		super.additionalValidation();
+
+		try
+		{
+			File target = (File) getValue(TARGET_FILE);
+			File source = (File) getValue(SOURCE_FILE);
+			if (target != null && source != null
+					&& target.getAbsoluteFile().equals(source.getAbsoluteFile()))
+			{
+				throw new ValidationError(
+						getAttribute(TARGET_FILE),
+						"target and source file are the same" // FIXME i18n
+						);
+			}
+		}
+		catch (DataException e)
+		{
+			// FIXME ignore? don't ignore?
+		}
+
 	}
 
 }

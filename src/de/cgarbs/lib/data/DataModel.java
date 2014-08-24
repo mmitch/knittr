@@ -123,9 +123,24 @@ abstract public class DataModel implements Serializable
 				ex.addValidationError(e);
 			}
 		}
+
+		try
+		{
+			additionalValidation();
+		}
+		catch (ValidationError e)
+		{
+			ex.addValidationError(e);
+		}
+
 		if (! ex.getValidationErrors().isEmpty())
 		{
 			throw ex;
 		}
+	}
+
+	public void additionalValidation() throws ValidationError
+	{
+		// NOP, to be overwritten in anonymous subclasses
 	}
 }

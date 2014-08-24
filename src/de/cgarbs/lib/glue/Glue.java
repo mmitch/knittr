@@ -121,6 +121,16 @@ public class Glue<T extends DataModel>
 				}
 			}
 		}
+
+		try
+		{
+			model.additionalValidation();
+		}
+		catch (ValidationError e)
+		{
+			ex.addValidationError(e);
+		}
+
 		if (! ex.getValidationErrors().isEmpty())
 		{
 			throw ex;
