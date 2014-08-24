@@ -3,6 +3,7 @@ package de.cgarbs.lib.data.type;
 import java.io.File;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -57,7 +58,7 @@ public class FileAttribute extends DataAttribute
 		private boolean mustExist = false;
 		private boolean mustRead  = false;
 		private boolean mustWrite = false;
-		private ArrayList<FileFilter> filefilters = new ArrayList<FileFilter>();
+		private List<FileFilter> filefilters = new ArrayList<FileFilter>();
 	}
 
 	public static Builder builder()
