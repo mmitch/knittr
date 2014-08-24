@@ -13,7 +13,7 @@ abstract public class DataAttribute implements Serializable
 	private static final long serialVersionUID = 1L;
 
 
-	private final boolean nullable;
+	private transient final boolean nullable;
 	private String attributeName;
 
 	abstract public void setValue(Object newValue) throws DataException;

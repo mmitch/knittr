@@ -11,8 +11,8 @@ public abstract class NumberAttribute extends DataAttribute
 
 	protected Number value;
 
-	private final Number minValue;
-	private final Number maxValue;
+	private transient final Number minValue;
+	private transient final Number maxValue;
 
 	// Builder pattern start
 	public abstract static class Builder<N extends Number> extends DataAttribute.Builder<Builder<N>>

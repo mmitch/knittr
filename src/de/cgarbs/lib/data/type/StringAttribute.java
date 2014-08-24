@@ -13,8 +13,8 @@ public class StringAttribute extends DataAttribute
 
 	private String value;
 
-	private final Integer minLength;
-	private final Integer maxLength;
+	private transient final Integer minLength;
+	private transient final Integer maxLength;
 
 	// Builder pattern start
 	public static class Builder extends DataAttribute.Builder<Builder>
