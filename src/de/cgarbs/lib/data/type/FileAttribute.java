@@ -2,6 +2,10 @@ package de.cgarbs.lib.data.type;
 
 import java.io.File;
 import java.net.URI;
+import java.util.ArrayList;
+
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import de.cgarbs.lib.data.DataAttribute;
 import de.cgarbs.lib.exception.DataException;
@@ -18,6 +22,7 @@ public class FileAttribute extends DataAttribute
 	private final boolean mustExist;
 	private final boolean mustRead;
 	private final boolean mustWrite;
+	private final FileFilter[] fileFilters;
 
 	// Builder pattern start
 	public static class Builder extends DataAttribute.Builder<Builder>
@@ -41,10 +46,18 @@ public class FileAttribute extends DataAttribute
 			this.mustWrite = mustWrite;
 			return this;
 		}
+		public Builder addFileFilter(String name, String... extensions)
+		{
+			this.filefilters.add(
+					new FileNameExtensionFilter(name, extensions)
+					);
+			return this;
+		}
 
 		private boolean mustExist = false;
 		private boolean mustRead  = false;
 		private boolean mustWrite = false;
+		private ArrayList<FileFilter> filefilters = new ArrayList<FileFilter>();
 	}
 
 	public static Builder builder()
@@ -55,9 +68,10 @@ public class FileAttribute extends DataAttribute
 	private FileAttribute(Builder builder)
 	{
 		super(builder);
-		this.mustExist = builder.mustExist;
-		this.mustRead  = builder.mustRead;
-		this.mustWrite = builder.mustWrite;
+		this.mustExist   = builder.mustExist;
+		this.mustRead    = builder.mustRead;
+		this.mustWrite   = builder.mustWrite;
+		this.fileFilters = builder.filefilters.toArray(new FileFilter[0]);
 	}
 	// Builder pattern end
 
@@ -126,6 +140,11 @@ public class FileAttribute extends DataAttribute
 					"file not writable: " + value
 					);
 		}
+	}
+
+	public FileFilter[] getFileFilters()
+	{
+		return fileFilters;
 	}
 
 }

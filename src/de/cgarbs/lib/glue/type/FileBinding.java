@@ -10,8 +10,10 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileFilter;
 
 import de.cgarbs.lib.data.DataAttribute;
+import de.cgarbs.lib.data.type.FileAttribute;
 import de.cgarbs.lib.exception.DataException;
 import de.cgarbs.lib.glue.TextFieldBinding;
 
@@ -48,6 +50,19 @@ public class FileBinding extends TextFieldBinding
 			public void actionPerformed(ActionEvent arg0)
 			{
 				JFileChooser fc = new JFileChooser();
+				boolean first = true;
+				for (FileFilter fileFilter: ((FileAttribute)attribute).getFileFilters())
+				{
+					if (first)
+					{
+						fc.setFileFilter(fileFilter);
+						first = false;
+					}
+					else
+					{
+						fc.addChoosableFileFilter(fileFilter);
+					}
+				}
 				fc.setSelectedFile(getViewValue());
 				if (fc.showDialog(
 						jButton,

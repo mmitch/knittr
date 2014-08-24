@@ -18,6 +18,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import de.cgarbs.knittr.data.Project;
 import de.cgarbs.knittr.render.SVGWriter;
@@ -249,6 +251,8 @@ public class MainWindow extends JFrame
 	private File chooseFile(String label)
 	{
 		JFileChooser fc = new JFileChooser();
+		FileFilter knit = new FileNameExtensionFilter("knittr projects", "*.knit");
+		fc.setFileFilter(knit);
 		if (currentFile != null)
 		{
 			fc.setSelectedFile(currentFile);
