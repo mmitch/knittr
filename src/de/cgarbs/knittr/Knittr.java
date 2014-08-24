@@ -27,14 +27,17 @@ public class Knittr
 			if (args.length == 1)
 			{
 				System.out.println("Using commandline argument 1 as file name");
-				f = new File(args[0]);
+
+				// convert to absolute path
+				f = new File(args[0]).getAbsoluteFile();
+
 				if (! f.exists())
 				{
 					System.err.println("File does not exist!");
 				}
 				else if (! f.canRead())
 				{
-					System.err.println("File is not readable exist!");
+					System.err.println("File is not readable!");
 				}
 				else
 				{
