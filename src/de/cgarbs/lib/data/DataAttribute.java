@@ -3,6 +3,7 @@ package de.cgarbs.lib.data;
 import java.io.Serializable;
 
 import de.cgarbs.lib.exception.DataException;
+import de.cgarbs.lib.exception.ValidationError;
 
 abstract public class DataAttribute implements Serializable
 {
@@ -18,7 +19,7 @@ abstract public class DataAttribute implements Serializable
 	abstract public void setValue(Object newValue) throws DataException;
 	abstract public Object getValue();
 
-	abstract protected void validate() throws DataException;
+	abstract public void validate() throws ValidationError;
 
 	// Builder pattern start
 	public abstract static class Builder<T extends Builder<?>>
@@ -41,12 +42,12 @@ abstract public class DataAttribute implements Serializable
 	}
 	// Builder pattern end
 
-	protected void validate(Object value) throws DataException
+	protected void validate(Object value) throws ValidationError
 	{
 		if (! nullable && value == null)
 		{
-			throw new DataException(
-					DataException.ERROR.INVALID_VALUE,
+			throw new ValidationError(
+					this,
 					"null not allowed"
 					);
 		}

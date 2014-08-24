@@ -9,7 +9,6 @@ TODO:
   - prepend with EXC_, LBL_, TXT_, ...
 
 - validation
-  - validation error text box before printing
   - later: print validation error for every element
     - needs message footer
     - needs parseValue()
@@ -21,10 +20,6 @@ TODO:
     - 2 columns with auto-placement
 
 === DATA ===
-
-- validation
-  - don't validate within setValue, use extra method
-  - validate whole model, get list of exceptions back
 
 - "editable" attribute for all attribute types
 

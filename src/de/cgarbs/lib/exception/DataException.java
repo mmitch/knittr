@@ -15,8 +15,7 @@ public class DataException extends Exception
 		DUPLICATE_ATTRIBUTE,
 		DUPLICATE_USAGE,
 		UNKNOWN_ATTRIBUTE,
-		INVALID_VALUE,
-		VALIDATION_ERROR
+		INVALID_VALUE
 	}
 
 	static {
@@ -25,7 +24,6 @@ public class DataException extends Exception
 		ERRORTEXT.put(ERROR.DUPLICATE_USAGE, "attribute used in multiple models");
 		ERRORTEXT.put(ERROR.UNKNOWN_ATTRIBUTE, "unknown attribute");
 		ERRORTEXT.put(ERROR.INVALID_VALUE, "invalid value");
-		ERRORTEXT.put(ERROR.VALIDATION_ERROR, "validation error");
 	};
 
 	public DataException(ERROR error)
@@ -55,6 +53,11 @@ public class DataException extends Exception
 			message += "::" + super.getMessage();
 		}
 		return message;
+	}
+
+	public String getMessageOnly()
+	{
+		return super.getMessage();
 	}
 
 	public ERROR getError()

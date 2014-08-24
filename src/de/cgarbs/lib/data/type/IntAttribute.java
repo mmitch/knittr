@@ -46,7 +46,15 @@ public class IntAttribute extends NumberAttribute
 		{
 			try
 			{
-				value = Integer.valueOf(String.valueOf(newValue));
+				String s = String.valueOf(newValue);
+				if (s.length() == 0)
+				{
+					value = 0;
+				}
+				else
+				{
+					value = Integer.valueOf(s);
+				}
 			}
 			catch (NumberFormatException nfe)
 			{
@@ -57,6 +65,5 @@ public class IntAttribute extends NumberAttribute
 						);
 			}
 		}
-		validate();
 	}
 }

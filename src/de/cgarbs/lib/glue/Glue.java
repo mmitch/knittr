@@ -12,6 +12,8 @@ import de.cgarbs.lib.data.type.IntAttribute;
 import de.cgarbs.lib.data.type.StringAttribute;
 import de.cgarbs.lib.exception.DataException;
 import de.cgarbs.lib.exception.GlueException;
+import de.cgarbs.lib.exception.ValidationError;
+import de.cgarbs.lib.exception.ValidationErrorList;
 import de.cgarbs.lib.glue.type.ColorBinding;
 import de.cgarbs.lib.glue.type.FileBinding;
 import de.cgarbs.lib.glue.type.FloatBinding;
@@ -85,5 +87,43 @@ public class Glue<T extends DataModel>
 	public T getModel()
 	{
 		return model;
+	}
+
+	public void validate() throws ValidationErrorList
+	{
+		ValidationErrorList ex = new ValidationErrorList(getModel());
+		for (Binding binding: bindings)
+		{
+			Object oldValue = binding.attribute.getValue();
+			try
+			{
+				binding.syncToModel();
+				binding.attribute.validate();
+			}
+			catch (ValidationError e)
+			{
+				ex.addValidationError(e);
+			}
+			catch (DataException e)
+			{
+				ex.addValidationError(binding.attribute, e);
+			}
+			finally
+			{
+				try
+				{
+					binding.attribute.setValue(oldValue);
+				}
+				catch (DataException e)
+				{
+					// well, if this fails, the value was broken from the start...
+					// can't do anything about it
+				}
+			}
+		}
+		if (! ex.getValidationErrors().isEmpty())
+		{
+			throw ex;
+		}
 	}
 }

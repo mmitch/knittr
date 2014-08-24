@@ -1,6 +1,6 @@
 package de.cgarbs.lib.data;
 
-import de.cgarbs.lib.exception.DataException;
+import de.cgarbs.lib.exception.ValidationError;
 
 public abstract class NumberAttribute extends DataAttribute
 {
@@ -48,7 +48,7 @@ public abstract class NumberAttribute extends DataAttribute
 	}
 
 	@Override
-	protected void validate() throws DataException
+	public void validate() throws ValidationError
 	{
 		super.validate(value);
 
@@ -56,15 +56,15 @@ public abstract class NumberAttribute extends DataAttribute
 
 		if (minValue != null && dvalue < minValue.doubleValue())
 		{
-			throw new DataException(
-					DataException.ERROR.INVALID_VALUE,
+			throw new ValidationError(
+					this,
 					"value too small: " + value + " < " + minValue
 					);
 		}
 		if (maxValue != null && dvalue > maxValue.doubleValue())
 		{
-			throw new DataException(
-					DataException.ERROR.INVALID_VALUE,
+			throw new ValidationError(
+					this,
 					"value too big: " + value + " > " + maxValue
 					);
 		}

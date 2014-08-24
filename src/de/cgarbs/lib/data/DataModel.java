@@ -12,6 +12,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import de.cgarbs.lib.exception.DataException;
+import de.cgarbs.lib.exception.ValidationError;
+import de.cgarbs.lib.exception.ValidationErrorList;
 
 abstract public class DataModel implements Serializable
 {
@@ -104,6 +106,26 @@ abstract public class DataModel implements Serializable
 		for (String key: d.attributes.keySet())
 		{
 			this.setValue(key, d.getValue(key));
+		}
+	}
+
+	public void validate() throws ValidationErrorList // FIXME: unneeded? remove?
+	{
+		ValidationErrorList ex = new ValidationErrorList(this);
+		for (DataAttribute attribute: attributes.values())
+		{
+			try
+			{
+				attribute.validate();
+			}
+			catch (ValidationError e)
+			{
+				ex.addValidationError(e);
+			}
+		}
+		if (! ex.getValidationErrors().isEmpty())
+		{
+			throw ex;
 		}
 	}
 }

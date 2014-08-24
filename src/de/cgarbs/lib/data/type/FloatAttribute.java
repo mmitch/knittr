@@ -48,7 +48,15 @@ public class FloatAttribute extends NumberAttribute
 		{
 			try
 			{
-				value = Float.valueOf(String.valueOf(newValue));
+				String s = String.valueOf(newValue);
+				if (s.length() == 0)
+				{
+					value = 0;
+				}
+				else
+				{
+					value = Float.valueOf(s);
+				}
 			}
 			catch (NumberFormatException nfe)
 			{
@@ -59,6 +67,5 @@ public class FloatAttribute extends NumberAttribute
 						);
 			}
 		}
-		validate();
 	}
 }

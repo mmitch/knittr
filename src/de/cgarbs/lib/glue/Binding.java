@@ -39,4 +39,9 @@ abstract public class Binding
 	{
 		return new JLabel(label);
 	}
+
+//	public DataAttribute getAttribute() // FIXME: why is the field attribute visible, it's protected?!
+//	{
+//		return attribute;
+//	}
 }

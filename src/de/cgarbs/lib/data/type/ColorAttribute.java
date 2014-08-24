@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import de.cgarbs.lib.data.DataAttribute;
 import de.cgarbs.lib.exception.DataException;
+import de.cgarbs.lib.exception.ValidationError;
 
 public class ColorAttribute extends DataAttribute
 {
@@ -58,7 +59,6 @@ public class ColorAttribute extends DataAttribute
 					"wrong type: " + newValue.getClass() + " != " + Color.class
 					);
 		}
-		validate();
 	}
 
 	@Override
@@ -68,7 +68,7 @@ public class ColorAttribute extends DataAttribute
 	}
 
 	@Override
-	protected void validate() throws DataException
+	public void validate() throws ValidationError
 	{
 		super.validate(value);
 	}

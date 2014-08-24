@@ -2,6 +2,7 @@ package de.cgarbs.lib.data.type;
 
 import de.cgarbs.lib.data.DataAttribute;
 import de.cgarbs.lib.exception.DataException;
+import de.cgarbs.lib.exception.ValidationError;
 
 public class StringAttribute extends DataAttribute
 {
@@ -65,7 +66,6 @@ public class StringAttribute extends DataAttribute
 		{
 			value = String.valueOf(newValue);
 		}
-		validate();
 	}
 
 	@Override
@@ -75,21 +75,21 @@ public class StringAttribute extends DataAttribute
 	}
 
 	@Override
-	protected void validate() throws DataException
+	public void validate() throws ValidationError
 	{
 		super.validate(value);
 		int length = (value == null ? 0 : value.length());
 		if (minLength != null && length < minLength)
 		{
-			throw new DataException(
-					DataException.ERROR.INVALID_VALUE,
+			throw new ValidationError(
+					this,
 					"string too short: " + length + " < " + minLength
 					);
 		}
 		if (maxLength != null && length > maxLength)
 		{
-			throw new DataException(
-					DataException.ERROR.INVALID_VALUE,
+			throw new ValidationError(
+					this,
 					"string too long: " + length + " > " + maxLength
 					);
 		}

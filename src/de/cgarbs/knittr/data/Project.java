@@ -39,22 +39,8 @@ public class Project extends DataModel
 		addAttribute(SOURCE_FILE, FileAttribute.builder().setNullable(false).setMustExist(true).setMustRead(true).addFileFilter("pixel graphics (PNG, GIF)", "*.gif", "*.png").build());
 		addAttribute(TARGET_FILE, FileAttribute.builder().setNullable(false).setMustWrite(true).addFileFilter("Scalable Vector Graphics (SVG)", "*.svg").build());
 
-		try
-		{
-			setValue(SOURCE_FILE, "resource/image_test.png");
-			setValue(TARGET_FILE, "/tmp/test.svg");
-		}
-		catch (DataException e)
-		{
-			if (e.getError() == DataException.ERROR.VALIDATION_ERROR)
-			{
-				// this is OK, perhaps the default file does not exist...
-			}
-			else
-			{
-				throw e;
-			}
-		}
+		setValue(SOURCE_FILE, "resource/image_test.png");
+		setValue(TARGET_FILE, "/tmp/test.svg");
 
 		// calculation
 		addAttribute(TOTALSCALE, IntAttribute.builder().setNullable(false).setMinValue(1).build());

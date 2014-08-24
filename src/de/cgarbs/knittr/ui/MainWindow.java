@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
@@ -25,6 +26,7 @@ import de.cgarbs.knittr.data.Project;
 import de.cgarbs.knittr.render.SVGWriter;
 import de.cgarbs.lib.exception.DataException;
 import de.cgarbs.lib.exception.GlueException;
+import de.cgarbs.lib.exception.ValidationErrorList;
 import de.cgarbs.lib.glue.Binding;
 import de.cgarbs.lib.glue.Glue;
 import de.cgarbs.lib.ui.SimpleTabbedLayout;
@@ -204,15 +206,27 @@ public class MainWindow extends JFrame
 			{
 				try
 				{
+					glue.validate();
 					glue.syncToModel();
 					new SVGWriter(glue.getModel()).render();
+					JOptionPane.showMessageDialog(
+							MainWindow.this,
+							"rendering successful"
+							);
 				}
 				catch (IOException e)
 				{
+					showError(e.getMessage());
 					e.printStackTrace();
 				}
 				catch (DataException e)
 				{
+					showError(e.getMessage());
+					e.printStackTrace();
+				}
+				catch (ValidationErrorList e)
+				{
+					showError(e.getErrorList());
 					e.printStackTrace();
 				}
 			}
@@ -246,6 +260,16 @@ public class MainWindow extends JFrame
 
 		// show data
 		glue.syncToView();
+	}
+
+	protected void showError(String message)
+	{
+		JOptionPane.showMessageDialog(
+				this,
+				message,
+				"Error",
+				JOptionPane.ERROR_MESSAGE
+				);
 	}
 
 	private File chooseFile(String label)

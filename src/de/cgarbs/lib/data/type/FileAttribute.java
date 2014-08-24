@@ -10,6 +10,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import de.cgarbs.lib.data.DataAttribute;
 import de.cgarbs.lib.exception.DataException;
+import de.cgarbs.lib.exception.ValidationError;
 
 public class FileAttribute extends DataAttribute
 {
@@ -102,7 +103,6 @@ public class FileAttribute extends DataAttribute
 					"wrong type: " + newValue.getClass() + " != " + File.class
 					);
 		}
-		validate();
 	}
 
 	@Override
@@ -112,7 +112,7 @@ public class FileAttribute extends DataAttribute
 	}
 
 	@Override
-	protected void validate() throws DataException
+	public void validate() throws ValidationError
 	{
 		super.validate(value);
 
@@ -122,22 +122,22 @@ public class FileAttribute extends DataAttribute
 
 		if (mustExist && ! exists)
 		{
-			throw new DataException(
-					DataException.ERROR.VALIDATION_ERROR,
+			throw new ValidationError(
+					this,
 					"file does not exist: " + value
 					);
 		}
 		if (mustRead && ! readable)
 		{
-			throw new DataException(
-					DataException.ERROR.VALIDATION_ERROR,
+			throw new ValidationError(
+					this,
 					"file not readable: " + value
 					);
 		}
 		if (mustWrite && exists && ! writable)
 		{
-			throw new DataException(
-					DataException.ERROR.VALIDATION_ERROR,
+			throw new ValidationError(
+					this,
 					"file not writable: " + value
 					);
 		}
