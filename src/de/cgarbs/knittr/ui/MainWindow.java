@@ -32,7 +32,7 @@ public class MainWindow extends JFrame
 
 	private File currentFile;
 
-	private Glue<Project> glue = new Glue<Project>(new Project());
+	private Glue<Project> glue;
 
 	/**
 	 *
@@ -47,10 +47,13 @@ public class MainWindow extends JFrame
 	 * @throws DataException
 	 * @throws GlueException
 	 */
-	public MainWindow() throws GlueException, DataException
+	public MainWindow(Project p, File f) throws GlueException, DataException
 	{
+		currentFile = f;
 
 		// add bindings
+		glue = new Glue<Project>(p);
+
 		Binding b_source_file = glue.addBinding(Project.SOURCE_FILE);
 		Binding b_target_file = glue.addBinding(Project.TARGET_FILE);
 
