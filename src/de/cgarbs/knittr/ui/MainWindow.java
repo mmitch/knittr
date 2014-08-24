@@ -275,7 +275,7 @@ public class MainWindow extends JFrame
 	private File chooseFile(String label)
 	{
 		JFileChooser fc = new JFileChooser();
-		FileFilter knit = new FileNameExtensionFilter("knittr projects", "*.knit");
+		FileFilter knit = new FileNameExtensionFilter("knittr projects", "knit");
 		fc.setFileFilter(knit);
 		if (currentFile != null)
 		{

@@ -36,8 +36,8 @@ public class Project extends DataModel
 	public Project() throws DataException
 	{
 		// IO
-		addAttribute(SOURCE_FILE, FileAttribute.builder().setNullable(false).setMustExist(true).setMustRead(true).addFileFilter("pixel graphics (PNG, GIF)", "*.gif", "*.png").build());
-		addAttribute(TARGET_FILE, FileAttribute.builder().setNullable(false).setMustWrite(true).addFileFilter("Scalable Vector Graphics (SVG)", "*.svg").build());
+		addAttribute(SOURCE_FILE, FileAttribute.builder().setNullable(false).setMustExist(true).setMustRead(true).addFileFilter("pixel graphics (PNG, GIF)", "gif", "png").build());
+		addAttribute(TARGET_FILE, FileAttribute.builder().setNullable(false).setMustWrite(true).addFileFilter("Scalable Vector Graphics (SVG)", "svg").build());
 
 		setValue(SOURCE_FILE, "resource/image_test.png");
 		setValue(TARGET_FILE, "/tmp/test.svg");
