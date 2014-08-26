@@ -10,6 +10,7 @@ import de.cgarbs.lib.data.type.IntAttribute;
 import de.cgarbs.lib.data.type.StringAttribute;
 import de.cgarbs.lib.exception.DataException;
 import de.cgarbs.lib.exception.ValidationError;
+import de.cgarbs.lib.i18n.Resource;
 
 
 public class Project extends DataModel
@@ -37,9 +38,11 @@ public class Project extends DataModel
 	 */
 	public Project() throws DataException
 	{
+		super(new Resource("de.cgarbs.knittr.resource.Project"));
+
 		// IO
-		addAttribute(SOURCE_FILE, FileAttribute.builder().setNullable(false).setMustExist(true).setMustRead(true).addFileFilter("pixel graphics (PNG, GIF)", "gif", "png").build());
-		addAttribute(TARGET_FILE, FileAttribute.builder().setNullable(false).setMustWrite(true).addFileFilter("Scalable Vector Graphics (SVG)", "svg").build());
+		addAttribute(SOURCE_FILE, FileAttribute.builder().setNullable(false).setMustExist(true).setMustRead(true).addFileFilter(getResource()._("FLT_source_files"), "gif", "png").build());
+		addAttribute(TARGET_FILE, FileAttribute.builder().setNullable(false).setMustWrite(true).addFileFilter(getResource()._("FLT_target_files"), "svg").build());
 
 		setValue(SOURCE_FILE, "resource/image_test.png");
 		setValue(TARGET_FILE, "/tmp/test.svg");

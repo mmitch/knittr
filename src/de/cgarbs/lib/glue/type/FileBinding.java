@@ -16,14 +16,15 @@ import de.cgarbs.lib.data.DataAttribute;
 import de.cgarbs.lib.data.type.FileAttribute;
 import de.cgarbs.lib.exception.DataException;
 import de.cgarbs.lib.glue.TextFieldBinding;
+import de.cgarbs.lib.i18n.Resource;
 
 public class FileBinding extends TextFieldBinding
 {
 	protected JButton jButton;
 
-	public FileBinding(DataAttribute attribute)
+	public FileBinding(DataAttribute attribute, Resource resource)
 	{
-		super(attribute);
+		super(attribute, resource);
 	}
 
 	@Override
@@ -64,6 +65,7 @@ public class FileBinding extends TextFieldBinding
 					}
 				}
 				fc.setSelectedFile(getViewValue());
+				fc.setDialogTitle("choose "+txtLabel); // FIXME i18n
 				if (fc.showDialog(
 						jButton,
 						"choose file") // FIXME i18n

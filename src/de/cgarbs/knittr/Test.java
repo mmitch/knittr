@@ -13,6 +13,7 @@ import org.apache.fop.svg.PDFTranscoder;
 import de.cgarbs.knittr.data.Project;
 import de.cgarbs.knittr.render.SVGWriter;
 import de.cgarbs.lib.exception.DataException;
+import de.cgarbs.lib.i18n.Resource;
 
 public class Test
 {
@@ -54,6 +55,14 @@ public class Test
 			p.setValue(Project.REIHEN, 34);
 			new SVGWriter(p).render();
 			System.out.println("dash back rendered");
+
+			System.out.println("resource tests:");
+			Resource R = new Resource("de.cgarbs.knittr.resource.Test");
+			System.out.println(R._("key1"));
+			System.out.println(R._("key2", "A", "B"));
+			System.out.println(R._("key2", "B", "A"));
+			System.out.println(R._("key3", "A", "A"));
+			System.out.println(R._("missingNO"));
 
 			System.out.println("test end");
 		}

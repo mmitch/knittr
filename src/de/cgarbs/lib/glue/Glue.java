@@ -19,6 +19,7 @@ import de.cgarbs.lib.glue.type.FileBinding;
 import de.cgarbs.lib.glue.type.FloatBinding;
 import de.cgarbs.lib.glue.type.IntBinding;
 import de.cgarbs.lib.glue.type.StringBinding;
+import de.cgarbs.lib.i18n.Resource;
 
 public class Glue<T extends DataModel>
 {
@@ -35,25 +36,26 @@ public class Glue<T extends DataModel>
 		// FIXME catch duplicate bindings (same key)
 		Binding binding;
 		DataAttribute attribute = model.getAttribute(key);
+		Resource resource = model.getResource();
 		if (attribute instanceof StringAttribute)
 		{
-			binding = new StringBinding(attribute);
+			binding = new StringBinding(attribute, resource);
 		}
 		else if (attribute instanceof IntAttribute)
 		{
-			binding = new IntBinding(attribute);
+			binding = new IntBinding(attribute, resource);
 		}
 		else if (attribute instanceof FloatAttribute)
 		{
-			binding = new FloatBinding(attribute);
+			binding = new FloatBinding(attribute, resource);
 		}
 		else if (attribute instanceof FileAttribute)
 		{
-			binding = new FileBinding(attribute);
+			binding = new FileBinding(attribute, resource);
 		}
 		else if (attribute instanceof ColorAttribute)
 		{
-			binding = new ColorBinding(attribute);
+			binding = new ColorBinding(attribute, resource);
 		}
 		else
 		{

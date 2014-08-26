@@ -5,8 +5,7 @@ TODO:
 - use SpringLayout instead of GridBagLayout
 
 - i18n
-  - property handling for both app and lib (exceptions, validation)
-  - prepend with EXC_, LBL_, TXT_, ...
+  - property handling for lib (exceptions, validation)
 
 - validation
   - later: print validation error for every element
@@ -27,3 +26,6 @@ TODO:
 
 - dirty/clean flag
   - keep copy of model in clean state, use equals
+
+- i18n
+  - localize number formats ("0.1" <-> "0,1")

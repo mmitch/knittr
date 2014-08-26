@@ -29,6 +29,7 @@ import de.cgarbs.lib.exception.GlueException;
 import de.cgarbs.lib.exception.ValidationErrorList;
 import de.cgarbs.lib.glue.Binding;
 import de.cgarbs.lib.glue.Glue;
+import de.cgarbs.lib.i18n.Resource;
 import de.cgarbs.lib.ui.SimpleTabbedLayout;
 
 public class MainWindow extends JFrame
@@ -45,6 +46,8 @@ public class MainWindow extends JFrame
 
 	private JPanel contentPane;
 
+	private Resource R;
+
 	/**
 	 * Create the frame.
 	 *
@@ -53,6 +56,8 @@ public class MainWindow extends JFrame
 	 */
 	public MainWindow(Project p, File f) throws GlueException, DataException
 	{
+		R = new Resource("de.cgarbs.knittr.resource.MainWindow");
+
 		currentFile = f;
 
 		// add bindings
@@ -88,15 +93,15 @@ public class MainWindow extends JFrame
 //		JComponent jthingie = SimpleVerticalLayout.builder()
 		JComponent jthingie = SimpleTabbedLayout.builder()
 //		JComponent jthingie = BorderedVerticalLayout.builder()
-				.startNextGroup("files")
+				.startNextGroup(R._("GRP_files"))  // FIXME move Resource to builder(), add "GRP_" automatically within Builder?
 				.addAttribute(b_source_file).addAttribute(b_target_file)
-				.startNextGroup("maschenprobe")
+				.startNextGroup(R._("GRP_maschenprobe"))
 				.addAttribute(b_maschen).addAttribute(b_reihen)
-				.startNextGroup("grid")
+				.startNextGroup(R._("GRP_grid"))
 				.addAttribute(b_gridtextmod).addAttribute(b_gridwidthbig).addAttribute(b_gridwidthsmall).addAttribute(b_gridcolor)
-				.startNextGroup("font")
+				.startNextGroup(R._("GRP_font"))
 				.addAttribute(b_textcolor).addAttribute(b_fontname).addAttribute(b_offset)
-				.startNextGroup("about")
+				.startNextGroup(R._("GRP_about"))
 				.addComponent(infoText)
 				.build();
 
@@ -121,7 +126,7 @@ public class MainWindow extends JFrame
 		GridBagLayout gbl_pnlActions = new GridBagLayout();
 		pnlActions.setLayout(gbl_pnlActions);
 
-		JButton btnLoad = new JButton("LOAD");
+		JButton btnLoad = new JButton(R._("BTN_load"));
 		GridBagConstraints gbc_btnLoad = new GridBagConstraints();
 		gbc_btnLoad.insets = new Insets(0, 0, 0, 5);
 		gbc_btnLoad.gridx = 0;
@@ -130,7 +135,7 @@ public class MainWindow extends JFrame
 		btnLoad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
-				File chosen = MainWindow.this.chooseFile("load project");
+				File chosen = MainWindow.this.chooseFile(R._("BTN_load_project"));
 				if (chosen != null)
 				{
 					currentFile = chosen;
@@ -159,7 +164,7 @@ public class MainWindow extends JFrame
 			}
 		});
 
-		JButton btnSave = new JButton("SAVE");
+		JButton btnSave = new JButton(R._("BTN_save"));
 		GridBagConstraints gbc_btnSave = new GridBagConstraints();
 		gbc_btnSave.insets = new Insets(0, 0, 0, 5);
 		gbc_btnSave.gridx = 1;
@@ -168,7 +173,7 @@ public class MainWindow extends JFrame
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
-				File chosen = MainWindow.this.chooseFile("save project");
+				File chosen = MainWindow.this.chooseFile(R._("BTN_save_project"));
 				if (chosen != null)
 				{
 					currentFile = chosen;
@@ -200,7 +205,7 @@ public class MainWindow extends JFrame
 		gbc_spacer1.fill = GridBagConstraints.HORIZONTAL;
 		pnlActions.add(Box.createGlue(), gbc_spacer1);
 
-		JButton btnRender = new JButton("Render to SVG");
+		JButton btnRender = new JButton(R._("BTN_render"));
 		btnRender.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0)
 			{
@@ -211,7 +216,7 @@ public class MainWindow extends JFrame
 					new SVGWriter(glue.getModel()).render();
 					JOptionPane.showMessageDialog(
 							MainWindow.this,
-							"rendering successful"
+							R._("TXT_render_success")
 							);
 				}
 				catch (IOException e)
@@ -245,7 +250,7 @@ public class MainWindow extends JFrame
 		gbc_spacer2.fill = GridBagConstraints.HORIZONTAL;
 		pnlActions.add(Box.createGlue(), gbc_spacer2);
 
-		JButton btnQuit = new JButton("QUIT");
+		JButton btnQuit = new JButton(R._("BTN_quit"));
 		GridBagConstraints gbc_btnQuit = new GridBagConstraints();
 		gbc_btnQuit.insets = new Insets(0, 0, 0, 5);
 		gbc_btnQuit.gridx = 5;
@@ -267,7 +272,7 @@ public class MainWindow extends JFrame
 		JOptionPane.showMessageDialog(
 				this,
 				message,
-				"Error",
+				R._("TIT_error"),
 				JOptionPane.ERROR_MESSAGE
 				);
 	}
@@ -275,13 +280,13 @@ public class MainWindow extends JFrame
 	private File chooseFile(String label)
 	{
 		JFileChooser fc = new JFileChooser();
-		FileFilter knit = new FileNameExtensionFilter("knittr projects", "knit");
+		FileFilter knit = new FileNameExtensionFilter(R._("FLT_knittr_projects"), "knit");
 		fc.setFileFilter(knit);
 		if (currentFile != null)
 		{
 			fc.setSelectedFile(currentFile);
 		}
-		if (fc.showDialog(MainWindow.this, label) // FIXME i18n
+		if (fc.showDialog(MainWindow.this, label)
 				== JFileChooser.APPROVE_OPTION)
 		{
 			return fc.getSelectedFile();

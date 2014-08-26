@@ -14,6 +14,7 @@ import java.util.Map;
 import de.cgarbs.lib.exception.DataException;
 import de.cgarbs.lib.exception.ValidationError;
 import de.cgarbs.lib.exception.ValidationErrorList;
+import de.cgarbs.lib.i18n.Resource;
 
 abstract public class DataModel implements Serializable
 {
@@ -24,6 +25,18 @@ abstract public class DataModel implements Serializable
 
 
 	private Map<String, DataAttribute> attributes = new LinkedHashMap<String, DataAttribute>();
+
+	private transient final Resource resource;
+
+	public DataModel(Resource resource)
+	{
+		this.resource = resource;
+	}
+
+	public Resource getResource()
+	{
+		return this.resource;
+	}
 
 	public void addAttribute(String key, DataAttribute attribute) throws DataException
 	{
