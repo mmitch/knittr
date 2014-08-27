@@ -77,7 +77,7 @@ public class SVGWriter extends AbstractRenderer
 						height = r.getHeight() - y;
 					}
 
-					SVGGraphics2D svg = renderPage(0, y, r.getWidth(), height, 0, r.getHeight() - pageHeight - y);
+					SVGGraphics2D svg = renderPage(0, y, r.getWidth(), height, 0, r.getHeight() - height - y);
 
 					svg.stream(filename + "." + pageNo + ".svg", true);
 				}
