@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 import de.cgarbs.knittr.data.Project;
 import de.cgarbs.knittr.ui.MainWindow;
