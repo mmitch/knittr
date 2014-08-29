@@ -34,26 +34,60 @@ public class Glue<T extends DataModel>
 	public Binding addBinding(String key) throws GlueException, DataException
 	{
 		// FIXME catch duplicate bindings (same key)
-		Binding binding;
 		DataAttribute attribute = model.getAttribute(key);
-		Resource resource = model.getResource();
 		if (attribute instanceof StringAttribute)
 		{
-			binding = new StringBinding(attribute, resource);
+			return addBinding(key, StringBinding.class);
 		}
 		else if (attribute instanceof IntAttribute)
 		{
-			binding = new IntBinding(attribute, resource);
+			return addBinding(key, IntBinding.class);
 		}
 		else if (attribute instanceof FloatAttribute)
 		{
-			binding = new FloatBinding(attribute, resource);
+			return addBinding(key, FloatBinding.class);
 		}
 		else if (attribute instanceof FileAttribute)
 		{
-			binding = new FileBinding(attribute, resource);
+			return addBinding(key, FileBinding.class);
 		}
 		else if (attribute instanceof ColorAttribute)
+		{
+			return addBinding(key, ColorBinding.class);
+		}
+		else
+		{
+			throw new GlueException(
+					GlueException.ERROR.BINDING_NOT_IMPLEMENTED,
+					"no binding exists for " + attribute.getClass()
+					);
+		}
+	}
+
+	// FIXME restrict clazz to subtype of Binding?
+	public Binding addBinding(String key, Class<?> clazz) throws GlueException, DataException
+	{
+		// FIXME catch duplicate bindings (same key)
+		Binding binding;
+		DataAttribute attribute = model.getAttribute(key);
+		Resource resource = model.getResource();
+		if (StringBinding.class.equals(clazz))
+		{
+			binding = new StringBinding(attribute, resource);
+		}
+		else if (IntBinding.class.equals(clazz))
+		{
+			binding = new IntBinding(attribute, resource);
+		}
+		else if (FloatBinding.class.equals(clazz))
+		{
+			binding = new FloatBinding(attribute, resource);
+		}
+		else if (FileBinding.class.equals(clazz))
+		{
+			binding = new FileBinding(attribute, resource);
+		}
+		else if (ColorBinding.class.equals(clazz))
 		{
 			binding = new ColorBinding(attribute, resource);
 		}
@@ -61,7 +95,7 @@ public class Glue<T extends DataModel>
 		{
 			throw new GlueException(
 					GlueException.ERROR.BINDING_NOT_IMPLEMENTED,
-					"no binding exists for " + attribute.getClass()
+					"no binding defined for " + clazz
 					);
 		}
 		bindings.add(binding);
