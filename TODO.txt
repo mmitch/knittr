@@ -29,3 +29,9 @@ TODO:
 
 - i18n
   - localize number formats ("0.1" <-> "0,1")
+
+=== LIB ===
+
+- simple logging framework??
+
+- general utilities class (like safe String.setToMxLength())

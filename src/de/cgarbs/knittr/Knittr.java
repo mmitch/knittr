@@ -4,6 +4,11 @@ import java.awt.EventQueue;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Deque;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import javax.swing.UIManager;
 
@@ -20,21 +25,36 @@ public class Knittr
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args)
+	public static void main(String[] arguments)
 	{
+		Deque<String> args = new ArrayDeque<String>();
+		args.addAll(Arrays.asList(arguments));
 
-		setLookAndFeel(0);
+		// set style if given or fall back to "try everything in order"
+		if (!args.isEmpty() && args.getFirst().startsWith("--style="))
+		{
+			String style = args.removeFirst().substring(8);
+			if (! setLookAndFeel(style))
+			{
+				tryAllLookAndFeels();
+			}
+		}
+		else
+		{
+			tryAllLookAndFeels();
+		}
 
 		try
 		{
 			p = new Project();
 
-			if (args.length == 1)
+			if (!args.isEmpty())
 			{
-				System.out.println("Using commandline argument 1 as file name");
+				String filename = args.removeFirst();
+				System.out.println("Using commandline argument `"+filename+"' as file name");
 
 				// convert to absolute path
-				f = new File(args[0]).getAbsoluteFile();
+				f = new File(filename).getAbsoluteFile();
 
 				if (! f.exists())
 				{
@@ -82,32 +102,42 @@ public class Knittr
 		});
 	}
 
-	private static String[] lookAndFeels = new String[]
-			{
-		"com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel",
-		"com.sun.java.swing.plaf.windows.WindowsLookAndFeel",
-		"com.sun.java.swing.plaf.gtk.GTKLookAndFeel",
-		"com.sun.java.swing.plaf.motif.MotifLookAndFeel"
-			};
+	private static Map<String,String> lookAndFeels = new LinkedHashMap<String,String>();
+	static {
+		lookAndFeels.put("Nimbus", "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+		lookAndFeels.put("Windows", "com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+		lookAndFeels.put("GTK", "com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
+		lookAndFeels.put("Motif", "com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+		lookAndFeels.put("Metal", "javax.swing.plaf.metal.MetalLookAndFeel");
+	};
 
 	/**
 	 * UIManager.getSystemLookAndFeelClassName() does not return the GTK on my Ubuntu
 	 * so fiddle around manually :-(
-	 * @param i try index
 	 */
-	private static void setLookAndFeel(int i)
+	private static void tryAllLookAndFeels()
 	{
-		if (i < lookAndFeels.length)
+		for (String key: lookAndFeels.keySet())
 		{
-			try
+			if (setLookAndFeel(key))
 			{
-				UIManager.setLookAndFeel(lookAndFeels[i]);
-			}
-			catch (Exception e)
-			{
-				setLookAndFeel(i+1);
+				return;
 			}
 		}
+	}
+
+
+	private static boolean setLookAndFeel(String key)
+	{
+		try
+		{
+			UIManager.setLookAndFeel(lookAndFeels.get(key));
+		}
+		catch (Exception e)
+		{
+			return false;
+		}
+		return true;
 	}
 
 }
