@@ -1,5 +1,7 @@
 package de.cgarbs.lib.data;
 
+import java.text.NumberFormat;
+
 import de.cgarbs.lib.exception.ValidationError;
 
 public abstract class NumberAttribute extends DataAttribute
@@ -13,6 +15,8 @@ public abstract class NumberAttribute extends DataAttribute
 
 	private transient final Number minValue;
 	private transient final Number maxValue;
+
+	protected transient NumberFormat numberFormat;
 
 	// Builder pattern start
 	public abstract static class Builder<N extends Number> extends DataAttribute.Builder<Builder<N>>
@@ -37,6 +41,7 @@ public abstract class NumberAttribute extends DataAttribute
 		super(builder);
 		minValue = builder.minValue;
 		maxValue = builder.maxValue;
+		numberFormat = NumberFormat.getInstance();
 	}
 
 	// Builder pattern end
@@ -70,4 +75,15 @@ public abstract class NumberAttribute extends DataAttribute
 		}
 	}
 
+	public String getFormattedValue()
+	{
+		if (getValue() == null)
+		{
+			return null; // FIXME or ""?
+		}
+		else
+		{
+			return numberFormat.format(getValue());
+		}
+	}
 }

@@ -1,5 +1,7 @@
 package de.cgarbs.lib.data.type;
 
+import java.text.ParseException;
+
 import de.cgarbs.lib.data.NumberAttribute;
 import de.cgarbs.lib.exception.DataException;
 
@@ -55,15 +57,15 @@ public class FloatAttribute extends NumberAttribute
 				}
 				else
 				{
-					value = Float.valueOf(s);
+					value = numberFormat.parse(s).floatValue();
 				}
 			}
-			catch (NumberFormatException nfe)
+			catch (ParseException e)
 			{
 				throw new DataException(
 						DataException.ERROR.INVALID_VALUE,
 						"can't parse Float",
-						nfe
+						e
 						);
 			}
 		}

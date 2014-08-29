@@ -27,9 +27,6 @@ TODO:
 - dirty/clean flag
   - keep copy of model in clean state, use equals
 
-- i18n
-  - localize number formats ("0.1" <-> "0,1")
-
 === LIB ===
 
 - simple logging framework??

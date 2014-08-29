@@ -1,6 +1,7 @@
 package de.cgarbs.lib.glue.type;
 
 import de.cgarbs.lib.data.DataAttribute;
+import de.cgarbs.lib.data.type.FloatAttribute;
 import de.cgarbs.lib.exception.DataException;
 import de.cgarbs.lib.glue.TextFieldBinding;
 import de.cgarbs.lib.i18n.Resource;
@@ -15,14 +16,14 @@ public class FloatBinding extends TextFieldBinding
 	@Override
 	public void syncToView()
 	{
-		Float value = (Float)attribute.getValue();
-		if (value == null)
+		String s = ((FloatAttribute)attribute).getFormattedValue();
+		if (s == null)
 		{
 			jTextField.setText("");
 		}
 		else
 		{
-			jTextField.setText(value.toString());
+			jTextField.setText(s);
 		}
 	}
 

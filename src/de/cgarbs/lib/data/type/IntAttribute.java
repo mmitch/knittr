@@ -1,5 +1,8 @@
 package de.cgarbs.lib.data.type;
 
+import java.text.NumberFormat;
+import java.text.ParseException;
+
 import de.cgarbs.lib.data.NumberAttribute;
 import de.cgarbs.lib.exception.DataException;
 
@@ -27,6 +30,7 @@ public class IntAttribute extends NumberAttribute
 	private IntAttribute(Builder builder)
 	{
 		super(builder);
+		numberFormat = NumberFormat.getIntegerInstance();
 	}
 
 	// Builder pattern end
@@ -53,15 +57,15 @@ public class IntAttribute extends NumberAttribute
 				}
 				else
 				{
-					value = Integer.valueOf(s);
+					value = numberFormat.parse(s).intValue();
 				}
 			}
-			catch (NumberFormatException nfe)
+			catch (ParseException e)
 			{
 				throw new DataException(
 						DataException.ERROR.INVALID_VALUE,
 						"can't parse Integer",
-						nfe
+						e
 						);
 			}
 		}
