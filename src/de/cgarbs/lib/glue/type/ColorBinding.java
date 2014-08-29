@@ -3,6 +3,7 @@ package de.cgarbs.lib.glue.type;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -65,13 +66,15 @@ public class ColorBinding extends Binding
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = 0;
 		gbc.gridy = 0;
-		gbc.fill = GridBagConstraints.HORIZONTAL;
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.insets = new Insets(3, 3, 3, 3);
 		gbc.weightx = 1;
 		gbc.weighty = 1;
 		combiPanel.add(jPanel, gbc);
 
 		gbc.gridx = 1;
 		gbc.fill = GridBagConstraints.NONE;
+		gbc.insets = null;
 		gbc.weightx = 0.2;
 		combiPanel.add(jButton);
 		return combiPanel;
