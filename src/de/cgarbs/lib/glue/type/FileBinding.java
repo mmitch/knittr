@@ -22,9 +22,9 @@ public class FileBinding extends TextFieldBinding
 {
 	protected JButton jButton;
 
-	public FileBinding(DataAttribute attribute, Resource resource)
+	public FileBinding(DataAttribute attribute, Resource resource, String label)
 	{
-		super(attribute, resource);
+		super(attribute, resource, label);
 	}
 
 	@Override

@@ -8,9 +8,9 @@ import de.cgarbs.lib.i18n.Resource;
 
 public class FloatBinding extends TextFieldBinding
 {
-	public FloatBinding(DataAttribute attribute, Resource resource)
+	public FloatBinding(DataAttribute attribute, Resource resource, String label)
 	{
-		super(attribute, resource);
+		super(attribute, resource, label);
 	}
 
 	@Override

@@ -22,9 +22,9 @@ public class ColorBinding extends Binding
 	protected JPanel jPanel;
 	protected JButton jButton;
 
-	public ColorBinding(DataAttribute attribute, Resource resource)
+	public ColorBinding(DataAttribute attribute, Resource resource, String label)
 	{
-		super(attribute, resource);
+		super(attribute, resource, label);
 	}
 
 	@Override

@@ -11,9 +11,9 @@ public abstract class TextFieldBinding extends Binding
 
 	protected JTextField jTextField;
 
-	public TextFieldBinding(DataAttribute attribute, Resource resource)
+	public TextFieldBinding(DataAttribute attribute, Resource resource, String label)
 	{
-		super(attribute, resource);
+		super(attribute, resource, label);
 	}
 
 	@Override

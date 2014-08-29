@@ -8,9 +8,9 @@ import de.cgarbs.lib.i18n.Resource;
 
 public class IntBinding extends TextFieldBinding
 {
-	public IntBinding(DataAttribute attribute, Resource resource)
+	public IntBinding(DataAttribute attribute, Resource resource, String label)
 	{
-		super(attribute, resource);
+		super(attribute, resource, label);
 	}
 
 	@Override

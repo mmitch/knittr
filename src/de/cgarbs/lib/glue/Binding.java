@@ -27,11 +27,19 @@ abstract public class Binding
 		return jData;
 	}
 
-	public Binding(DataAttribute attribute, Resource resource)
+	public Binding(DataAttribute attribute, Resource resource, String label)
 	{
 		this.attribute = attribute;
-		// FIXME: the resource file already is DataModel specific - the attributeName is again... that's duplicated!
-		this.txtLabel = resource._("LBL_"+attribute.getAttributeName());
+		if (label == null)
+		{
+			// default label from attribute resource
+			this.txtLabel = resource._("LBL_"+attribute.getAttributeName());
+		}
+		else
+		{
+			// overwrite default
+			this.txtLabel = label;
+		}
 		this.jLabel = createJLabel(txtLabel);
 		this.jData  = createDataEntryComponent();
 	}

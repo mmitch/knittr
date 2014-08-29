@@ -7,9 +7,9 @@ import de.cgarbs.lib.i18n.Resource;
 
 public class StringBinding extends TextFieldBinding
 {
-	public StringBinding(DataAttribute attribute, Resource resource)
+	public StringBinding(DataAttribute attribute, Resource resource, String label)
 	{
-		super(attribute, resource);
+		super(attribute, resource, label);
 	}
 
 	@Override

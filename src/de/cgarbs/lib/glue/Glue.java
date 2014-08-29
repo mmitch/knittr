@@ -17,6 +17,7 @@ import de.cgarbs.lib.exception.ValidationErrorList;
 import de.cgarbs.lib.glue.type.ColorBinding;
 import de.cgarbs.lib.glue.type.FileBinding;
 import de.cgarbs.lib.glue.type.FloatBinding;
+import de.cgarbs.lib.glue.type.ImageBinding;
 import de.cgarbs.lib.glue.type.IntBinding;
 import de.cgarbs.lib.glue.type.StringBinding;
 import de.cgarbs.lib.i18n.Resource;
@@ -33,27 +34,32 @@ public class Glue<T extends DataModel>
 
 	public Binding addBinding(String key) throws GlueException, DataException
 	{
+		return addBinding(key, (String)null);
+	}
+
+	public Binding addBinding(String key, String label) throws GlueException, DataException
+	{
 		// FIXME catch duplicate bindings (same key)
 		DataAttribute attribute = model.getAttribute(key);
 		if (attribute instanceof StringAttribute)
 		{
-			return addBinding(key, StringBinding.class);
+			return addBinding(key, StringBinding.class, label);
 		}
 		else if (attribute instanceof IntAttribute)
 		{
-			return addBinding(key, IntBinding.class);
+			return addBinding(key, IntBinding.class, label);
 		}
 		else if (attribute instanceof FloatAttribute)
 		{
-			return addBinding(key, FloatBinding.class);
+			return addBinding(key, FloatBinding.class, label);
 		}
 		else if (attribute instanceof FileAttribute)
 		{
-			return addBinding(key, FileBinding.class);
+			return addBinding(key, FileBinding.class, label);
 		}
 		else if (attribute instanceof ColorAttribute)
 		{
-			return addBinding(key, ColorBinding.class);
+			return addBinding(key, ColorBinding.class, label);
 		}
 		else
 		{
@@ -67,29 +73,35 @@ public class Glue<T extends DataModel>
 	// FIXME restrict clazz to subtype of Binding?
 	public Binding addBinding(String key, Class<?> clazz) throws GlueException, DataException
 	{
+		return addBinding(key, clazz, null);
+	}
+
+	// FIXME restrict clazz to subtype of Binding?
+	public Binding addBinding(String key, Class<?> clazz, String label) throws GlueException, DataException
+	{
 		// FIXME catch duplicate bindings (same key)
 		Binding binding;
 		DataAttribute attribute = model.getAttribute(key);
 		Resource resource = model.getResource();
 		if (StringBinding.class.equals(clazz))
 		{
-			binding = new StringBinding(attribute, resource);
+			binding = new StringBinding(attribute, resource, label);
 		}
 		else if (IntBinding.class.equals(clazz))
 		{
-			binding = new IntBinding(attribute, resource);
+			binding = new IntBinding(attribute, resource, label);
 		}
 		else if (FloatBinding.class.equals(clazz))
 		{
-			binding = new FloatBinding(attribute, resource);
+			binding = new FloatBinding(attribute, resource, label);
 		}
 		else if (FileBinding.class.equals(clazz))
 		{
-			binding = new FileBinding(attribute, resource);
+			binding = new FileBinding(attribute, resource, label);
 		}
 		else if (ColorBinding.class.equals(clazz))
 		{
-			binding = new ColorBinding(attribute, resource);
+			binding = new ColorBinding(attribute, resource, label);
 		}
 		else
 		{
