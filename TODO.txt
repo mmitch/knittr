@@ -14,10 +14,6 @@ TODO:
     - change validate() to validate(Object)
     - later: use message footer to print help text for current element
 
-- auto layouts
-  - more layouts
-    - 2 columns with auto-placement
-
 === DATA ===
 
 - "editable" attribute for all attribute types
