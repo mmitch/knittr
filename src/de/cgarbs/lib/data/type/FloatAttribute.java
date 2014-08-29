@@ -12,11 +12,32 @@ public class FloatAttribute extends NumberAttribute
 	 */
 	private static final long serialVersionUID = 1L;
 
-	// FIXME add decimal places
+	private transient final int minDecimals;
+	private transient final int maxDecimals;
 
 	// Builder pattern start
 	public static class Builder extends NumberAttribute.Builder<Float>
 	{
+		public Builder setMinValue(int minDecimals)
+		{
+			this.minDecimals = minDecimals;
+			return this;
+		}
+		public Builder setMaxValue(int maxDecimals)
+		{
+			this.maxDecimals = maxDecimals;
+			return this;
+		}
+		public Builder setDecimals(int decimals)
+		{
+			this.minDecimals = decimals;
+			this.maxDecimals = decimals;
+			return this;
+		}
+
+		private int minDecimals;
+		private int maxDecimals;
+
 		public FloatAttribute build()
 		{
 			return new FloatAttribute(this);
@@ -31,6 +52,10 @@ public class FloatAttribute extends NumberAttribute
 	private FloatAttribute(Builder builder)
 	{
 		super(builder);
+		minDecimals = builder.minDecimals;
+		maxDecimals = builder.maxDecimals;
+		numberFormat.setMinimumFractionDigits(minDecimals);
+		numberFormat.setMaximumFractionDigits(maxDecimals);
 	}
 
 	// Builder pattern end

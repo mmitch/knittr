@@ -57,8 +57,8 @@ public class Project extends DataModel
 		setValue(REIHEN, 32);
 
 		// graphics
-		addAttribute(GRIDWIDTHSMALL, FloatAttribute.builder().build());
-		addAttribute(GRIDWIDTHBIG, FloatAttribute.builder().build());
+		addAttribute(GRIDWIDTHSMALL, FloatAttribute.builder().setDecimals(2).build());
+		addAttribute(GRIDWIDTHBIG, FloatAttribute.builder().setDecimals(2).build());
 		addAttribute(GRIDTEXTMOD, IntAttribute.builder().setNullable(false).setMinValue(1).build());
 		addAttribute(GRIDCOLOR, ColorAttribute.builder().setNullable(false).build());
 		addAttribute(TEXTCOLOR, ColorAttribute.builder().setNullable(false).build());
