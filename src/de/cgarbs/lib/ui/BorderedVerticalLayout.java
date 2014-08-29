@@ -56,7 +56,7 @@ public class BorderedVerticalLayout extends AutoLayout
 		return new Builder();
 	}
 
-	private BorderedVerticalLayout(Builder builder)
+	protected BorderedVerticalLayout(Builder builder)
 	{
 		super(builder);
 	}

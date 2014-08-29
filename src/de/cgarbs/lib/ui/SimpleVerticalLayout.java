@@ -2,6 +2,7 @@ package de.cgarbs.lib.ui;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.util.List;
 
 import javax.swing.JComponent;
@@ -29,8 +30,9 @@ public class SimpleVerticalLayout extends AutoLayout
 			gbc_title.gridheight = 1;
 			gbc_title.weightx = 1;
 			gbc_title.weighty = 1;
-			gbc_title.anchor = GridBagConstraints.FIRST_LINE_START;
+			gbc_title.anchor = GridBagConstraints.CENTER;
 			gbc_title.fill = GridBagConstraints.HORIZONTAL;
+			gbc_title.insets = new Insets(0, 32, 0, 0);
 
 			int line = 0;
 			for (Group group : (List<Group>) groups) // FIXME why cast here?!
@@ -55,7 +57,7 @@ public class SimpleVerticalLayout extends AutoLayout
 		return new Builder();
 	}
 
-	private SimpleVerticalLayout(Builder builder)
+	protected SimpleVerticalLayout(Builder builder)
 	{
 		super(builder);
 	}

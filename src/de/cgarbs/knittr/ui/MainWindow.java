@@ -92,7 +92,9 @@ public class MainWindow extends JFrame
 
 //		JComponent jthingie = SimpleVerticalLayout.builder()
 		JComponent jthingie = SimpleTabbedLayout.builder()
+//		JComponent jthingie = DualColumnTabbedLayout.builder()
 //		JComponent jthingie = BorderedVerticalLayout.builder()
+//		JComponent jthingie = BorderedDoubleVerticalLayout.builder()
 				.startNextGroup(R._("GRP_files"))  // FIXME move Resource to builder(), add "GRP_" automatically within Builder?
 				.addAttribute(b_source_file).addAttribute(b_target_file)
 				.startNextGroup(R._("GRP_maschenprobe"))

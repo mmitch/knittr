@@ -58,7 +58,7 @@ public class SimpleTabbedLayout extends AutoLayout
 		return new Builder();
 	}
 
-	private SimpleTabbedLayout(Builder builder)
+	protected SimpleTabbedLayout(Builder builder)
 	{
 		super(builder);
 	}
