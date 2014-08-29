@@ -1,4 +1,4 @@
-package de.cgarbs.lib.ui;
+package de.cgarbs.lib.ui.layout;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -11,6 +11,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import de.cgarbs.lib.exception.GlueException;
+import de.cgarbs.lib.ui.AutoLayout;
+import de.cgarbs.lib.ui.Element;
+import de.cgarbs.lib.ui.Group;
 
 public class SimpleVerticalLayout extends AutoLayout
 {

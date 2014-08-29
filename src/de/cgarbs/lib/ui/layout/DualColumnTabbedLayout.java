@@ -1,4 +1,4 @@
-package de.cgarbs.lib.ui;
+package de.cgarbs.lib.ui.layout;
 
 import java.awt.Component;
 import java.awt.GridBagConstraints;
@@ -11,11 +11,13 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import de.cgarbs.lib.exception.GlueException;
+import de.cgarbs.lib.ui.Element;
+import de.cgarbs.lib.ui.Group;
 
-public class SimpleTabbedLayout extends AutoLayout
+public class DualColumnTabbedLayout extends SimpleTabbedLayout
 {
 	// Builder pattern start
-	public static class Builder extends AutoLayout.Builder<Builder>
+	public static class Builder extends SimpleTabbedLayout.Builder
 	{
 
 		@Override
@@ -28,11 +30,18 @@ public class SimpleTabbedLayout extends AutoLayout
 				JPanel panel = new JPanel();
 				panel.setLayout(new GridBagLayout());
 				int line = 0;
+				int col = 0;
 
 				for (Element element: group.getElements())
 				{
-					element.addToComponent(panel,  0,  line);
-					line++;
+					element.addToComponent(panel,  col,  line);
+
+					col+=2;
+					if (col > 2)
+					{
+						col = 0;
+						line++;
+					}
 				}
 
 				Component remainder = Box.createGlue();
@@ -58,7 +67,7 @@ public class SimpleTabbedLayout extends AutoLayout
 		return new Builder();
 	}
 
-	protected SimpleTabbedLayout(Builder builder)
+	protected DualColumnTabbedLayout(Builder builder)
 	{
 		super(builder);
 	}

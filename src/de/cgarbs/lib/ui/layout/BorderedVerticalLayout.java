@@ -1,4 +1,4 @@
-package de.cgarbs.lib.ui;
+package de.cgarbs.lib.ui.layout;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -10,11 +10,14 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import de.cgarbs.lib.exception.GlueException;
+import de.cgarbs.lib.ui.AutoLayout;
+import de.cgarbs.lib.ui.Element;
+import de.cgarbs.lib.ui.Group;
 
-public class BorderedDoubleVerticalLayout extends BorderedVerticalLayout
+public class BorderedVerticalLayout extends AutoLayout
 {
 	// Builder pattern start
-	public static class Builder extends BorderedVerticalLayout.Builder
+	public static class Builder extends AutoLayout.Builder<Builder>
 	{
 
 		@Override
@@ -36,18 +39,11 @@ public class BorderedDoubleVerticalLayout extends BorderedVerticalLayout
 				Border newBorder = BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), group.getTitle());
 				groupPanel.setBorder(newBorder);
 				int line = 0;
-				int col  = 0;
 
 				for (Element element : group.getElements())
 				{
-					element.addToComponent(groupPanel, col, line);
-
-					col+=2;
-					if (col > 2)
-					{
-						col = 0;
-						line++;
-					}
+					element.addToComponent(groupPanel, 0, line);
+					line++;
 				}
 
 				panel.add(groupPanel, gbc);
@@ -63,7 +59,7 @@ public class BorderedDoubleVerticalLayout extends BorderedVerticalLayout
 		return new Builder();
 	}
 
-	protected BorderedDoubleVerticalLayout(Builder builder)
+	protected BorderedVerticalLayout(Builder builder)
 	{
 		super(builder);
 	}

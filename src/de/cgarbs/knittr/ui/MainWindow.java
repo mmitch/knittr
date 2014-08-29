@@ -30,7 +30,7 @@ import de.cgarbs.lib.exception.ValidationErrorList;
 import de.cgarbs.lib.glue.Binding;
 import de.cgarbs.lib.glue.Glue;
 import de.cgarbs.lib.i18n.Resource;
-import de.cgarbs.lib.ui.SimpleTabbedLayout;
+import de.cgarbs.lib.ui.layout.SimpleTabbedLayout;
 
 public class MainWindow extends JFrame
 {
