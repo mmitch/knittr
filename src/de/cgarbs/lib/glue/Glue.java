@@ -103,6 +103,10 @@ public class Glue<T extends DataModel>
 		{
 			binding = new ColorBinding(attribute, resource, label);
 		}
+		else if (ImageBinding.class.equals(clazz))
+		{
+			binding = new ImageBinding(attribute, resource, label);
+		}
 		else
 		{
 			throw new GlueException(

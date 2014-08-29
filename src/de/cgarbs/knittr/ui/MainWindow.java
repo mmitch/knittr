@@ -29,6 +29,7 @@ import de.cgarbs.lib.exception.GlueException;
 import de.cgarbs.lib.exception.ValidationErrorList;
 import de.cgarbs.lib.glue.Binding;
 import de.cgarbs.lib.glue.Glue;
+import de.cgarbs.lib.glue.type.ImageBinding;
 import de.cgarbs.lib.i18n.Resource;
 import de.cgarbs.lib.ui.layout.SimpleTabbedLayout;
 
@@ -65,6 +66,7 @@ public class MainWindow extends JFrame
 
 		Binding b_source_file = glue.addBinding(Project.SOURCE_FILE);
 		Binding b_target_file = glue.addBinding(Project.TARGET_FILE);
+		Binding b_source_image = glue.addBinding(Project.SOURCE_FILE, ImageBinding.class, R._("LBL_source_file_preview"));
 
 		Binding b_maschen = glue.addBinding(Project.MASCHEN);
 		Binding b_reihen = glue.addBinding(Project.REIHEN);
@@ -96,7 +98,7 @@ public class MainWindow extends JFrame
 //		JComponent jthingie = BorderedVerticalLayout.builder()
 //		JComponent jthingie = BorderedDoubleVerticalLayout.builder()
 				.startNextGroup(R._("GRP_files"))  // FIXME move Resource to builder(), add "GRP_" automatically within Builder?
-				.addAttribute(b_source_file).addAttribute(b_target_file)
+				.addAttribute(b_source_file).addAttribute(b_target_file).addAttribute(b_source_image)
 				.startNextGroup(R._("GRP_maschenprobe"))
 				.addAttribute(b_maschen).addAttribute(b_reihen)
 				.startNextGroup(R._("GRP_grid"))
