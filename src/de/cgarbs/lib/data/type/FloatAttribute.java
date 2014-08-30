@@ -18,21 +18,19 @@ public class FloatAttribute extends NumberAttribute
 	// Builder pattern start
 	public static class Builder extends NumberAttribute.Builder<Float>
 	{
-		public Builder setMinValue(int minDecimals)
+		public Builder setMinDecimals(int minDecimals)
 		{
 			this.minDecimals = minDecimals;
 			return this;
 		}
-		public Builder setMaxValue(int maxDecimals)
+		public Builder setMaxDecimals(int maxDecimals)
 		{
 			this.maxDecimals = maxDecimals;
 			return this;
 		}
 		public Builder setDecimals(int decimals)
 		{
-			this.minDecimals = decimals;
-			this.maxDecimals = decimals;
-			return this;
+			return setMinDecimals(decimals).setMaxDecimals(decimals);
 		}
 
 		private int minDecimals;
