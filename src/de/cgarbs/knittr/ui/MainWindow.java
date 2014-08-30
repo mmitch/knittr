@@ -31,7 +31,7 @@ import de.cgarbs.lib.glue.Binding;
 import de.cgarbs.lib.glue.Glue;
 import de.cgarbs.lib.glue.type.ImageBinding;
 import de.cgarbs.lib.i18n.Resource;
-import de.cgarbs.lib.ui.layout.SimpleTabbedLayout;
+import de.cgarbs.lib.ui.AutoLayout.Builder;
 
 public class MainWindow extends JFrame
 {
@@ -55,7 +55,8 @@ public class MainWindow extends JFrame
 	 * @throws DataException
 	 * @throws GlueException
 	 */
-	public MainWindow(Project p, File f) throws GlueException, DataException
+	public MainWindow(Project p, File f, Builder<?> layoutBuilder) throws GlueException, DataException
+	// FIXME make clazz extend AutoLayout
 	{
 		R = new Resource("de.cgarbs.knittr.resource.MainWindow");
 
@@ -92,11 +93,7 @@ public class MainWindow extends JFrame
 		infoText.setEditable(false);
 		infoText.setText(R._("TXT_about"));
 
-//		JComponent jthingie = SimpleVerticalLayout.builder()
-		JComponent jthingie = SimpleTabbedLayout.builder()
-//		JComponent jthingie = DualColumnTabbedLayout.builder()
-//		JComponent jthingie = BorderedVerticalLayout.builder()
-//		JComponent jthingie = BorderedDoubleVerticalLayout.builder()
+		JComponent jthingie = layoutBuilder
 				.startNextGroup(R._("GRP_files"))  // FIXME move Resource to builder(), add "GRP_" automatically within Builder?
 				.addAttribute(b_source_file).addAttribute(b_target_file).addAttribute(b_source_image)
 				.startNextGroup(R._("GRP_maschenprobe"))

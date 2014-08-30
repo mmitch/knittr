@@ -15,33 +15,56 @@ import javax.swing.UIManager;
 import de.cgarbs.knittr.data.Project;
 import de.cgarbs.knittr.ui.MainWindow;
 import de.cgarbs.lib.exception.DataException;
+import de.cgarbs.lib.ui.AutoLayout.Builder;
+import de.cgarbs.lib.ui.layout.BorderedDoubleVerticalLayout;
+import de.cgarbs.lib.ui.layout.BorderedVerticalLayout;
+import de.cgarbs.lib.ui.layout.DualColumnTabbedLayout;
+import de.cgarbs.lib.ui.layout.SimpleTabbedLayout;
+import de.cgarbs.lib.ui.layout.SimpleVerticalLayout;
 
 public class Knittr
 {
 
 	static Project p;
 	static File f;
+	static Builder<?> layoutBuilder;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] arguments)
 	{
+		// set defaults, overwrite later
+		tryAllLookAndFeels();
+		setLayout(0);
+
+		// process arguments
+		// FIXME either user getopt library or move to de.cgarbs.lib package
 		Deque<String> args = new ArrayDeque<String>();
 		args.addAll(Arrays.asList(arguments));
+		while (!args.isEmpty() && args.getFirst().startsWith("--"))
+		{
+			String peek = args.removeFirst();
+			int index = peek.indexOf("=");
+			String param = index == -1 ? "" : peek.substring(index+1);
 
-		// set style if given or fall back to "try everything in order"
-		if (!args.isEmpty() && args.getFirst().startsWith("--style="))
-		{
-			String style = args.removeFirst().substring(8);
-			if (! setLookAndFeel(style))
+			if (peek.startsWith("--style="))
 			{
-				tryAllLookAndFeels();
+				setLookAndFeel(param);
 			}
-		}
-		else
-		{
-			tryAllLookAndFeels();
+			else if (peek.startsWith("--layout="))
+			{
+				setLayout(param);
+			}
+			else if (peek.equals("--"))
+			{
+				// file name separator, exit option parsing mode
+				break;
+			}
+			else
+			{
+				System.err.println("unknown commandline option: "+args.removeFirst());
+			}
 		}
 
 		try
@@ -93,13 +116,22 @@ public class Knittr
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainWindow frame = new MainWindow(p, f);
+					MainWindow frame = new MainWindow(p, f, layoutBuilder);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
+	}
+
+	private static Map<String,Builder<?>> layoutBuilders = new LinkedHashMap<String,Builder<?>>();
+	static {
+		layoutBuilders.put("SimpleTabbedLayout", SimpleTabbedLayout.builder());
+		layoutBuilders.put("SimpleVerticalLayout", SimpleVerticalLayout.builder());
+		layoutBuilders.put("DualColumnTabbedLayout", DualColumnTabbedLayout.builder());
+		layoutBuilders.put("BorderedVerticalLayout", BorderedVerticalLayout.builder());
+		layoutBuilders.put("BorderedDoubleVerticalLayout", BorderedDoubleVerticalLayout.builder());
 	}
 
 	private static Map<String,String> lookAndFeels = new LinkedHashMap<String,String>();
@@ -140,4 +172,16 @@ public class Knittr
 		return true;
 	}
 
+	private static void setLayout(String key)
+	{
+		if (layoutBuilders.containsKey(key))
+		{
+			layoutBuilder = layoutBuilders.get(key);
+		}
+	}
+
+	private static void setLayout(int i)
+	{
+		layoutBuilder = layoutBuilders.values().iterator().next();
+	}
 }
