@@ -10,6 +10,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
 import de.cgarbs.lib.exception.DataException;
 import de.cgarbs.lib.exception.ValidationError;
@@ -155,5 +156,10 @@ abstract public class DataModel implements Serializable
 	public void additionalValidation() throws ValidationError
 	{
 		// NOP, to be overwritten in anonymous subclasses
+	}
+
+	public Set<String> getAttributeKeys()
+	{
+		return attributes.keySet();
 	}
 }
