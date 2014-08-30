@@ -10,17 +10,20 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.filechooser.FileFilter;
 
 import de.cgarbs.lib.data.DataAttribute;
 import de.cgarbs.lib.data.type.FileAttribute;
 import de.cgarbs.lib.exception.DataException;
-import de.cgarbs.lib.glue.TextFieldBinding;
+import de.cgarbs.lib.glue.Binding;
 import de.cgarbs.lib.i18n.Resource;
 
-public class FileBinding extends TextFieldBinding
+public class FileBinding extends Binding
 {
 	protected JButton jButton;
+	protected JTextField jTextField;
+	protected File file;
 
 	public FileBinding(DataAttribute attribute, Resource resource, String label)
 	{
@@ -28,21 +31,15 @@ public class FileBinding extends TextFieldBinding
 	}
 
 	@Override
-	public void syncToView()
-	{
-		setViewValue((File)attribute.getValue());
-	}
-
-	@Override
 	public void syncToModel() throws DataException
 	{
-		attribute.setValue(getViewValue());
+		attribute.setValue(file);
 	}
 
 	@Override
 	protected JComponent createDataEntryComponent()
 	{
-		super.createDataEntryComponent();
+		jTextField = new JTextField();
 		jTextField.setEditable(false);
 
 		jButton = new JButton("...");
@@ -94,15 +91,19 @@ public class FileBinding extends TextFieldBinding
 		return combiPanel;
 	}
 
-	private void setViewValue(File value)
+	public void setViewValue(Object value)
 	{
-		if (value == null)
+		super.setViewValue(value);
+
+		this.file = (File) value;
+
+		if (file == null)
 		{
 			jTextField.setText("");
 		}
 		else
 		{
-			jTextField.setText(value.getAbsolutePath());
+			jTextField.setText(file.getAbsolutePath());
 		}
 	}
 

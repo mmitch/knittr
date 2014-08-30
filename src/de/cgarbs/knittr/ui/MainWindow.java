@@ -67,7 +67,7 @@ public class MainWindow extends JFrame
 
 		Binding b_source_file = glue.addBinding(Project.SOURCE_FILE);
 		Binding b_target_file = glue.addBinding(Project.TARGET_FILE);
-		Binding b_source_image = glue.addBinding(Project.SOURCE_FILE, ImageBinding.class, R._("LBL_source_file_preview"));
+		Binding b_source_image = glue.addListener(b_source_file, ImageBinding.class, R._("LBL_source_file_preview"));
 
 		Binding b_maschen = glue.addBinding(Project.MASCHEN);
 		Binding b_reihen = glue.addBinding(Project.REIHEN);

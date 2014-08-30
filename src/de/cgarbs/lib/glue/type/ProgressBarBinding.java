@@ -21,12 +21,6 @@ public class ProgressBarBinding extends Binding
 	}
 
 	@Override
-	public void syncToView()
-	{
-		setViewValue((Integer)attribute.getValue());
-	}
-
-	@Override
 	public void syncToModel() throws DataException
 	{
 		// output only!
@@ -42,11 +36,16 @@ public class ProgressBarBinding extends Binding
 		return jProgressBar;
 	}
 
-	private void setViewValue(Integer value)
+	@Override
+	public void setViewValue(Object value)
 	{
-		if (value != null)
+		super.setViewValue(value);
+
+		Integer i = (Integer) value;
+
+		if (i != null)
 		{
-			jProgressBar.setValue(value.intValue());
+			jProgressBar.setValue(i.intValue());
 		}
 	}
 }

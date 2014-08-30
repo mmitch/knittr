@@ -55,7 +55,7 @@ public class ColorBinding extends Binding
 						jPanel.getBackground());
 				if (newColor != null)
 				{
-					jPanel.setBackground(newColor);
+					setViewValue(newColor);
 				}
 			}
 		});
@@ -80,4 +80,13 @@ public class ColorBinding extends Binding
 		return combiPanel;
 	}
 
+	@Override
+	public void setViewValue(Object value)
+	{
+		super.setViewValue(value);
+
+		Color c = (Color) value;
+
+		jPanel.setBackground(c);
+	}
 }

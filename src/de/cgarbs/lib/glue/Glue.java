@@ -194,4 +194,11 @@ public class Glue<T extends DataModel>
 			throw ex;
 		}
 	}
+
+	public Binding addListener(Binding base_binding, Class<?> clazz, String label) throws GlueException, DataException
+	{
+		Binding new_binding = addBinding(base_binding.attribute.getKey(), clazz, label);
+		base_binding.addListeningBinding(new_binding);
+		return new_binding;
+	}
 }

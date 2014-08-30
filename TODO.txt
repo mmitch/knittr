@@ -20,11 +20,6 @@ TODO:
 
 === GLUE ===
 
-- add callback framework
-  - "data changed" events
-    - use for updating of preview image
-    - also useful for validation?
-
 - dirty/clean flag
   - keep copy of model in clean state, use equals
 

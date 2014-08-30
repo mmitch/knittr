@@ -28,12 +28,6 @@ public class ImageBinding extends Binding
 	}
 
 	@Override
-	public void syncToView()
-	{
-		setViewValue((File)attribute.getValue());
-	}
-
-	@Override
 	public void syncToModel() throws DataException
 	{
 		// output only!
@@ -47,9 +41,14 @@ public class ImageBinding extends Binding
 		return jLabel;
 	}
 
-	private void setViewValue(File value)
+	@Override
+	public void setViewValue(Object value)
 	{
-		if (value == null)
+		super.setViewValue(value);
+
+		File f = (File) value;
+
+		if (f == null)
 		{
 			jLabel.setIcon(null);
 		}
@@ -57,7 +56,7 @@ public class ImageBinding extends Binding
 		{
 			try
 			{
-				BufferedImage img = ImageIO.read(value);
+				BufferedImage img = ImageIO.read(f);
 				jLabel.setIcon(new ImageIcon(img));
 			}
 			catch (IOException e)

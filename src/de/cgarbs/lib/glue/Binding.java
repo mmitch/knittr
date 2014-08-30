@@ -1,5 +1,8 @@
 package de.cgarbs.lib.glue;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 
@@ -14,8 +17,9 @@ abstract public class Binding
 	protected JComponent jData;
 	protected String     txtLabel;
 
-	abstract public void syncToView();
 	abstract public void syncToModel() throws DataException;
+
+	private Set<Binding> listeningBindings = new HashSet<Binding>(); // FIXME or List? -> check!
 
 	public JComponent getJLabel()
 	{
@@ -50,6 +54,24 @@ abstract public class Binding
 	private JLabel createJLabel(String label)
 	{
 		return new JLabel(label);
+	}
+
+	public void addListeningBinding(Binding binding)
+	{
+		listeningBindings.add(binding);
+	}
+
+	public void setViewValue(Object newValue)
+	{
+		for (Binding listeningBinding: listeningBindings)
+		{
+			listeningBinding.setViewValue(newValue);
+		}
+	}
+
+	public void syncToView()
+	{
+		setViewValue(attribute.getValue());
 	}
 
 //	public DataAttribute getAttribute() // FIXME: why is the field attribute visible, it's protected?!
