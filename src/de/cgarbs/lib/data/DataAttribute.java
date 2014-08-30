@@ -14,7 +14,8 @@ abstract public class DataAttribute implements Serializable
 
 
 	private transient final boolean nullable;
-	private String attributeName;
+	private String key;
+	private DataModel model;
 
 	abstract public void setValue(Object newValue) throws DataException;
 	abstract public Object getValue();
@@ -55,11 +56,26 @@ abstract public class DataAttribute implements Serializable
 
 	public String getAttributeName()
 	{
-		return attributeName;
+		return getModel().getModelName() + "." + getKey();
 	}
 
-	void setAttributeName(String attributeName)
+	void setKey(String key)
 	{
-		this.attributeName = attributeName;
+		this.key = key;
+	}
+
+	public String getKey()
+	{
+		return key;
+	}
+
+	void setModel(DataModel model)
+	{
+		this.model = model;
+	}
+
+	public DataModel getModel()
+	{
+		return model;
 	}
 }

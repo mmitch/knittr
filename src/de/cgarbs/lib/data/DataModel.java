@@ -49,16 +49,15 @@ abstract public class DataModel implements Serializable
 					);
 		}
 
-		String newAttributeName = getModelName() + "." + key;
-
-		if (attribute.getAttributeName() != null)
+		if (attribute.getModel() != null)
 		{
 			throw new DataException(
 					DataException.ERROR.DUPLICATE_USAGE,
-					newAttributeName + ", " + attribute.getAttributeName()
+					getModelName()+"."+key + ", " + attribute.getAttributeName()
 					);
 		}
-		attribute.setAttributeName(newAttributeName);
+		attribute.setKey(key);
+		attribute.setModel(this);
 		attributes.put(key, attribute);
 	}
 
