@@ -50,11 +50,26 @@ public class Knittr
 
 			if (peek.startsWith("--style="))
 			{
+				if (param.equals("help"))
+				{
+					showAllStyles();
+					System.exit(0);
+				}
 				setLookAndFeel(param);
 			}
 			else if (peek.startsWith("--layout="))
 			{
+				if (param.equals("help"))
+				{
+					showAllLayouts();
+					System.exit(0);
+				}
 				setLayout(param);
+			}
+			else if (peek.equals("--help"))
+			{
+				showHelp();
+				System.exit(0);
 			}
 			else if (peek.equals("--"))
 			{
@@ -183,5 +198,39 @@ public class Knittr
 	private static void setLayout(int i)
 	{
 		layoutBuilder = layoutBuilders.values().iterator().next();
+	}
+	
+	private static void showHelp()
+	{
+		// FIXME i18n!
+		System.out.println("usage: knittr.jar [options ...] [--] [<inputfile>]");
+		System.out.println();
+		System.out.println("available options:");
+		System.out.println("  --layout=<layout>    - set layout");
+		System.out.println("  --style=<style>      - set look and feel");
+		System.out.println("  --help               - show this help text");
+		System.out.println();
+		System.out.println("use `help' for <layout> or <style> to a list available options");
+		System.out.println();
+	}
+	
+	private static void showAllLayouts()
+	{
+		// FIXME i18n!
+		System.out.println("available layouts:");
+		for (String key: layoutBuilders.keySet())
+		{
+			System.out.println("   " + key);
+		}
+	}
+
+	private static void showAllStyles()
+	{
+		// FIXME i18n!
+		System.out.println("available styles:");
+		for (String key: lookAndFeels.keySet())
+		{
+			System.out.println("   " + key);
+		}
 	}
 }
