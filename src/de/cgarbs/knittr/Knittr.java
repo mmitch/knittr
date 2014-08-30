@@ -201,7 +201,7 @@ public class Knittr
 	{
 		layoutBuilder = layoutBuilders.values().iterator().next();
 	}
-	
+
 	private static void showHelp()
 	{
 		// FIXME i18n!
@@ -215,7 +215,7 @@ public class Knittr
 		System.out.println("use `help' for <layout> or <style> to a list available options");
 		System.out.println();
 	}
-	
+
 	private static void showAllLayouts()
 	{
 		// FIXME i18n!
