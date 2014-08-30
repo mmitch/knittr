@@ -19,11 +19,31 @@ import de.cgarbs.lib.ui.AutoLayout.Builder;
 import de.cgarbs.lib.ui.layout.BorderedDoubleVerticalLayout;
 import de.cgarbs.lib.ui.layout.BorderedVerticalLayout;
 import de.cgarbs.lib.ui.layout.DualColumnTabbedLayout;
+import de.cgarbs.lib.ui.layout.DualColumnVerticalLayout;
 import de.cgarbs.lib.ui.layout.SimpleTabbedLayout;
 import de.cgarbs.lib.ui.layout.SimpleVerticalLayout;
 
 public class Knittr
 {
+
+	private static Map<String,Builder<?>> layoutBuilders = new LinkedHashMap<String,Builder<?>>();
+	static {
+		layoutBuilders.put("SimpleTabbedLayout", SimpleTabbedLayout.builder());
+		layoutBuilders.put("DualColumnTabbedLayout", DualColumnTabbedLayout.builder());
+		layoutBuilders.put("BorderedVerticalLayout", BorderedVerticalLayout.builder());
+		layoutBuilders.put("BorderedDoubleVerticalLayout", BorderedDoubleVerticalLayout.builder());
+		layoutBuilders.put("SimpleVerticalLayout", SimpleVerticalLayout.builder());
+		layoutBuilders.put("DualColumnVerticalLayout", DualColumnVerticalLayout.builder());
+	}
+
+	private static Map<String,String> lookAndFeels = new LinkedHashMap<String,String>();
+	static {
+		lookAndFeels.put("Nimbus", "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+		lookAndFeels.put("Windows", "com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+		lookAndFeels.put("GTK", "com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
+		lookAndFeels.put("Motif", "com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+		lookAndFeels.put("Metal", "javax.swing.plaf.metal.MetalLookAndFeel");
+	};
 
 	static Project p;
 	static File f;
@@ -139,24 +159,6 @@ public class Knittr
 			}
 		});
 	}
-
-	private static Map<String,Builder<?>> layoutBuilders = new LinkedHashMap<String,Builder<?>>();
-	static {
-		layoutBuilders.put("SimpleTabbedLayout", SimpleTabbedLayout.builder());
-		layoutBuilders.put("SimpleVerticalLayout", SimpleVerticalLayout.builder());
-		layoutBuilders.put("DualColumnTabbedLayout", DualColumnTabbedLayout.builder());
-		layoutBuilders.put("BorderedVerticalLayout", BorderedVerticalLayout.builder());
-		layoutBuilders.put("BorderedDoubleVerticalLayout", BorderedDoubleVerticalLayout.builder());
-	}
-
-	private static Map<String,String> lookAndFeels = new LinkedHashMap<String,String>();
-	static {
-		lookAndFeels.put("Nimbus", "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-		lookAndFeels.put("Windows", "com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-		lookAndFeels.put("GTK", "com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
-		lookAndFeels.put("Motif", "com.sun.java.swing.plaf.motif.MotifLookAndFeel");
-		lookAndFeels.put("Metal", "javax.swing.plaf.metal.MetalLookAndFeel");
-	};
 
 	/**
 	 * UIManager.getSystemLookAndFeelClassName() does not return the GTK on my Ubuntu
