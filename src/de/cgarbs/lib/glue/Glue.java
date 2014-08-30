@@ -19,6 +19,7 @@ import de.cgarbs.lib.glue.type.FileBinding;
 import de.cgarbs.lib.glue.type.FloatBinding;
 import de.cgarbs.lib.glue.type.ImageBinding;
 import de.cgarbs.lib.glue.type.IntBinding;
+import de.cgarbs.lib.glue.type.ProgressBarBinding;
 import de.cgarbs.lib.glue.type.StringBinding;
 import de.cgarbs.lib.i18n.Resource;
 
@@ -83,6 +84,7 @@ public class Glue<T extends DataModel>
 		Binding binding;
 		DataAttribute attribute = model.getAttribute(key);
 		Resource resource = model.getResource();
+		// FIXME catch incompatible attribute classes!
 		if (StringBinding.class.equals(clazz))
 		{
 			binding = new StringBinding(attribute, resource, label);
@@ -106,6 +108,10 @@ public class Glue<T extends DataModel>
 		else if (ImageBinding.class.equals(clazz))
 		{
 			binding = new ImageBinding(attribute, resource, label);
+		}
+		else if (ProgressBarBinding.class.equals(clazz))
+		{
+			binding = new ProgressBarBinding(attribute, resource, label);
 		}
 		else
 		{
