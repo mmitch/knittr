@@ -8,7 +8,6 @@ import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 import de.cgarbs.lib.exception.GlueException;
 import de.cgarbs.lib.ui.AutoLayout;
@@ -50,8 +49,7 @@ public class SimpleVerticalLayout extends AutoLayout
 				}
 			}
 
-			JScrollPane scroller = new JScrollPane(panel);
-			return scroller;
+			return wrapInScrollPane(panel);
 		}
 	}
 

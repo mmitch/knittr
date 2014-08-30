@@ -28,13 +28,13 @@ public class SimpleTabbedLayout extends AutoLayout
 
 			for (Group group : (List<Group>) groups) // FIXME why cast here?!
 			{
-				JPanel panel = new JPanel();
-				panel.setLayout(new GridBagLayout());
+				JPanel tab = new JPanel();
+				tab.setLayout(new GridBagLayout());
 				int line = 0;
 
 				for (Element element: group.getElements())
 				{
-					element.addToComponent(panel,  0,  line);
+					element.addToComponent(tab,  0,  line);
 					line++;
 				}
 
@@ -47,9 +47,9 @@ public class SimpleTabbedLayout extends AutoLayout
 				gbc.weightx = 1;
 				gbc.weighty = 1;
 				gbc.fill = GridBagConstraints.VERTICAL;
-				panel.add(remainder, gbc);
+				tab.add(remainder, gbc);
 
-				component.add(group.getTitle(), panel);
+				component.add(group.getTitle(), wrapInScrollPane(tab));
 			}
 
 			return component;

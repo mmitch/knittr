@@ -8,7 +8,6 @@ import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 import de.cgarbs.lib.exception.GlueException;
 import de.cgarbs.lib.ui.Element;
@@ -55,8 +54,7 @@ public class DualColumnVerticalLayout extends SimpleVerticalLayout
 				}
 			}
 
-			JScrollPane scroller = new JScrollPane(panel);
-			return scroller;
+			return wrapInScrollPane(panel);
 		}
 	}
 

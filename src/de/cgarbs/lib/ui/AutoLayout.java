@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JComponent;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
 
 import de.cgarbs.lib.exception.GlueException;
 import de.cgarbs.lib.glue.Binding;
@@ -41,6 +44,25 @@ abstract public class AutoLayout
 				startNextGroup(null);
 			}
 			return groups.get(groups.size() - 1);
+		}
+
+		protected JComponent wrapInScrollPane(JComponent component)
+		{
+			final JScrollPane scrollPane = new JScrollPane(component);
+			
+			// move scroll pane to top left needs to be async :-/ 
+			SwingUtilities.invokeLater(new Runnable()
+			{
+				public void run()
+				{
+					JScrollBar v = scrollPane.getVerticalScrollBar();
+					JScrollBar h = scrollPane.getHorizontalScrollBar();
+					v.setValue(v.getMinimum());
+					h.setValue(h.getMinimum());
+				}
+			});
+			
+			return scrollPane;
 		}
 
 		abstract public JComponent build() throws GlueException;

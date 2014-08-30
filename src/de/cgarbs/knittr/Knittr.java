@@ -29,11 +29,11 @@ public class Knittr
 	private static Map<String,Builder<?>> layoutBuilders = new LinkedHashMap<String,Builder<?>>();
 	static {
 		layoutBuilders.put("SimpleTabbedLayout", SimpleTabbedLayout.builder());
-		layoutBuilders.put("DualColumnTabbedLayout", DualColumnTabbedLayout.builder());
 		layoutBuilders.put("BorderedVerticalLayout", BorderedVerticalLayout.builder());
-		layoutBuilders.put("BorderedDoubleVerticalLayout", BorderedDoubleVerticalLayout.builder());
 		layoutBuilders.put("SimpleVerticalLayout", SimpleVerticalLayout.builder());
+		layoutBuilders.put("DualColumnTabbedLayout", DualColumnTabbedLayout.builder());
 		layoutBuilders.put("DualColumnVerticalLayout", DualColumnVerticalLayout.builder());
+		layoutBuilders.put("BorderedDoubleVerticalLayout", BorderedDoubleVerticalLayout.builder());
 	}
 
 	private static Map<String,String> lookAndFeels = new LinkedHashMap<String,String>();

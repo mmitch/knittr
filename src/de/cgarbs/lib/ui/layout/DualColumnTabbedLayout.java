@@ -27,14 +27,14 @@ public class DualColumnTabbedLayout extends SimpleTabbedLayout
 
 			for (Group group : (List<Group>) groups) // FIXME why cast here?!
 			{
-				JPanel panel = new JPanel();
-				panel.setLayout(new GridBagLayout());
+				JPanel tab = new JPanel();
+				tab.setLayout(new GridBagLayout());
 				int line = 0;
 				int col = 0;
 
 				for (Element element: group.getElements())
 				{
-					element.addToComponent(panel,  col,  line);
+					element.addToComponent(tab,  col,  line);
 
 					col+=2;
 					if (col > 2)
@@ -53,9 +53,9 @@ public class DualColumnTabbedLayout extends SimpleTabbedLayout
 				gbc.weightx = 1;
 				gbc.weighty = 1;
 				gbc.fill = GridBagConstraints.VERTICAL;
-				panel.add(remainder, gbc);
+				tab.add(remainder, gbc);
 
-				component.add(group.getTitle(), panel);
+				component.add(group.getTitle(), wrapInScrollPane(tab));
 			}
 
 			return component;

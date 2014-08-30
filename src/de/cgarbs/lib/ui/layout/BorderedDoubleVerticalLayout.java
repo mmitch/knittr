@@ -56,7 +56,7 @@ public class BorderedDoubleVerticalLayout extends BorderedVerticalLayout
 				gbc.gridy++;
 			}
 
-			return panel;
+			return wrapInScrollPane(panel);
 		}
 	}
 

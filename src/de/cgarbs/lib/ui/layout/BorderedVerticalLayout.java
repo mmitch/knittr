@@ -50,7 +50,7 @@ public class BorderedVerticalLayout extends AutoLayout
 				gbc.gridy++;
 			}
 
-			return panel;
+			return wrapInScrollPane(panel);
 		}
 	}
 
