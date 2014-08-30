@@ -86,4 +86,14 @@ public abstract class NumberAttribute extends DataAttribute
 			return numberFormat.format(getValue());
 		}
 	}
+
+	public Number getMinValue()
+	{
+		return this.minValue;
+	}
+
+	public Number getMaxValue()
+	{
+		return this.maxValue;
+	}
 }
