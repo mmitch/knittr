@@ -90,7 +90,7 @@ public class MainWindow extends JFrame
 
 		JTextArea infoText = new JTextArea();
 		infoText.setEditable(false);
-		infoText.setText("Knittr\n2014 (C) by Christian Garbs <mitch@cgarbs.de>\nlicensed under GNU GPL v3 or later\nhttps://github.com/mmitch/knittr/");
+		infoText.setText(R._("TXT_about"));
 
 //		JComponent jthingie = SimpleVerticalLayout.builder()
 		JComponent jthingie = SimpleTabbedLayout.builder()
