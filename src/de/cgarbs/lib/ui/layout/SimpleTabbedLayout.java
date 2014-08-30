@@ -1,12 +1,12 @@
 package de.cgarbs.lib.ui.layout;
 
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.List;
 
 import javax.swing.Box;
-import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
@@ -22,7 +22,7 @@ public class SimpleTabbedLayout extends AutoLayout
 	{
 
 		@Override
-		public JComponent build() throws GlueException
+		public Container build() throws GlueException
 		{
 			JTabbedPane component = new JTabbedPane();
 

@@ -1,11 +1,11 @@
 package de.cgarbs.lib.ui.layout;
 
+import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
@@ -21,7 +21,7 @@ public class BorderedVerticalLayout extends AutoLayout
 	{
 
 		@Override
-		public JComponent build() throws GlueException
+		public Container build() throws GlueException
 		{
 			JPanel panel = new JPanel();
 			panel.setLayout(new GridBagLayout());

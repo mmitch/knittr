@@ -1,5 +1,6 @@
 package de.cgarbs.knittr.ui;
 
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -12,7 +13,6 @@ import java.io.IOException;
 
 import javax.swing.Box;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -93,7 +93,7 @@ public class MainWindow extends JFrame
 		infoText.setEditable(false);
 		infoText.setText(R._("TXT_about"));
 
-		JComponent jthingie = layoutBuilder
+		Container jthingie = layoutBuilder
 				.startNextGroup(R._("GRP_files"))  // FIXME move Resource to builder(), add "GRP_" automatically within Builder?
 				.addAttribute(b_source_file).addAttribute(b_target_file).addAttribute(b_source_image)
 				.startNextGroup(R._("GRP_maschenprobe"))

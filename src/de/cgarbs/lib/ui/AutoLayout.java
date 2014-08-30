@@ -1,5 +1,6 @@
 package de.cgarbs.lib.ui;
 
+import java.awt.Container;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,11 +47,11 @@ abstract public class AutoLayout
 			return groups.get(groups.size() - 1);
 		}
 
-		protected JComponent wrapInScrollPane(JComponent component)
+		protected Container wrapInScrollPane(JComponent component)
 		{
 			final JScrollPane scrollPane = new JScrollPane(component);
-			
-			// move scroll pane to top left needs to be async :-/ 
+
+			// move scroll pane to top left needs to be async :-/
 			SwingUtilities.invokeLater(new Runnable()
 			{
 				public void run()
@@ -61,11 +62,11 @@ abstract public class AutoLayout
 					h.setValue(h.getMinimum());
 				}
 			});
-			
+
 			return scrollPane;
 		}
 
-		abstract public JComponent build() throws GlueException;
+		abstract public Container build() throws GlueException;
 	}
 
 	protected AutoLayout(Builder<?> builder)

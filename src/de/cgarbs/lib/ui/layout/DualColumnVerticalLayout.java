@@ -1,11 +1,11 @@
 package de.cgarbs.lib.ui.layout;
 
+import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.List;
 
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -20,7 +20,7 @@ public class DualColumnVerticalLayout extends SimpleVerticalLayout
 	{
 
 		@Override
-		public JComponent build() throws GlueException
+		public Container build() throws GlueException
 		{
 			JPanel panel = new JPanel();
 			panel.setLayout(new GridBagLayout());
