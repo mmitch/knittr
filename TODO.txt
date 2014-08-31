@@ -1,33 +1,35 @@
 TODO:
 
-=== UI ===
+=== KNITTR ===
 
-- use SpringLayout instead of GridBagLayout
+- re-check page centering and sizing algorithm
+
+- add variables for page size and page border
+
+? allow "print two pages wide"?
+
+=== UI ===
 
 - i18n
   - property handling for lib (exceptions, validation)
 
-- validation
-  - later: print validation error for every element
-    - needs message footer
-    - needs parseValue()
-    - change validate() to validate(Object)
-    - later: use message footer to print help text for current element
+- print validation error for every element
+  - needs message footer
+  - needs parseValue()
+  - change validate() to validate(Object)
+  - later: use message footer to print help text for current element
 
 === DATA ===
 
-- "editable" attribute for all attribute types
-
-=== GLUE ===
-
-- dirty/clean flag
-  - keep copy of model in clean state, use equals
+? "editable" attribute for all attribute types
 
 === LIB ===
 
-- simple logging framework??
+? simple logging framework
 
-- general utilities class (like safe String.setToMxLength())
+? general utilities class (like safe String.setToMxLength())
+
+? general methods for look&feel selection / AutoLayout selection
 
 === BUILD ===
 
