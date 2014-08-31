@@ -23,6 +23,11 @@ TODO:
 
 ? "editable" attribute for all attribute types
 
+? persist DataModel in text/properties file, don't use object serialization
+  - pro: manual editing possible
+  - less problems on upgrades of knittr DataModel?
+  - serialized Java objects should be forward-compatible through JRE versions
+
 === LIB ===
 
 ? simple logging framework
