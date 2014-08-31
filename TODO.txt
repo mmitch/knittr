@@ -28,3 +28,7 @@ TODO:
 - simple logging framework??
 
 - general utilities class (like safe String.setToMxLength())
+
+=== BUILD ===
+
+- check-l10n: only call with path, detect and sort relevant files automatically
