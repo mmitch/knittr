@@ -161,4 +161,27 @@ abstract public class DataModel implements Serializable
 	{
 		return attributes.keySet();
 	}
+
+	// FIXME retain dirty-flag in model or in view?
+	// in model is easier for now, but needs a syncToModel() before evaluation
+	// in view is more flexible - but is it worth the extra effort?
+	public void resetDirty()
+	{
+		for (DataAttribute a: attributes.values())
+		{
+			a.resetDirty();
+		}
+	}
+
+	public boolean isDirty()
+	{
+		for (DataAttribute a: attributes.values())
+		{
+			if (a.isDirty())
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 }

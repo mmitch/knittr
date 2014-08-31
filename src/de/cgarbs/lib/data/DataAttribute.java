@@ -16,6 +16,7 @@ abstract public class DataAttribute implements Serializable
 	private transient final boolean nullable;
 	private String key;
 	private DataModel model;
+	protected transient Object cleanValue;
 
 	abstract public void setValue(Object newValue) throws DataException;
 	abstract public Object getValue();
@@ -77,5 +78,19 @@ abstract public class DataAttribute implements Serializable
 	public DataModel getModel()
 	{
 		return model;
+	}
+
+	public void resetDirty()
+	{
+		cleanValue = getValue();
+	}
+
+	public boolean isDirty()
+	{
+		if (getValue() == null)
+		{
+			return cleanValue != null;
+		}
+		return ! getValue().equals(cleanValue);
 	}
 }

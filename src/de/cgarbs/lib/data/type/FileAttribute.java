@@ -148,4 +148,16 @@ public class FileAttribute extends DataAttribute
 		return fileFilters;
 	}
 
+	@Override
+	public boolean isDirty()
+	{
+		boolean dirty = super.isDirty();
+		// consider relative and absolute paths equal, if they match
+		if (dirty && cleanValue != null && value != null)
+		{
+			dirty = ! ((File)cleanValue).getAbsoluteFile().equals(value.getAbsoluteFile());
+		}
+		return dirty;
+	}
+
 }

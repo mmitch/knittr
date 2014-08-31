@@ -201,4 +201,14 @@ public class Glue<T extends DataModel>
 		base_binding.addListeningBinding(new_binding);
 		return new_binding;
 	}
+
+	public boolean isDirty()
+	{
+		return model.isDirty();
+	}
+
+	public void resetDirty()
+	{
+		model.resetDirty();
+	}
 }
