@@ -81,6 +81,7 @@ public class MainWindow extends JFrame
 		Binding b_fontname = glue.addBinding(Project.FONTNAME);
 		Binding b_offset = glue.addBinding(Project.OFFSET);
 
+		setTitle(R._("TIT_mainwindow"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setMinimumSize(new Dimension(500, 300));
 		contentPane = new JPanel();
