@@ -105,6 +105,7 @@ public class Knittr
 		try
 		{
 			p = new Project();
+			p.resetDirty(); // initial state is reproducible, no need to save it
 
 			if (!args.isEmpty())
 			{
@@ -127,6 +128,7 @@ public class Knittr
 					try
 					{
 						p.readFromFile(f);
+						p.resetDirty();
 					}
 					catch (FileNotFoundException e)
 					{

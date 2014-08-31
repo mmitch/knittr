@@ -136,6 +136,27 @@ public class MainWindow extends JFrame
 		btnLoad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
+				// FIXME refactor this check into extra method?
+				try
+				{
+					glue.syncToModel();
+				} catch (DataException e1)
+				{
+					// FIXME invalid values won't count as dirty?
+					// would this be a reason to keep dirty state in view, not in model?
+				}
+				if (glue.isDirty())
+				{
+					if (! getConfirmation(
+							R._("TXT_load_dirty"),
+							R._("BTN_load"),
+							R._("BTN_cancel")
+							))
+					{
+						return;
+					}
+				}
+
 				File chosen = MainWindow.this.chooseFile(R._("BTN_load_project"));
 				if (chosen != null)
 				{
@@ -144,6 +165,7 @@ public class MainWindow extends JFrame
 					{
 						glue.getModel().readFromFile(chosen);
 						glue.syncToView();
+						glue.resetDirty();
 					}
 					catch (FileNotFoundException e1)
 					{
@@ -182,6 +204,7 @@ public class MainWindow extends JFrame
 					{
 						glue.syncToModel();
 						glue.getModel().writeToFile(chosen);
+						glue.resetDirty();
 					}
 					catch (FileNotFoundException e1)
 					{
@@ -260,6 +283,27 @@ public class MainWindow extends JFrame
 		btnQuit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
+				// FIXME refactor this check into extra method?
+				try
+				{
+					glue.syncToModel();
+				} catch (DataException e1)
+				{
+					// FIXME invalid values won't count as dirty?
+					// would this be a reason to keep dirty state in view, not in model?
+				}
+				if (glue.isDirty())
+				{
+					if (! getConfirmation(
+							R._("TXT_quit_dirty"),
+							R._("BTN_quit"),
+							R._("BTN_cancel")
+							))
+					{
+						return;
+					}
+				}
+
 				MainWindow.this.dispose();
 			}
 		});
@@ -276,6 +320,21 @@ public class MainWindow extends JFrame
 				R._("TIT_error"),
 				JOptionPane.ERROR_MESSAGE
 				);
+	}
+
+	protected boolean getConfirmation(String message, String labelOK, String labelCancel)
+	{
+		Object[] options = { labelCancel, labelOK };
+		return JOptionPane.showOptionDialog(
+				this,
+				message,
+				R._("TIT_confirmation"),
+				JOptionPane.DEFAULT_OPTION,
+				JOptionPane.WARNING_MESSAGE,
+				null,
+				options,
+				options[0]
+				) == 1;
 	}
 
 	private File chooseFile(String label)
