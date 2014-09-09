@@ -5,6 +5,7 @@ import java.util.List;
 
 import de.cgarbs.lib.data.DataAttribute;
 import de.cgarbs.lib.data.DataModel;
+import de.cgarbs.lib.data.type.BooleanAttribute;
 import de.cgarbs.lib.data.type.ColorAttribute;
 import de.cgarbs.lib.data.type.FileAttribute;
 import de.cgarbs.lib.data.type.FloatAttribute;
@@ -14,6 +15,7 @@ import de.cgarbs.lib.exception.DataException;
 import de.cgarbs.lib.exception.GlueException;
 import de.cgarbs.lib.exception.ValidationError;
 import de.cgarbs.lib.exception.ValidationErrorList;
+import de.cgarbs.lib.glue.type.BooleanBinding;
 import de.cgarbs.lib.glue.type.ColorBinding;
 import de.cgarbs.lib.glue.type.FileBinding;
 import de.cgarbs.lib.glue.type.FloatBinding;
@@ -53,6 +55,10 @@ public class Glue<T extends DataModel>
 		else if (attribute instanceof FloatAttribute)
 		{
 			return addBinding(key, FloatBinding.class, label);
+		}
+		else if (attribute instanceof BooleanAttribute)
+		{
+			return addBinding(key, BooleanBinding.class, label);
 		}
 		else if (attribute instanceof FileAttribute)
 		{
@@ -96,6 +102,10 @@ public class Glue<T extends DataModel>
 		else if (FloatBinding.class.equals(clazz))
 		{
 			binding = new FloatBinding(attribute, resource, label);
+		}
+		else if (BooleanBinding.class.equals(clazz))
+		{
+			binding = new BooleanBinding(attribute, resource, label);
 		}
 		else if (FileBinding.class.equals(clazz))
 		{
