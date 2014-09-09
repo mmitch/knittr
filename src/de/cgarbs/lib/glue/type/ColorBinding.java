@@ -28,13 +28,6 @@ public class ColorBinding extends Binding
 	}
 
 	@Override
-	public void syncToView()
-	{
-		Color value = (Color)attribute.getValue();
-		jPanel.setBackground(value);
-	}
-
-	@Override
 	public void syncToModel() throws DataException
 	{
 		attribute.setValue(jPanel.getBackground());
@@ -86,7 +79,6 @@ public class ColorBinding extends Binding
 		super.setViewValue(value);
 
 		Color c = (Color) value;
-
 		jPanel.setBackground(c);
 	}
 }
