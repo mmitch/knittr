@@ -21,7 +21,7 @@ public class BooleanAttribute extends DataAttribute
 			return new BooleanAttribute(this);
 		}
 	}
-	
+
 	private BooleanAttribute(Builder builder)
 	{
 		super(builder);

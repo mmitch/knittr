@@ -58,8 +58,9 @@ public abstract class AbstractRenderer
 
 	/**
 	 * rotates the image into portrait mode if needed
+	 * @return true = image was rotated
 	 */
-	void ensurePortrait()
+	protected boolean ensurePortrait()
 	{
 		if (r.getHeight() < r.getWidth())
 		{
@@ -76,7 +77,10 @@ public abstract class AbstractRenderer
 
 			bi = biNew;
 			r = bi.getRaster();
+
+			return true;
 		}
+		return false;
 	}
 
 	// FIXME make this stuff configurable!
