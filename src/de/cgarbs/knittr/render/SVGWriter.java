@@ -40,7 +40,7 @@ public class SVGWriter extends AbstractRenderer
 		{
 			// RENDER WHOLE PAGE
 			{
-				SVGGraphics2D svg = renderPage(0, 0, r.getWidth(), r.getHeight(), 0, 0);
+				SVGGraphics2D svg = renderPage(0, 0, r.getWidth(), r.getHeight(), 0, 0, false);
 
 				// write SVG to target file
 				svg.stream(((File)p.getValue(Project.TARGET_FILE)).getAbsolutePath(), true);
@@ -51,11 +51,15 @@ public class SVGWriter extends AbstractRenderer
 				String filename = ((File)p.getValue(Project.TARGET_FILE)).getAbsolutePath();
 				filename = filename.replace(".svg", "");
 
-				ensurePortrait();
+				boolean rotated = ensurePortrait();
 
 				// DIN A aspect ratio - landscape format
 				double pageAspect  = (double)getUsablePageWidthMM() / (double)getUsablePageHeightMM(); // landscape
 				double pixelAspect = (double) getScaleX(p) / (double) getScaleY(p);
+				if (rotated)
+				{
+					pixelAspect = 1/pixelAspect;
+				}
 
 				int pageHeight = (int) Math.floor(r.getWidth() * pageAspect * pixelAspect);
 				// calculate height of last page
@@ -77,7 +81,7 @@ public class SVGWriter extends AbstractRenderer
 						height = r.getHeight() - y;
 					}
 
-					SVGGraphics2D svg = renderPage(0, y, r.getWidth(), height, 0, r.getHeight() - height - y);
+					SVGGraphics2D svg = renderPage(0, y, r.getWidth(), height, 0, r.getHeight() - height - y, rotated);
 
 					svg.stream(filename + "." + pageNo + ".svg", true);
 				}
@@ -106,10 +110,11 @@ public class SVGWriter extends AbstractRenderer
 	 * @param H height to render
 	 * @param C columns offset of rendered page
 	 * @param R row offset of rendered page
+	 * @param rotated if the image was rotated from landscape to portrait
 	 * @return rendered page
 	 * @throws DataException
 	 */
-	private SVGGraphics2D renderPage(int X, int Y, int W, int H, int C, int R) throws DataException
+	private SVGGraphics2D renderPage(int X, int Y, int W, int H, int C, int R, boolean rotated) throws DataException
 	{
 
 		// init variables
@@ -119,8 +124,14 @@ public class SVGWriter extends AbstractRenderer
 		// cache values
 
 		// FIXME better use doubles? or set TOTAL_SCALE to higher value?
-		int SCALE_X = (int) Math.round(getScaleX(p));
-		int SCALE_Y = (int) Math.round(getScaleY(p));
+		int SCALE_X = (int) Math.floor(getScaleX(p));
+		int SCALE_Y = (int) Math.floor(getScaleY(p));
+		if (rotated)
+		{
+			int tmp = SCALE_X;
+			SCALE_X = SCALE_Y;
+			SCALE_Y = tmp;
+		}
 
 		int OFFSET  = (Integer) p.getValue(Project.OFFSET);
 		int MAX_XT = W * SCALE_X;
@@ -128,6 +139,7 @@ public class SVGWriter extends AbstractRenderer
 		int GRIDTEXTMOD = (Integer) p.getValue(Project.GRIDTEXTMOD);
 		Color TEXTCOLOR = (Color) p.getValue(Project.TEXTCOLOR);
 		Color GRIDCOLOR = (Color) p.getValue(Project.GRIDCOLOR);
+		Color ROWMARKCOLOR = (Color) p.getValue(Project.ROWMARKCOLOR);
 
 		// set a scale factor to start calculationg in mm
 		// initially: 1 coordinate = 1 pixel
@@ -141,16 +153,16 @@ public class SVGWriter extends AbstractRenderer
 		double factor = BATIK_DPI/25.4d;
 
 		// translate to page start (skip the border)
-		svg.translate(getPageBordersMM() * factor, -getPageBordersMM() * factor * 2);
+		svg.translate(getPageBordersMM() * factor, -getPageBordersMM() * factor);
 
 		// we produce and calculate landscape, but for easier printing portrait is better
 		// just rotate EVERYTHING once we're finished
 		// rotation center found by good old trial&error!
-		double center = (getTotalPageHeightMM()) / 2 * factor;
+		double center = getUsablePageHeightMM() * factor / 2;
 		svg.rotate(-Math.PI/2, center, center);
 
 		// scale to fit page contents
-		factor = (double) (getUsablePageHeightMM()-getPageBordersMM()) / (double) MAX_XT * factor; // we scale to fit on X, so take this as the factor
+		factor = (double) (getUsablePageHeightMM() - 2*getPageBordersMM()) * factor / (double) MAX_XT; // we scale to fit on X, so take this as the factor
 		svg.scale(factor, factor); // keep aspect ratio, same factor in both dimensions
 
 		// render pixels into squares
@@ -181,6 +193,36 @@ public class SVGWriter extends AbstractRenderer
 			}
 			svg.setPaint(lastColor);
 			svg.fill(new Rectangle( lastXt, yt, MAX_XT - lastXt, SCALE_Y));
+		}
+
+		// mark every other line
+		// FIXME: depending on the rotation, this draws either \ or / lines - don't care for now
+		svg.setPaint(ROWMARKCOLOR);
+		if (! rotated)
+		{
+			for (int ys=Y, yt=0; ys<Y+H; ys++, yt+=SCALE_Y)
+			{
+				if (ys % 2 == 0)
+				{
+					for (int xs=X, xt=0; xs<X+W; xs++, xt+=SCALE_X)
+					{
+						svg.drawLine(xt, yt, xt+SCALE_X, yt+SCALE_Y);
+					}
+				}
+			}
+		}
+		else
+		{
+			for (int xs=X, xt=0; xs<X+W; xs++, xt+=SCALE_X)
+			{
+				if (xs % 2 == 0)
+				{
+					for (int ys=Y, yt=0; ys<Y+H; ys++, yt+=SCALE_Y)
+					{
+						svg.drawLine(xt, yt, xt+SCALE_X, yt+SCALE_Y);
+					}
+				}
+			}
 		}
 
 		// thin grid
@@ -236,7 +278,7 @@ public class SVGWriter extends AbstractRenderer
 			if (row % GRIDTEXTMOD == 1)
 			{
 				svg.setPaint(TEXTCOLOR);
-				svg.drawString(String.valueOf(row-1), OFFSET, 				   yt - OFFSET + SCALE_Y);
+				svg.drawString(String.valueOf(row-1), OFFSET,                    yt - OFFSET + SCALE_Y);
 				svg.drawString(String.valueOf(row-1), MAX_XT - SCALE_X + OFFSET, yt - OFFSET + SCALE_Y);
 			}
 		}

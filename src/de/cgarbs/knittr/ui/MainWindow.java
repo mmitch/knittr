@@ -76,6 +76,8 @@ public class MainWindow extends JFrame
 		Binding b_gridwidthbig = glue.addBinding(Project.GRIDWIDTHBIG);
 		Binding b_gridtextmod = glue.addBinding(Project.GRIDTEXTMOD);
 		Binding b_gridcolor = glue.addBinding(Project.GRIDCOLOR);
+		Binding b_rowmark = glue.addBinding(Project.ROWMARK);
+		Binding b_rowmarkcolor = glue.addBinding(Project.ROWMARKCOLOR);
 
 		Binding b_textcolor = glue.addBinding(Project.TEXTCOLOR);
 		Binding b_fontname = glue.addBinding(Project.FONTNAME);
@@ -100,7 +102,7 @@ public class MainWindow extends JFrame
 				.startNextGroup(R._("GRP_maschenprobe"))
 				.addAttribute(b_maschen).addAttribute(b_reihen)
 				.startNextGroup(R._("GRP_grid"))
-				.addAttribute(b_gridtextmod).addAttribute(b_gridwidthbig).addAttribute(b_gridwidthsmall).addAttribute(b_gridcolor)
+				.addAttribute(b_gridtextmod).addAttribute(b_gridwidthbig).addAttribute(b_gridwidthsmall).addAttribute(b_gridcolor).addAttribute(b_rowmark).addAttribute(b_rowmarkcolor)
 				.startNextGroup(R._("GRP_font"))
 				.addAttribute(b_textcolor).addAttribute(b_fontname).addAttribute(b_offset)
 				.startNextGroup(R._("GRP_about"))

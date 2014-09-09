@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.io.File;
 
 import de.cgarbs.lib.data.DataModel;
+import de.cgarbs.lib.data.type.BooleanAttribute;
 import de.cgarbs.lib.data.type.ColorAttribute;
 import de.cgarbs.lib.data.type.FileAttribute;
 import de.cgarbs.lib.data.type.FloatAttribute;
@@ -32,6 +33,8 @@ public class Project extends DataModel
 	public static final String TOTALSCALE = "TOTALSCALE";
 	public static final String REIHEN = "REIHEN";
 	public static final String MASCHEN = "MASCHEN";
+	public static final String ROWMARK = "ROWMARK";
+	public static final String ROWMARKCOLOR = "ROWMARKCOLOR";
 
 	/**
 	 * generate a project with default settings
@@ -64,6 +67,8 @@ public class Project extends DataModel
 		addAttribute(TEXTCOLOR, ColorAttribute.builder().setNullable(false).build());
 		addAttribute(FONTNAME, StringAttribute.builder().setNullable(false).setMinLength(1).build());
 		addAttribute(OFFSET, IntAttribute.builder().setNullable(false).setMinValue(1).build());
+		addAttribute(ROWMARK, BooleanAttribute.builder().setNullable(false).build());
+		addAttribute(ROWMARKCOLOR, ColorAttribute.builder().setNullable(false).build());
 
 		setValue(GRIDWIDTHSMALL, 0.5f);
 		setValue(GRIDWIDTHBIG, 2f);
@@ -72,6 +77,8 @@ public class Project extends DataModel
 		setValue(TEXTCOLOR, Color.BLACK);
 		setValue(FONTNAME, "DialogInput");
 		setValue(OFFSET, 3);
+		setValue(ROWMARK, true);
+		setValue(ROWMARKCOLOR, Color.GRAY);
 
 	}
 
