@@ -2,8 +2,6 @@ TODO:
 
 === KNITTR ===
 
-- re-check page centering and sizing algorithm
-
 - add variables for page size and page border
 
 ? allow "print two pages wide"?

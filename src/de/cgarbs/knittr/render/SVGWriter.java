@@ -153,16 +153,16 @@ public class SVGWriter extends AbstractRenderer
 		double factor = BATIK_DPI/25.4d;
 
 		// translate to page start (skip the border)
-		svg.translate(getPageBordersMM() * factor, -getPageBordersMM() * factor * 2);
+		svg.translate(getPageBordersMM() * factor, -getPageBordersMM() * factor);
 
 		// we produce and calculate landscape, but for easier printing portrait is better
 		// just rotate EVERYTHING once we're finished
 		// rotation center found by good old trial&error!
-		double center = (getTotalPageHeightMM()) / 2 * factor;
+		double center = getUsablePageHeightMM() * factor / 2;
 		svg.rotate(-Math.PI/2, center, center);
 
 		// scale to fit page contents
-		factor = (double) (getUsablePageHeightMM()-getPageBordersMM()) / (double) MAX_XT * factor; // we scale to fit on X, so take this as the factor
+		factor = (double) (getUsablePageHeightMM() - 2*getPageBordersMM()) * factor / (double) MAX_XT; // we scale to fit on X, so take this as the factor
 		svg.scale(factor, factor); // keep aspect ratio, same factor in both dimensions
 
 		// render pixels into squares
@@ -278,7 +278,7 @@ public class SVGWriter extends AbstractRenderer
 			if (row % GRIDTEXTMOD == 1)
 			{
 				svg.setPaint(TEXTCOLOR);
-				svg.drawString(String.valueOf(row-1), OFFSET, 				   yt - OFFSET + SCALE_Y);
+				svg.drawString(String.valueOf(row-1), OFFSET,                    yt - OFFSET + SCALE_Y);
 				svg.drawString(String.valueOf(row-1), MAX_XT - SCALE_X + OFFSET, yt - OFFSET + SCALE_Y);
 			}
 		}
