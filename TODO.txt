@@ -2,8 +2,6 @@ TODO:
 
 === KNITTR ===
 
-- add variables for page size and page border
-
 ? allow "print two pages wide"?
 
 === UI ===
@@ -15,9 +13,16 @@ TODO:
   - needs message footer
   - needs parseValue()
   - change validate() to validate(Object)
+  - remove FormattedTextFieldVerifier class
   - later: use message footer to print help text for current element
 
 === DATA ===
+
+- additional constraints
+  - free code
+  - not directly related to an attribute
+  - e.g. "page border must be smaller than page width and page height"
+  ? how to set/unset validation flag in UI (on which attribute for example)
 
 ? "editable" attribute for all attribute types
 

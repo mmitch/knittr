@@ -35,6 +35,9 @@ public class Project extends DataModel
 	public static final String MASCHEN = "MASCHEN";
 	public static final String ROWMARK = "ROWMARK";
 	public static final String ROWMARKCOLOR = "ROWMARKCOLOR";
+	public static final String PAGEWIDTH = "PAGEWIDTH";
+	public static final String PAGEHEIGHT = "PAGEHEIGHT";
+	public static final String PAGEBORDER = "PAGEBORDER";
 
 	/**
 	 * generate a project with default settings
@@ -69,6 +72,9 @@ public class Project extends DataModel
 		addAttribute(OFFSET, IntAttribute.builder().setNullable(false).setMinValue(1).build());
 		addAttribute(ROWMARK, BooleanAttribute.builder().setNullable(false).build());
 		addAttribute(ROWMARKCOLOR, ColorAttribute.builder().setNullable(false).build());
+		addAttribute(PAGEWIDTH, IntAttribute.builder().setNullable(false).setMinValue(1).build());
+		addAttribute(PAGEHEIGHT, IntAttribute.builder().setNullable(false).setMinValue(1).build());
+		addAttribute(PAGEBORDER, IntAttribute.builder().setNullable(false).setMinValue(0).build());
 
 		setValue(GRIDWIDTHSMALL, 0.5f);
 		setValue(GRIDWIDTHBIG, 2f);
@@ -79,6 +85,9 @@ public class Project extends DataModel
 		setValue(OFFSET, 3);
 		setValue(ROWMARK, true);
 		setValue(ROWMARKCOLOR, Color.GRAY);
+		setValue(PAGEWIDTH, 210);
+		setValue(PAGEHEIGHT, 297);
+		setValue(PAGEBORDER, 10);
 
 	}
 

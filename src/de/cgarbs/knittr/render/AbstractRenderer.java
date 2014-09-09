@@ -84,27 +84,27 @@ public abstract class AbstractRenderer
 	}
 
 	// FIXME make this stuff configurable!
-	int getPageBordersMM()
+	int getPageBordersMM() throws DataException
 	{
-		return 10;
+		return (Integer)p.getValue(Project.PAGEBORDER);
 	}
 
-	public int getTotalPageWidthMM()
+	public int getTotalPageWidthMM() throws DataException
 	{
-		return 210;
+		return (Integer)p.getValue(Project.PAGEWIDTH);
 	}
 
-	public int getTotalPageHeightMM()
+	public int getTotalPageHeightMM() throws DataException
 	{
-		return 297;
+		return (Integer)p.getValue(Project.PAGEHEIGHT);
 	}
 
-	public int getUsablePageWidthMM()
+	public int getUsablePageWidthMM() throws DataException
 	{
 		return getTotalPageWidthMM() - (2 * getPageBordersMM());
 	}
 
-	public int getUsablePageHeightMM()
+	public int getUsablePageHeightMM() throws DataException
 	{
 		return getTotalPageHeightMM() - (2 * getPageBordersMM());
 	}

@@ -83,6 +83,10 @@ public class MainWindow extends JFrame
 		Binding b_fontname = glue.addBinding(Project.FONTNAME);
 		Binding b_offset = glue.addBinding(Project.OFFSET);
 
+		Binding b_pagewidth = glue.addBinding(Project.PAGEWIDTH);
+		Binding b_pageheight = glue.addBinding(Project.PAGEHEIGHT);
+		Binding b_pageborder = glue.addBinding(Project.PAGEBORDER);
+
 		setTitle(R._("TIT_mainwindow"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setMinimumSize(new Dimension(500, 300));
@@ -105,6 +109,8 @@ public class MainWindow extends JFrame
 				.addAttribute(b_gridtextmod).addAttribute(b_gridwidthbig).addAttribute(b_gridwidthsmall).addAttribute(b_gridcolor).addAttribute(b_rowmark).addAttribute(b_rowmarkcolor)
 				.startNextGroup(R._("GRP_font"))
 				.addAttribute(b_textcolor).addAttribute(b_fontname).addAttribute(b_offset)
+				.startNextGroup(R._("GRP_page"))
+				.addAttribute(b_pagewidth).addAttribute(b_pageheight).addAttribute(b_pageborder)
 				.startNextGroup(R._("GRP_about"))
 				.addComponent(infoText)
 				.build();
