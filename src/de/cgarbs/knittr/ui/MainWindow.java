@@ -1,6 +1,7 @@
 package de.cgarbs.knittr.ui;
 
 import java.awt.Container;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -247,7 +248,17 @@ public class MainWindow extends JFrame
 				{
 					glue.validate();
 					glue.syncToModel();
+					
+					// rendering can take longer, show that something happens
+					// FIXME: open a progress bar, the framework can do this
+					//        but this would need an additional model and window class...
+					contentPane.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+					
 					new SVGWriter(glue.getModel()).render();
+					
+					// finished, revert cursor
+					contentPane.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+
 					JOptionPane.showMessageDialog(
 							MainWindow.this,
 							R._("TXT_render_success")
