@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 public class Resource
 {
 	private ResourceBundle rb;
-	private Pattern pattern = Pattern.compile("[^$]\\$(\\d+)");
+	private Pattern pattern = Pattern.compile("(\\$?)\\$(\\d*+)");
 
 	public Resource(String baseName)
 	{
@@ -34,22 +34,40 @@ public class Resource
 			// FIXME warn via stderr?
 		}
 
+		StringBuffer sb = new StringBuffer();
 		Matcher matcher = pattern.matcher(text);
 		while (matcher.find())
 		{
-			int i = Integer.valueOf(matcher.group(1));
-			if (i < values.length)
+			String repl;
+			if (matcher.group(1).isEmpty() && matcher.group(2).isEmpty())
 			{
-				text = matcher.replaceFirst(values[i]);
+				// single "$" -> don't do anything, replace by $
+				repl = "\\$"; // quote this!
+			}
+			else if (matcher.group(1).isEmpty())
+			{
+				// replacement of variable $n
+				int i = Integer.valueOf(matcher.group(2));
+				if (i < values.length)
+				{
+					repl = values[i];
+				}
+				else
+				{
+					repl = "{PARAMETER "+i+" NOT SET}";
+					// FIXME warn via exception?
+				}
 			}
 			else
 			{
-				text = matcher.replaceFirst("{PARAMETER "+i+" NOT SET}");
-				// FIXME warn via exception?
+				// duplicate $$ -> escaped $
+				// change $$ to $, don't change anything else
+				repl = "\\$$2"; // quoted $ (\$) plus group 2 ($2)
 			}
-			matcher = pattern.matcher(text);
+			matcher.appendReplacement(sb, repl);
 		}
+		matcher.appendTail(sb);
 
-		return text;
+		return sb.toString();
 	}
 }
