@@ -38,6 +38,7 @@ public class Project extends DataModel
 	public static final String PAGEWIDTH = "PAGEWIDTH";
 	public static final String PAGEHEIGHT = "PAGEHEIGHT";
 	public static final String PAGEBORDER = "PAGEBORDER";
+	public static final String PAGEMINFILL = "PAGEMINFILL";
 
 	/**
 	 * generate a project with default settings
@@ -75,6 +76,7 @@ public class Project extends DataModel
 		addAttribute(PAGEWIDTH, IntAttribute.builder().setNullable(false).setMinValue(1).build());
 		addAttribute(PAGEHEIGHT, IntAttribute.builder().setNullable(false).setMinValue(1).build());
 		addAttribute(PAGEBORDER, IntAttribute.builder().setNullable(false).setMinValue(0).build());
+		addAttribute(PAGEMINFILL, IntAttribute.builder().setNullable(false).setMinValue(1).setMaxValue(99).build());
 
 		setValue(GRIDWIDTHSMALL, 0.5f);
 		setValue(GRIDWIDTHBIG, 2f);
@@ -88,6 +90,7 @@ public class Project extends DataModel
 		setValue(PAGEWIDTH, 210);
 		setValue(PAGEHEIGHT, 297);
 		setValue(PAGEBORDER, 10);
+		setValue(PAGEMINFILL, 10);
 
 	}
 

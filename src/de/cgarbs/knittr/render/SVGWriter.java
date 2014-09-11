@@ -48,6 +48,7 @@ public class SVGWriter extends AbstractRenderer
 
 			// RENDER MULTIPAGE
 			{
+				double PAGEMINFILL = 0.01 * (Integer)p.getValue(Project.PAGEMINFILL);
 				String filename = ((File)p.getValue(Project.TARGET_FILE)).getAbsolutePath();
 				filename = filename.replace(".svg", "");
 
@@ -64,9 +65,9 @@ public class SVGWriter extends AbstractRenderer
 				int pageHeight = (int) Math.floor(r.getWidth() * pageAspect * pixelAspect);
 				// calculate height of last page
 				int lastPageHeight = r.getHeight() % pageHeight;
-				while (lastPageHeight > 0 && lastPageHeight < pageHeight * 0.1)
+				while (lastPageHeight > 0 && lastPageHeight < pageHeight * PAGEMINFILL)
 				{
-					// last page less than 10% filled, rescale to get rid of it
+					// last page less than PAGEMINFILL % filled, rescale to get rid of it
 					// this could be calculated, but I don't want to think of a formula, just use a loop :-)
 					pageHeight++;
 					lastPageHeight = r.getHeight() % pageHeight;

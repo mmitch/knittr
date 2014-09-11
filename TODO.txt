@@ -2,6 +2,10 @@ TODO:
 
 === KNITTR ===
 
+- SVG render:
+  - fix bug on rescale of last page when there is only one page left
+    (then only 1 page is rendered and it is not scaled to fit)
+
 ? allow "print two pages wide"?
 
 === UI ===

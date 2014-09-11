@@ -86,6 +86,7 @@ public class MainWindow extends JFrame
 		Binding b_pagewidth = glue.addBinding(Project.PAGEWIDTH);
 		Binding b_pageheight = glue.addBinding(Project.PAGEHEIGHT);
 		Binding b_pageborder = glue.addBinding(Project.PAGEBORDER);
+		Binding b_pageminfill = glue.addBinding(Project.PAGEMINFILL);
 
 		setTitle(R._("TIT_mainwindow"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -110,7 +111,7 @@ public class MainWindow extends JFrame
 				.startNextGroup(R._("GRP_font"))
 				.addAttribute(b_textcolor).addAttribute(b_fontname).addAttribute(b_offset)
 				.startNextGroup(R._("GRP_page"))
-				.addAttribute(b_pagewidth).addAttribute(b_pageheight).addAttribute(b_pageborder)
+				.addAttribute(b_pagewidth).addAttribute(b_pageheight).addAttribute(b_pageborder).addAttribute(b_pageminfill)
 				.startNextGroup(R._("GRP_about"))
 				.addComponent(infoText)
 				.build();
