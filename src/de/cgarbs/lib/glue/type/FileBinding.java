@@ -103,7 +103,17 @@ public class FileBinding extends Binding
 		}
 		else
 		{
-			jTextField.setText(file.getAbsolutePath());
+			String workingDir = System.getProperty("user.dir"); // FIXME keep this static from program startup?
+			if (! workingDir.endsWith(File.separator))
+			{
+				workingDir += File.separator;
+			}
+			String s = file.getAbsolutePath();
+			if (s.startsWith(workingDir))
+			{
+				s = s.substring(workingDir.length());
+			}
+			jTextField.setText(s);
 		}
 	}
 
