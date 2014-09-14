@@ -11,15 +11,21 @@ TODO:
 === UI ===
 
 - print validation error for every element
-  - needs message footer
-  - needs parseValue()
+  - validate/invalidate directly on value change
   - remove FormattedTextFieldVerifier class
+
+- cascade validation errors
   - mark groups (eg. tabs) as invalid, if a value is invalid
-  - later: use message footer to print help text for current element
+
+- add detailed field description as tooltip to label part of a DataBinding
+
+- later: use message footer to print help text/validation error for current element
 
 === DATA ===
 
 - additional constraints
+  ! check this, there is already something like this code (source file != target file)
+    but does not seem to work
   - free code
   - not directly related to an attribute
   - e.g. "page border must be smaller than page width and page height"
