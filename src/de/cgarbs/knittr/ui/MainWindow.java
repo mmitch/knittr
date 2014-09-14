@@ -48,7 +48,7 @@ public class MainWindow extends JFrame
 
 	private JPanel contentPane;
 
-	private Resource R;
+	private static Resource R = new Resource("de.cgarbs.knittr.resource.MainWindow");
 
 	/**
 	 * Create the frame.
@@ -59,8 +59,6 @@ public class MainWindow extends JFrame
 	public MainWindow(Project p, File f, Builder<?> layoutBuilder) throws GlueException, DataException
 	// FIXME make clazz extend AutoLayout
 	{
-		R = new Resource("de.cgarbs.knittr.resource.MainWindow");
-
 		currentFile = f;
 
 		// add bindings
@@ -248,14 +246,14 @@ public class MainWindow extends JFrame
 				{
 					glue.validate();
 					glue.syncToModel();
-					
+
 					// rendering can take longer, show that something happens
 					// FIXME: open a progress bar, the framework can do this
 					//        but this would need an additional model and window class...
 					contentPane.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-					
+
 					new SVGWriter(glue.getModel()).render();
-					
+
 					// finished, revert cursor
 					contentPane.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 

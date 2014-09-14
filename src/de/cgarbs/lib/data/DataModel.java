@@ -124,7 +124,7 @@ abstract public class DataModel implements Serializable
 
 	public void validate() throws ValidationErrorList // FIXME: unneeded? remove?
 	{
-		ValidationErrorList ex = new ValidationErrorList(this);
+		ValidationErrorList ex = new ValidationErrorList();
 		for (DataAttribute attribute: attributes.values())
 		{
 			try
@@ -133,7 +133,7 @@ abstract public class DataModel implements Serializable
 			}
 			catch (ValidationError e)
 			{
-				ex.addValidationError(e);
+				ex.addValidationError(attribute, e);
 			}
 		}
 
@@ -143,10 +143,10 @@ abstract public class DataModel implements Serializable
 		}
 		catch (ValidationError e)
 		{
-			ex.addValidationError(e);
+			ex.addValidationError(this, e);
 		}
 
-		if (! ex.getValidationErrors().isEmpty())
+		if (! ex.isEmpty())
 		{
 			throw ex;
 		}

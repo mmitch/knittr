@@ -159,7 +159,12 @@ public class Glue<T extends DataModel>
 
 	public void validate() throws ValidationErrorList
 	{
-		ValidationErrorList ex = new ValidationErrorList(getModel());
+		for (Binding binding: bindings)
+		{
+			binding.setValidationError(null);
+		}
+
+		ValidationErrorList ex = new ValidationErrorList();
 		for (Binding binding: bindings)
 		{
 			Object oldValue = binding.attribute.getValue();
@@ -170,11 +175,13 @@ public class Glue<T extends DataModel>
 			}
 			catch (ValidationError e)
 			{
-				ex.addValidationError(e);
+				ex.addValidationError(binding, e);
+				binding.setValidationError(e.getLocalizedMessage());
 			}
 			catch (DataException e)
 			{
-				ex.addValidationError(binding.attribute, e);
+				ex.addValidationError(binding, e);
+				binding.setValidationError(e.getLocalizedMessage());
 			}
 			finally
 			{
@@ -196,10 +203,10 @@ public class Glue<T extends DataModel>
 		}
 		catch (ValidationError e)
 		{
-			ex.addValidationError(e);
+			ex.addValidationError(model, e);
 		}
 
-		if (! ex.getValidationErrors().isEmpty())
+		if (! ex.isEmpty())
 		{
 			throw ex;
 		}

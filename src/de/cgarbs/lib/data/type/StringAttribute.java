@@ -83,14 +83,18 @@ public class StringAttribute extends DataAttribute
 		{
 			throw new ValidationError(
 					this,
-					"string too short: " + length + " < " + minLength
+					"string too short: " + length + " < " + minLength,
+					ValidationError.ERROR.STRING_TOO_SHORT,
+					String.valueOf(length), String.valueOf(minLength)
 					);
 		}
 		if (maxLength != null && length > maxLength)
 		{
 			throw new ValidationError(
 					this,
-					"string too long: " + length + " > " + maxLength
+					"string too long: " + length + " > " + maxLength,
+					ValidationError.ERROR.STRING_TOO_LONG,
+					String.valueOf(length), String.valueOf(maxLength)
 					);
 		}
 	}

@@ -10,13 +10,9 @@ TODO:
 
 === UI ===
 
-- i18n
-  - property handling for lib (exceptions, validation)
-
 - print validation error for every element
   - needs message footer
   - needs parseValue()
-  - change validate() to validate(Object)
   - remove FormattedTextFieldVerifier class
   - mark groups (eg. tabs) as invalid, if a value is invalid
   - later: use message footer to print help text for current element

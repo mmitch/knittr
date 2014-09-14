@@ -116,29 +116,44 @@ public class FileAttribute extends DataAttribute
 	{
 		super.validate(value);
 
-		boolean exists   = value.exists();
-		boolean writable = value.canWrite();
-		boolean readable = value.canRead();
+		boolean exists   = false;
+		boolean writable = false;
+		boolean readable = false;
+		String  name     = "<null>";
+
+		if (value != null)
+		{
+			exists   = value.exists();
+			writable = value.canWrite();
+			readable = value.canRead();
+			name     = value.getAbsolutePath();
+		}
 
 		if (mustExist && ! exists)
 		{
 			throw new ValidationError(
 					this,
-					"file does not exist: " + value
+					"file does not exist: " + name,
+					ValidationError.ERROR.FILE_NOT_EXISTING,
+					name
 					);
 		}
 		if (mustRead && ! readable)
 		{
 			throw new ValidationError(
 					this,
-					"file not readable: " + value
+					"file not readable: " + name,
+					ValidationError.ERROR.FILE_NOT_READABLE,
+					name
 					);
 		}
 		if (mustWrite && exists && ! writable)
 		{
 			throw new ValidationError(
 					this,
-					"file not writable: " + value
+					"file not writable: " + name,
+					ValidationError.ERROR.FILE_NOT_WRITABLE,
+					name
 					);
 		}
 	}

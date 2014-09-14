@@ -1,5 +1,6 @@
 package de.cgarbs.lib.glue;
 
+import java.awt.Color;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -72,6 +73,29 @@ abstract public class Binding
 	public void syncToView()
 	{
 		setViewValue(attribute.getValue());
+	}
+
+	public void setValidationError(String text)
+	{
+		jData.setToolTipText(text);
+		if (text == null)
+		{
+			jData.setBackground(null);
+		}
+		else
+		{
+			jData.setBackground(Color.RED);
+		}
+	}
+
+	public String getTxtLabel()
+	{
+		return txtLabel;
+	}
+
+	public DataAttribute getAttribute()
+	{
+		return attribute;
 	}
 
 //	public DataAttribute getAttribute() // FIXME: why is the field attribute visible, it's protected?!

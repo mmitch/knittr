@@ -1,4 +1,5 @@
 package de.cgarbs.knittr.data;
+
 import java.awt.Color;
 import java.io.File;
 
@@ -91,7 +92,6 @@ public class Project extends DataModel
 		setValue(PAGEHEIGHT, 297);
 		setValue(PAGEBORDER, 10);
 		setValue(PAGEMINFILL, 10);
-
 	}
 
 	@Override
@@ -114,7 +114,8 @@ public class Project extends DataModel
 			{
 				throw new ValidationError(
 						getAttribute(TARGET_FILE),
-						"target and source file are the same" // FIXME i18n
+						"target and source file are the same",
+						getResource()._("EXC_TARGET_SOURCE_SAME")
 						);
 			}
 		}

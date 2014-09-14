@@ -50,7 +50,8 @@ abstract public class DataAttribute implements Serializable
 		{
 			throw new ValidationError(
 					this,
-					"null not allowed"
+					"null not allowed",
+					ValidationError.ERROR.NULL_NOT_ALLOWED
 					);
 		}
 	}

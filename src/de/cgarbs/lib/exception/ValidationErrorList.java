@@ -5,52 +5,66 @@ import java.util.List;
 
 import de.cgarbs.lib.data.DataAttribute;
 import de.cgarbs.lib.data.DataModel;
+import de.cgarbs.lib.glue.Binding;
 
 public class ValidationErrorList extends Exception
 {
-
 	/**
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
-	private DataModel model;
+	private List<String> validationErrors = new ArrayList<String>();
 
-	public ValidationErrorList(DataModel model)
+	public void addValidationError(String text)
 	{
-		this.model = model;
+		validationErrors.add(text);
 	}
 
-	public void addValidationError(ValidationError e)
+	public void addValidationError(String text, ValidationError e)
 	{
-		validationErrors.add(e);
+		addValidationError(text + ": " + e.getLocalizedMessage());
 	}
 
-	public List<ValidationError> getValidationErrors()
+	public void addValidationError(DataModel model, ValidationError e)
 	{
-		return validationErrors;
+		addValidationError(model.getModelName(), e);
+	}
+
+	public void addValidationError(DataAttribute attribute, ValidationError e)
+	{
+		addValidationError(attribute.getAttributeName(), e);
+	}
+
+	public void addValidationError(Binding binding, ValidationError e)
+	{
+		addValidationError(binding.getTxtLabel(), e);
+	}
+
+	public void addValidationError(Binding binding, DataException e)
+	{
+		addValidationError(binding.getTxtLabel(), new ValidationError(binding.getAttribute(), e));
+	}
+
+	public boolean isEmpty()
+	{
+		return validationErrors.isEmpty();
 	}
 
 	public String getMessage()
 	{
-		return validationErrors.size() + " validation errors from model " + model.getModelName();
+		return validationErrors.size() + " validation errors";
 	}
 
 	public String getErrorList()
 	{
 		StringBuilder sb = new StringBuilder();
 
-		for (ValidationError e: validationErrors)
+		for (String s: validationErrors)
 		{
-			sb.append(e.getMessage()).append('\n');
+			sb.append(s).append('\n');
 		}
 
 		return sb.toString();
-	}
-
-	public void addValidationError(DataAttribute attribute, DataException e)
-	{
-		addValidationError(new ValidationError(attribute, e));
 	}
 }
