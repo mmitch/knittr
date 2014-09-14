@@ -18,6 +18,7 @@ TODO:
   - needs parseValue()
   - change validate() to validate(Object)
   - remove FormattedTextFieldVerifier class
+  - mark groups (eg. tabs) as invalid, if a value is invalid
   - later: use message footer to print help text for current element
 
 === DATA ===
@@ -35,6 +36,8 @@ TODO:
   - serialized Java objects should be forward-compatible through JRE versions
 
 === LIB ===
+
+- document all library classes and methods
 
 ? simple logging framework
 
