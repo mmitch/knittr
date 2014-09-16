@@ -57,7 +57,14 @@ public class ImageBinding extends Binding
 			try
 			{
 				BufferedImage img = ImageIO.read(file);
-				jLabel.setIcon(new ImageIcon(img));
+				if (img == null)
+				{
+					jLabel.setIcon(null);
+				}
+				else
+				{
+					jLabel.setIcon(new ImageIcon(img));
+				}
 			}
 			catch (IOException e)
 			{

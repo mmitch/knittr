@@ -20,6 +20,8 @@ TODO:
 
 - add detailed field description as tooltip to label part of a DataBinding
 
+- do something when image file is no image file (preview icon == null)
+
 - later: use message footer to print help text/validation error for current element
 
 === DATA ===
