@@ -125,7 +125,7 @@ public class FileBinding extends Binding
 	}
 
 	@Override
-	public void setValidationError(String text)
+	protected void setValidationError(String text)
 	{
 		super.setValidationError(text);
 

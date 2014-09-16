@@ -83,7 +83,7 @@ abstract public class Binding
 		attribute.setValue(getViewValue());
 	}
 
-	public void setValidationError(String text)
+	protected void setValidationError(String text)
 	{
 		jData.setToolTipText(text);
 		if (text == null)
@@ -108,7 +108,16 @@ abstract public class Binding
 
 	public void validate() throws ValidationError
 	{
-		attribute.validate(getViewValue());
+		try
+		{
+			attribute.validate(getViewValue());
+			setValidationError(null);
+		}
+		catch (ValidationError e)
+		{
+			setValidationError(e.getLocalizedMessage());
+			throw e;
+		}
 	}
 
 //	public DataAttribute getAttribute() // FIXME: why is the field attribute visible, it's protected?!

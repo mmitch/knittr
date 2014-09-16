@@ -159,11 +159,6 @@ public class Glue<T extends DataModel>
 
 	public void validate() throws ValidationErrorList
 	{
-		for (Binding binding: bindings)
-		{
-			binding.setValidationError(null);
-		}
-
 		ValidationErrorList ex = new ValidationErrorList();
 		for (Binding binding: bindings)
 		{
@@ -174,7 +169,6 @@ public class Glue<T extends DataModel>
 			catch (ValidationError e)
 			{
 				ex.addValidationError(binding, e);
-				binding.setValidationError(e.getLocalizedMessage());
 			}
 		}
 
@@ -184,6 +178,7 @@ public class Glue<T extends DataModel>
 		}
 		catch (ValidationError e)
 		{
+			// FIXME errors not shown on GUI
 			ex.addValidationError(model, e);
 		}
 
