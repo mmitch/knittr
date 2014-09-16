@@ -35,7 +35,11 @@ public class DataException extends LocalizedException
 	{
 		super(message);
 		this.error = error;
-		System.err.println(this.toString());
+	}
+
+	public DataException(ERROR error, Throwable t)
+	{
+		this(error, t.getMessage(), t);
 	}
 
 	public DataException(ERROR error, String message, Throwable t)
