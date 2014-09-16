@@ -124,5 +124,18 @@ public class FileBinding extends Binding
 		}
 	}
 
+	@Override
+	public void setValidationError(String text)
+	{
+		super.setValidationError(text);
 
+		if (text == null)
+		{
+			jTextField.setBackground(null);
+		}
+		else
+		{
+			jTextField.setBackground(ERROR_COLOR);
+		}
+	}
 }

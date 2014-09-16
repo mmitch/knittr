@@ -14,6 +14,8 @@ import de.cgarbs.lib.i18n.Resource;
 
 abstract public class Binding
 {
+	protected static Color ERROR_COLOR = Color.RED;
+
 	protected DataAttribute attribute;
 	protected JLabel     jLabel;
 	protected JComponent jData;
@@ -90,7 +92,7 @@ abstract public class Binding
 		}
 		else
 		{
-			jData.setBackground(Color.RED);
+			jData.setBackground(ERROR_COLOR);
 		}
 	}
 
