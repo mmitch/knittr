@@ -2,7 +2,6 @@ package de.cgarbs.lib.data.type;
 
 import de.cgarbs.lib.data.DataAttribute;
 import de.cgarbs.lib.exception.DataException;
-import de.cgarbs.lib.exception.ValidationError;
 
 public class BooleanAttribute extends DataAttribute
 {
@@ -58,11 +57,5 @@ public class BooleanAttribute extends DataAttribute
 					"wrong type: " + newValue.getClass() + " != " + Boolean.class
 					);
 		}
-	}
-
-	@Override
-	public void validate() throws ValidationError
-	{
-		super.validate(value);
 	}
 }

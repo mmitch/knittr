@@ -74,28 +74,32 @@ public class StringAttribute extends DataAttribute
 		return value;
 	}
 
-	@Override
-	public void validate() throws ValidationError
+	public void validate(Object value) throws ValidationError
 	{
 		super.validate(value);
-		int length = (value == null ? 0 : value.length());
-		if (minLength != null && length < minLength)
+
+		if (value != null)
 		{
-			throw new ValidationError(
-					this,
-					"string too short: " + length + " < " + minLength,
-					ValidationError.ERROR.STRING_TOO_SHORT,
-					String.valueOf(length), String.valueOf(minLength)
-					);
-		}
-		if (maxLength != null && length > maxLength)
-		{
-			throw new ValidationError(
-					this,
-					"string too long: " + length + " > " + maxLength,
-					ValidationError.ERROR.STRING_TOO_LONG,
-					String.valueOf(length), String.valueOf(maxLength)
-					);
+			int length = ((String) value).length();
+
+			if (minLength != null && length < minLength)
+			{
+				throw new ValidationError(
+						this,
+						"string too short: " + length + " < " + minLength,
+						ValidationError.ERROR.STRING_TOO_SHORT,
+						String.valueOf(length), String.valueOf(minLength)
+						);
+			}
+			if (maxLength != null && length > maxLength)
+			{
+				throw new ValidationError(
+						this,
+						"string too long: " + length + " > " + maxLength,
+						ValidationError.ERROR.STRING_TOO_LONG,
+						String.valueOf(length), String.valueOf(maxLength)
+						);
+			}
 		}
 	}
 

@@ -4,7 +4,6 @@ import java.awt.Color;
 
 import de.cgarbs.lib.data.DataAttribute;
 import de.cgarbs.lib.exception.DataException;
-import de.cgarbs.lib.exception.ValidationError;
 
 public class ColorAttribute extends DataAttribute
 {
@@ -66,11 +65,4 @@ public class ColorAttribute extends DataAttribute
 	{
 		return value;
 	}
-
-	@Override
-	public void validate() throws ValidationError
-	{
-		super.validate(value);
-	}
-
 }

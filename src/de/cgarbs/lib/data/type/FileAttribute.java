@@ -111,50 +111,54 @@ public class FileAttribute extends DataAttribute
 		return value;
 	}
 
-	@Override
-	public void validate() throws ValidationError
+	public void validate(Object value) throws ValidationError
 	{
 		super.validate(value);
 
-		boolean exists   = false;
-		boolean writable = false;
-		boolean readable = false;
-		String  name     = "<null>";
-
 		if (value != null)
 		{
-			exists   = value.exists();
-			writable = value.canWrite();
-			readable = value.canRead();
-			name     = value.getAbsolutePath();
-		}
+			File file = (File) value;
 
-		if (mustExist && ! exists)
-		{
-			throw new ValidationError(
-					this,
-					"file does not exist: " + name,
-					ValidationError.ERROR.FILE_NOT_EXISTING,
-					name
-					);
-		}
-		if (mustRead && ! readable)
-		{
-			throw new ValidationError(
-					this,
-					"file not readable: " + name,
-					ValidationError.ERROR.FILE_NOT_READABLE,
-					name
-					);
-		}
-		if (mustWrite && exists && ! writable)
-		{
-			throw new ValidationError(
-					this,
-					"file not writable: " + name,
-					ValidationError.ERROR.FILE_NOT_WRITABLE,
-					name
-					);
+			boolean exists   = false;
+			boolean writable = false;
+			boolean readable = false;
+			String  name     = "<null>";
+
+			if (value != null)
+			{
+				exists   = file.exists();
+				writable = file.canWrite();
+				readable = file.canRead();
+				name     = file.getAbsolutePath();
+			}
+
+			if (mustExist && ! exists)
+			{
+				throw new ValidationError(
+						this,
+						"file does not exist: " + name,
+						ValidationError.ERROR.FILE_NOT_EXISTING,
+						name
+						);
+			}
+			if (mustRead && ! readable)
+			{
+				throw new ValidationError(
+						this,
+						"file not readable: " + name,
+						ValidationError.ERROR.FILE_NOT_READABLE,
+						name
+						);
+			}
+			if (mustWrite && exists && ! writable)
+			{
+				throw new ValidationError(
+						this,
+						"file not writable: " + name,
+						ValidationError.ERROR.FILE_NOT_WRITABLE,
+						name
+						);
+			}
 		}
 	}
 

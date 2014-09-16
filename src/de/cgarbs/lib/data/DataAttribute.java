@@ -21,8 +21,6 @@ abstract public class DataAttribute implements Serializable
 	abstract public void setValue(Object newValue) throws DataException;
 	abstract public Object getValue();
 
-	abstract public void validate() throws ValidationError;
-
 	// Builder pattern start
 	public abstract static class Builder<T extends Builder<?>>
 	{
@@ -44,7 +42,12 @@ abstract public class DataAttribute implements Serializable
 	}
 	// Builder pattern end
 
-	protected void validate(Object value) throws ValidationError
+	public final void validate() throws ValidationError
+	{
+		validate(getValue());
+	}
+
+	public void validate(Object value) throws ValidationError
 	{
 		if (! nullable && value == null)
 		{

@@ -52,30 +52,32 @@ public abstract class NumberAttribute extends DataAttribute
 		return value;
 	}
 
-	@Override
-	public void validate() throws ValidationError
+	public void validate(Object value) throws ValidationError
 	{
 		super.validate(value);
 
-		double dvalue = value.doubleValue();
+		if (value != null)
+		{
+			double dvalue = ((Double) value).doubleValue();
 
-		if (minValue != null && dvalue < minValue.doubleValue())
-		{
-			throw new ValidationError(
-					this,
-					"value too small: " + value + " < " + minValue,
-					ValidationError.ERROR.NUMBER_TOO_SMALL,
-					String.valueOf(value), String.valueOf(minValue)
-					);
-		}
-		if (maxValue != null && dvalue > maxValue.doubleValue())
-		{
-			throw new ValidationError(
-					this,
-					"value too big: " + value + " > " + maxValue,
-					ValidationError.ERROR.NUMBER_TOO_LARGE,
-					String.valueOf(value), String.valueOf(minValue)
-					);
+			if (minValue != null && dvalue < minValue.doubleValue())
+			{
+				throw new ValidationError(
+						this,
+						"value too small: " + value + " < " + minValue,
+						ValidationError.ERROR.NUMBER_TOO_SMALL,
+						String.valueOf(value), String.valueOf(minValue)
+						);
+			}
+			if (maxValue != null && dvalue > maxValue.doubleValue())
+			{
+				throw new ValidationError(
+						this,
+						"value too big: " + value + " > " + maxValue,
+						ValidationError.ERROR.NUMBER_TOO_LARGE,
+						String.valueOf(value), String.valueOf(minValue)
+						);
+			}
 		}
 	}
 
