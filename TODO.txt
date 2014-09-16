@@ -16,6 +16,7 @@ TODO:
 
 - cascade validation errors
   - mark groups (eg. tabs) as invalid, if a value is invalid
+  - use a lighter red and "$NUMBER errors" as tooltip
 
 - add detailed field description as tooltip to label part of a DataBinding
 
