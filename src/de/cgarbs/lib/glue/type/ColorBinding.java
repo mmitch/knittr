@@ -13,7 +13,6 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 import de.cgarbs.lib.data.DataAttribute;
-import de.cgarbs.lib.exception.DataException;
 import de.cgarbs.lib.glue.Binding;
 import de.cgarbs.lib.i18n.Resource;
 
@@ -28,9 +27,9 @@ public class ColorBinding extends Binding
 	}
 
 	@Override
-	public void syncToModel() throws DataException
+	public Object getViewValue()
 	{
-		attribute.setValue(jPanel.getBackground());
+		return jPanel.getBackground();
 	}
 
 	@Override

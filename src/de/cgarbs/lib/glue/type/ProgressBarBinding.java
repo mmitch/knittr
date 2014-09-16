@@ -5,7 +5,6 @@ import javax.swing.JProgressBar;
 
 import de.cgarbs.lib.data.DataAttribute;
 import de.cgarbs.lib.data.type.IntAttribute;
-import de.cgarbs.lib.exception.DataException;
 import de.cgarbs.lib.glue.Binding;
 import de.cgarbs.lib.i18n.Resource;
 
@@ -21,9 +20,9 @@ public class ProgressBarBinding extends Binding
 	}
 
 	@Override
-	public void syncToModel() throws DataException
+	public Object getViewValue()
 	{
-		// output only!
+		return jProgressBar.getValue();
 	}
 
 	@Override

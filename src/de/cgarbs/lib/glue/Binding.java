@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 
 import de.cgarbs.lib.data.DataAttribute;
 import de.cgarbs.lib.exception.DataException;
+import de.cgarbs.lib.exception.ValidationError;
 import de.cgarbs.lib.i18n.Resource;
 
 abstract public class Binding
@@ -18,9 +19,9 @@ abstract public class Binding
 	protected JComponent jData;
 	protected String     txtLabel;
 
-	abstract public void syncToModel() throws DataException;
-
 	private Set<Binding> listeningBindings = new HashSet<Binding>(); // FIXME or List? -> check!
+
+	public abstract Object getViewValue();
 
 	public JComponent getJLabel()
 	{
@@ -75,6 +76,11 @@ abstract public class Binding
 		setViewValue(attribute.getValue());
 	}
 
+	public final void syncToModel() throws DataException
+	{
+		attribute.setValue(getViewValue());
+	}
+
 	public void setValidationError(String text)
 	{
 		jData.setToolTipText(text);
@@ -96,6 +102,11 @@ abstract public class Binding
 	public DataAttribute getAttribute()
 	{
 		return attribute;
+	}
+
+	public void validate() throws ValidationError
+	{
+		attribute.validate(getViewValue());
 	}
 
 //	public DataAttribute getAttribute() // FIXME: why is the field attribute visible, it's protected?!

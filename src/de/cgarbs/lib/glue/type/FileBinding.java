@@ -15,7 +15,6 @@ import javax.swing.filechooser.FileFilter;
 
 import de.cgarbs.lib.data.DataAttribute;
 import de.cgarbs.lib.data.type.FileAttribute;
-import de.cgarbs.lib.exception.DataException;
 import de.cgarbs.lib.glue.Binding;
 import de.cgarbs.lib.i18n.Resource;
 
@@ -28,12 +27,6 @@ public class FileBinding extends Binding
 	public FileBinding(DataAttribute attribute, Resource resource, String label)
 	{
 		super(attribute, resource, label);
-	}
-
-	@Override
-	public void syncToModel() throws DataException
-	{
-		attribute.setValue(file);
 	}
 
 	@Override
@@ -61,7 +54,7 @@ public class FileBinding extends Binding
 						fc.addChoosableFileFilter(fileFilter);
 					}
 				}
-				fc.setSelectedFile(getViewValue());
+				fc.setSelectedFile((File)getViewValue());
 				fc.setDialogTitle("choose "+txtLabel); // FIXME i18n
 				if (fc.showDialog(
 						jButton,
@@ -117,7 +110,8 @@ public class FileBinding extends Binding
 		}
 	}
 
-	private File getViewValue()
+	@Override
+	public Object getViewValue()
 	{
 		String value = jTextField.getText();
 		if (value == null || value.length() == 0)

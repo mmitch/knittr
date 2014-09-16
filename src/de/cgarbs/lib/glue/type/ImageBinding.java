@@ -12,13 +12,13 @@ import javax.swing.JLabel;
 import javax.swing.border.Border;
 
 import de.cgarbs.lib.data.DataAttribute;
-import de.cgarbs.lib.exception.DataException;
 import de.cgarbs.lib.glue.Binding;
 import de.cgarbs.lib.i18n.Resource;
 
 public class ImageBinding extends Binding
 {
 	protected JLabel jLabel;
+	protected File file;
 
 	protected final static Border border = BorderFactory.createEmptyBorder(2, 2, 2, 2);
 
@@ -28,9 +28,9 @@ public class ImageBinding extends Binding
 	}
 
 	@Override
-	public void syncToModel() throws DataException
+	public Object getViewValue()
 	{
-		// output only!
+		return file;
 	}
 
 	@Override
@@ -46,9 +46,9 @@ public class ImageBinding extends Binding
 	{
 		super.setViewValue(value);
 
-		File f = (File) value;
+		file = (File) value;
 
-		if (f == null)
+		if (file == null)
 		{
 			jLabel.setIcon(null);
 		}
@@ -56,7 +56,7 @@ public class ImageBinding extends Binding
 		{
 			try
 			{
-				BufferedImage img = ImageIO.read(f);
+				BufferedImage img = ImageIO.read(file);
 				jLabel.setIcon(new ImageIcon(img));
 			}
 			catch (IOException e)

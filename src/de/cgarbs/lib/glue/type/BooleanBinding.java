@@ -4,7 +4,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 
 import de.cgarbs.lib.data.DataAttribute;
-import de.cgarbs.lib.exception.DataException;
 import de.cgarbs.lib.glue.Binding;
 import de.cgarbs.lib.i18n.Resource;
 
@@ -18,9 +17,9 @@ public class BooleanBinding extends Binding
 	}
 
 	@Override
-	public void syncToModel() throws DataException
+	public Object getViewValue()
 	{
-		attribute.setValue(jCheckBox.isSelected());
+		return jCheckBox.isSelected();
 	}
 
 	@Override

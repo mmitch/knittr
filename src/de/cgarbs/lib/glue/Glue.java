@@ -167,33 +167,14 @@ public class Glue<T extends DataModel>
 		ValidationErrorList ex = new ValidationErrorList();
 		for (Binding binding: bindings)
 		{
-			Object oldValue = binding.attribute.getValue();
 			try
 			{
-				binding.syncToModel();
-				binding.attribute.validate();
+				binding.validate();
 			}
 			catch (ValidationError e)
 			{
 				ex.addValidationError(binding, e);
 				binding.setValidationError(e.getLocalizedMessage());
-			}
-			catch (DataException e)
-			{
-				ex.addValidationError(binding, e);
-				binding.setValidationError(e.getLocalizedMessage());
-			}
-			finally
-			{
-				try
-				{
-					binding.attribute.setValue(oldValue);
-				}
-				catch (DataException e)
-				{
-					// well, if this fails, the value was broken from the start...
-					// can't do anything about it
-				}
 			}
 		}
 
