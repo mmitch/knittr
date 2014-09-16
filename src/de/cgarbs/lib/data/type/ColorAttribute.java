@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import de.cgarbs.lib.data.DataAttribute;
 import de.cgarbs.lib.exception.DataException;
+import de.cgarbs.lib.exception.ValidationError;
 
 public class ColorAttribute extends DataAttribute
 {
@@ -35,16 +36,28 @@ public class ColorAttribute extends DataAttribute
 	// Builder pattern end
 
 	@Override
-	public void setValue(Object newValue) throws DataException
+	public Object getValue()
+	{
+		return value;
+	}
+
+	@Override
+	protected void setValueInternal(Object newValue) throws DataException
+	{
+		value = (Color) newValue;
+	}
+
+	@Override
+	protected Object convertType(Object newValue) throws ValidationError
 	{
 		if (newValue == null)
 		{
-			value = null;
+			return null;
 		}
 		else if (newValue instanceof Color)
 		{
 			Color color = (Color)newValue;
-			value = new Color(
+			return new Color(
 					color.getRed(),
 					color.getGreen(),
 					color.getBlue(),
@@ -53,16 +66,11 @@ public class ColorAttribute extends DataAttribute
 		}
 		else
 		{
-			throw new DataException(
-					DataException.ERROR.INVALID_VALUE,
-					"wrong type: " + newValue.getClass() + " != " + Color.class
+			throw new ValidationError(
+					this,
+					"wrong type: " + newValue.getClass() + " != " + Color.class,
+					ValidationError.ERROR.NUMBER_FORMAT // FIXME this is not number format error!
 					);
 		}
-	}
-
-	@Override
-	public Object getValue()
-	{
-		return value;
 	}
 }

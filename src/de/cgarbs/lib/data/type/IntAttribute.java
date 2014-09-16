@@ -1,10 +1,8 @@
 package de.cgarbs.lib.data.type;
 
 import java.text.NumberFormat;
-import java.text.ParseException;
 
 import de.cgarbs.lib.data.NumberAttribute;
-import de.cgarbs.lib.exception.DataException;
 
 public class IntAttribute extends NumberAttribute
 {
@@ -32,42 +30,15 @@ public class IntAttribute extends NumberAttribute
 		super(builder);
 		numberFormat = NumberFormat.getIntegerInstance();
 	}
-
 	// Builder pattern end
 
 	@Override
-	public void setValue(Object newValue) throws DataException
+	public Object getValue()
 	{
-		if (newValue == null)
+		if (value == null)
 		{
-			value = null;
+			return null;
 		}
-		else if (newValue instanceof Integer)
-		{
-			value = Integer.valueOf(((Integer)newValue).intValue());
-		}
-		else
-		{
-			try
-			{
-				String s = String.valueOf(newValue);
-				if (s.length() == 0)
-				{
-					value = 0;
-				}
-				else
-				{
-					value = numberFormat.parse(s).intValue();
-				}
-			}
-			catch (ParseException e)
-			{
-				throw new DataException(
-						DataException.ERROR.INVALID_VALUE,
-						"can't parse Integer",
-						e
-						);
-			}
-		}
+		return value.intValue();
 	}
 }

@@ -2,6 +2,7 @@ package de.cgarbs.lib.data.type;
 
 import de.cgarbs.lib.data.DataAttribute;
 import de.cgarbs.lib.exception.DataException;
+import de.cgarbs.lib.exception.ValidationError;
 
 public class BooleanAttribute extends DataAttribute
 {
@@ -30,7 +31,6 @@ public class BooleanAttribute extends DataAttribute
 	{
 		return new Builder();
 	}
-
 	// Builder pattern end
 
 	@Override
@@ -40,21 +40,28 @@ public class BooleanAttribute extends DataAttribute
 	}
 
 	@Override
-	public void setValue(Object newValue) throws DataException
+	protected void setValueInternal(Object newValue) throws DataException
+	{
+		value = (Boolean) newValue;
+	}
+
+	@Override
+	protected Object convertType(Object newValue) throws ValidationError
 	{
 		if (newValue == null)
 		{
-			value = null;
+			return null;
 		}
 		else if (newValue instanceof Boolean)
 		{
-			value = (Boolean) newValue;
+			return (Boolean) newValue;
 		}
 		else
 		{
-			throw new DataException(
-					DataException.ERROR.INVALID_VALUE,
-					"wrong type: " + newValue.getClass() + " != " + Boolean.class
+			throw new ValidationError(
+					this,
+					"wrong type: " + newValue.getClass() + " != " + Boolean.class,
+					ValidationError.ERROR.NUMBER_FORMAT // FIXME this is not number format error!
 					);
 		}
 	}

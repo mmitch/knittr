@@ -52,23 +52,6 @@ public class StringAttribute extends DataAttribute
 	// Builder pattern end
 
 	@Override
-	public void setValue(Object newValue) throws DataException
-	{
-		if (newValue == null)
-		{
-			value = null;
-		}
-		else if (newValue instanceof String)
-		{
-			value = (String)newValue; // Strings are immutable, this is OK
-		}
-		else
-		{
-			value = String.valueOf(newValue);
-		}
-	}
-
-	@Override
 	public Object getValue()
 	{
 		return value;
@@ -76,11 +59,13 @@ public class StringAttribute extends DataAttribute
 
 	public void validate(Object value) throws ValidationError
 	{
-		super.validate(value);
+		String s = (String) convertType(value);
 
-		if (value != null)
+		super.validate(s);
+
+		if (s != null)
 		{
-			int length = ((String) value).length();
+			int length = s.length();
 
 			if (minLength != null && length < minLength)
 			{
@@ -91,6 +76,7 @@ public class StringAttribute extends DataAttribute
 						String.valueOf(length), String.valueOf(minLength)
 						);
 			}
+
 			if (maxLength != null && length > maxLength)
 			{
 				throw new ValidationError(
@@ -100,6 +86,29 @@ public class StringAttribute extends DataAttribute
 						String.valueOf(length), String.valueOf(maxLength)
 						);
 			}
+		}
+	}
+
+	@Override
+	protected void setValueInternal(Object newValue) throws DataException
+	{
+		value = (String) newValue;
+	}
+
+	@Override
+	protected Object convertType(Object newValue) throws ValidationError
+	{
+		if (newValue == null)
+		{
+			return null;
+		}
+		else if (newValue instanceof String)
+		{
+			return (String)newValue; // Strings are immutable, this is OK
+		}
+		else
+		{
+			return String.valueOf(newValue);
 		}
 	}
 

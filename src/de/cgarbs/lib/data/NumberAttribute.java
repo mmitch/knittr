@@ -1,7 +1,9 @@
 package de.cgarbs.lib.data;
 
 import java.text.NumberFormat;
+import java.text.ParseException;
 
+import de.cgarbs.lib.exception.DataException;
 import de.cgarbs.lib.exception.ValidationError;
 
 public abstract class NumberAttribute extends DataAttribute
@@ -43,22 +45,17 @@ public abstract class NumberAttribute extends DataAttribute
 		maxValue = builder.maxValue;
 		numberFormat = NumberFormat.getInstance();
 	}
-
 	// Builder pattern end
-
-	@Override
-	public Object getValue()
-	{
-		return value;
-	}
 
 	public void validate(Object value) throws ValidationError
 	{
-		super.validate(value);
+		Number n = (Number) convertType(value);
 
-		if (value != null)
+		super.validate(n);
+
+		if (n != null)
 		{
-			double dvalue = ((Double) value).doubleValue();
+			double dvalue = n.doubleValue();
 
 			if (minValue != null && dvalue < minValue.doubleValue())
 			{
@@ -69,6 +66,7 @@ public abstract class NumberAttribute extends DataAttribute
 						String.valueOf(value), String.valueOf(minValue)
 						);
 			}
+
 			if (maxValue != null && dvalue > maxValue.doubleValue())
 			{
 				throw new ValidationError(
@@ -101,5 +99,47 @@ public abstract class NumberAttribute extends DataAttribute
 	public Number getMaxValue()
 	{
 		return this.maxValue;
+	}
+
+	@Override
+	protected void setValueInternal(Object newValue) throws DataException
+	{
+		value = (Number) newValue;
+	}
+
+	@Override
+	protected Object convertType(Object newValue) throws ValidationError
+	{
+		if (newValue == null)
+		{
+			return null;
+		}
+		else if (newValue instanceof Number)
+		{
+			return (Number) newValue;
+		}
+		else
+		{
+			try
+			{
+				String s = String.valueOf(newValue);
+				if (s.length() == 0)
+				{
+					return null;
+				}
+				else
+				{
+					return numberFormat.parse(s);
+				}
+			}
+			catch (ParseException e)
+			{
+				throw new ValidationError(
+						this,
+						"can't parse " + newValue.getClass() + " as number: " + newValue.toString(),
+						ValidationError.ERROR.NUMBER_FORMAT
+						);
+			}
+		}
 	}
 }

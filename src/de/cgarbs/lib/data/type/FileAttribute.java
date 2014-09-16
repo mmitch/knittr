@@ -78,34 +78,6 @@ public class FileAttribute extends DataAttribute
 	// Builder pattern end
 
 	@Override
-	public void setValue(Object newValue) throws DataException
-	{
-		if (newValue == null)
-		{
-			value = null;
-		}
-		else if (newValue instanceof File)
-		{
-			value = new File(((File) newValue).toURI());
-		}
-		else if (newValue instanceof String)
-		{
-			value = new File((String) newValue);
-		}
-		else if (newValue instanceof URI)
-		{
-			value = new File((URI) newValue);
-		}
-		else
-		{
-			throw new DataException(
-					DataException.ERROR.INVALID_VALUE,
-					"wrong type: " + newValue.getClass() + " != " + File.class
-					);
-		}
-	}
-
-	@Override
 	public Object getValue()
 	{
 		return value;
@@ -113,24 +85,16 @@ public class FileAttribute extends DataAttribute
 
 	public void validate(Object value) throws ValidationError
 	{
-		super.validate(value);
+		File file = (File) convertType(value);
 
-		if (value != null)
+		super.validate(file);
+
+		if (file != null)
 		{
-			File file = (File) value;
-
-			boolean exists   = false;
-			boolean writable = false;
-			boolean readable = false;
-			String  name     = "<null>";
-
-			if (value != null)
-			{
-				exists   = file.exists();
-				writable = file.canWrite();
-				readable = file.canRead();
-				name     = file.getAbsolutePath();
-			}
+			boolean exists   = file.exists();
+			boolean writable = file.canWrite();
+			boolean readable = file.canRead();
+			String name    	 = file.getAbsolutePath();
 
 			if (mustExist && ! exists)
 			{
@@ -141,6 +105,7 @@ public class FileAttribute extends DataAttribute
 						name
 						);
 			}
+
 			if (mustRead && ! readable)
 			{
 				throw new ValidationError(
@@ -150,6 +115,7 @@ public class FileAttribute extends DataAttribute
 						name
 						);
 			}
+
 			if (mustWrite && exists && ! writable)
 			{
 				throw new ValidationError(
@@ -177,6 +143,41 @@ public class FileAttribute extends DataAttribute
 			dirty = ! ((File)cleanValue).getAbsoluteFile().equals(value.getAbsoluteFile());
 		}
 		return dirty;
+	}
+
+	@Override
+	protected void setValueInternal(Object newValue) throws DataException
+	{
+		value = (File) newValue;
+	}
+
+	@Override
+	protected Object convertType(Object newValue) throws ValidationError
+	{
+		if (newValue == null)
+		{
+			return null;
+		}
+		else if (newValue instanceof File)
+		{
+			return new File(((File) newValue).toURI());
+		}
+		else if (newValue instanceof String)
+		{
+			return new File((String) newValue);
+		}
+		else if (newValue instanceof URI)
+		{
+			return new File((URI) newValue);
+		}
+		else
+		{
+			throw new ValidationError(
+					this,
+					"wrong type: " + newValue.getClass() + " != " + File.class,
+					ValidationError.ERROR.NUMBER_FORMAT // FIXME this is not number format error!
+					);
+		}
 	}
 
 }

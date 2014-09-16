@@ -1,9 +1,6 @@
 package de.cgarbs.lib.data.type;
 
-import java.text.ParseException;
-
 import de.cgarbs.lib.data.NumberAttribute;
-import de.cgarbs.lib.exception.DataException;
 
 public class FloatAttribute extends NumberAttribute
 {
@@ -55,42 +52,16 @@ public class FloatAttribute extends NumberAttribute
 		numberFormat.setMinimumFractionDigits(minDecimals);
 		numberFormat.setMaximumFractionDigits(maxDecimals);
 	}
-
 	// Builder pattern end
 
+
 	@Override
-	public void setValue(Object newValue) throws DataException
+	public Object getValue()
 	{
-		if (newValue == null)
+		if (value == null)
 		{
-			value = null;
+			return null;
 		}
-		else if (newValue instanceof Float)
-		{
-			value = Float.valueOf(((Float)newValue).floatValue());
-		}
-		else
-		{
-			try
-			{
-				String s = String.valueOf(newValue);
-				if (s.length() == 0)
-				{
-					value = 0;
-				}
-				else
-				{
-					value = numberFormat.parse(s).floatValue();
-				}
-			}
-			catch (ParseException e)
-			{
-				throw new DataException(
-						DataException.ERROR.INVALID_VALUE,
-						"can't parse Float",
-						e
-						);
-			}
-		}
+		return value.floatValue();
 	}
 }

@@ -18,8 +18,9 @@ abstract public class DataAttribute implements Serializable
 	private DataModel model;
 	protected transient Object cleanValue;
 
-	abstract public void setValue(Object newValue) throws DataException;
 	abstract public Object getValue();
+	abstract protected void setValueInternal(Object newValue) throws DataException;
+	abstract protected Object convertType(Object newValue) throws ValidationError;
 
 	// Builder pattern start
 	public abstract static class Builder<T extends Builder<?>>
@@ -47,7 +48,7 @@ abstract public class DataAttribute implements Serializable
 		validate(getValue());
 	}
 
-	public void validate(Object value) throws ValidationError
+	public void validate(Object value) throws ValidationError // FIXME rename parameter!
 	{
 		if (! nullable && value == null)
 		{
@@ -96,5 +97,20 @@ abstract public class DataAttribute implements Serializable
 			return cleanValue != null;
 		}
 		return ! getValue().equals(cleanValue);
+	}
+
+	public final void setValue(Object newValue) throws DataException
+	{
+		try
+		{
+			setValueInternal(convertType(newValue));
+		}
+		catch (ValidationError e)
+		{
+			throw new DataException(
+					DataException.ERROR.INVALID_VALUE,
+					e
+					);
+		}
 	}
 }
