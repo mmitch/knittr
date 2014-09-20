@@ -22,6 +22,10 @@ TODO:
 
 - do something when image file is no image file (preview icon == null)
 
+- later: improve controls/bindings
+  - variable text on "..." buttons in ColorBinding and FileBinding
+  - provide a combined slider/textfield input for IntBinding and FloatBinding 
+
 - later: use message footer to print help text/validation error for current element
 
 === DATA ===
