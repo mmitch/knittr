@@ -5,6 +5,7 @@ TODO:
 - SVG render:
   - fix bug on rescale of last page when there is only one page left
     (then only 1 page is rendered and it is not scaled to fit)
+  - show progress bar during rendering (busy cursor is not enough)
 
 ? allow "print two pages wide"?
 
@@ -22,9 +23,12 @@ TODO:
 
 - do something when image file is no image file (preview icon == null)
 
+- SimpleVerticalLayout:
+  - print headers bold or bigger, they are not really visible 
+
 - later: improve controls/bindings
   - variable text on "..." buttons in ColorBinding and FileBinding
-  - provide a combined slider/textfield input for IntBinding and FloatBinding 
+  - provide a combined slider/textfield input for IntBinding and FloatBinding
 
 - later: use message footer to print help text/validation error for current element
 
@@ -47,6 +51,12 @@ TODO:
 === LIB ===
 
 - document all library classes and methods
+
+- provide a simple and complete ProgressBarView
+
+- add demo projects
+  - simple calculator
+  - guess-the-number
 
 ? simple logging framework
 
