@@ -24,6 +24,7 @@ import de.cgarbs.lib.glue.type.IntBinding;
 import de.cgarbs.lib.glue.type.ProgressBarBinding;
 import de.cgarbs.lib.glue.type.StringBinding;
 import de.cgarbs.lib.i18n.Resource;
+import de.cgarbs.lib.ui.AutoLayout;
 
 public class Glue<T extends DataModel>
 {
@@ -159,6 +160,11 @@ public class Glue<T extends DataModel>
 
 	public void validate() throws ValidationErrorList
 	{
+		// FIXME make focus-to-error optional via boolean?
+
+		// only scroll to first error
+		boolean scrolled = false;
+
 		ValidationErrorList ex = new ValidationErrorList();
 		for (Binding binding: bindings)
 		{
@@ -168,6 +174,11 @@ public class Glue<T extends DataModel>
 			}
 			catch (ValidationError e)
 			{
+				if (! scrolled)
+				{
+					AutoLayout.showComponent(binding.getJData());
+					scrolled = true;
+				}
 				ex.addValidationError(binding, e);
 			}
 		}

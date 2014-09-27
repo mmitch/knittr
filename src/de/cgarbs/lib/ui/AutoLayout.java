@@ -1,12 +1,14 @@
 package de.cgarbs.lib.ui;
 
 import java.awt.Container;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JComponent;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 
 import de.cgarbs.lib.exception.GlueException;
@@ -74,4 +76,42 @@ abstract public class AutoLayout
 	}
 	// Builder pattern end
 
+	/**
+	 * ensure that a component is visible within an AutoLayout
+	 * This method will work upwards through all parent objects and
+	 * scroll as needed.
+	 *
+	 * @param component the component to show
+	 */
+	public static void showComponent(JComponent component)
+	{
+		Rectangle r     = component.getBounds();
+		Container c     = component.getParent();
+		Container cLast = component;
+
+		while (c != null)
+		{
+			if (c instanceof JTabbedPane)
+			{
+				JTabbedPane tp = (JTabbedPane) c;
+				int tabCounts = tp.getTabCount();
+				for (int tab = 0; tab < tabCounts; tab++)
+				{
+					if (tp.getComponent(tab) == cLast)
+					{
+						tp.setSelectedIndex(tab);
+						break;
+					}
+				}
+			}
+			else if (c instanceof JComponent)
+			{
+				((JComponent) c).scrollRectToVisible(r);
+			}
+
+			cLast = c;
+			r = c.getBounds();
+			c = c.getParent();
+		}
+	}
 }
