@@ -12,5 +12,6 @@
 	<classpathentry kind="lib" path="import/batik-1.7/lib/batik-transcoder.jar"/>
 	<classpathentry kind="lib" path="import/batik-1.7/lib/pdf-transcoder.jar"/>
 	<classpathentry kind="lib" path="import/batik-1.7/lib/batik-awt-util.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/cgarbs-javalib"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
