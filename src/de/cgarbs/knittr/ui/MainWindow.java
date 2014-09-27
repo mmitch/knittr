@@ -365,8 +365,7 @@ public class MainWindow extends JFrame
 		{
 			fc.setSelectedFile(currentFile);
 		}
-		if (fc.showDialog(MainWindow.this, label)
-				== JFileChooser.APPROVE_OPTION)
+		if (fc.showDialog(MainWindow.this, label) == JFileChooser.APPROVE_OPTION)
 		{
 			return fc.getSelectedFile();
 		}
