@@ -7,63 +7,8 @@ TODO:
     (then only 1 page is rendered and it is not scaled to fit)
   - show progress bar during rendering (busy cursor is not enough)
 
+- build:
+  - check-l10n: only call with path, detect and sort relevant files automatically
+  - remove hardcoded path from full build Ant XML 
+
 ? allow "print two pages wide"?
-
-=== UI ===
-
-- print validation error for every element
-  - validate/invalidate directly on value change
-  - remove FormattedTextFieldVerifier class
-
-- cascade validation errors
-  - mark groups (eg. tabs) as invalid, if a value is invalid
-  - use a lighter red and "$NUMBER errors" as tooltip
-
-- add detailed field description as tooltip to label part of a DataBinding
-
-- do something when image file is no image file (preview icon == null)
-
-- SimpleVerticalLayout:
-  - print headers bold or bigger, they are not really visible 
-
-- later: improve controls/bindings
-  - variable text on "..." buttons in ColorBinding and FileBinding
-  - provide a combined slider/textfield input for IntBinding and FloatBinding
-
-- later: use message footer to print help text/validation error for current element
-
-=== DATA ===
-
-- additional constraints
-  ! check this, there is already something like this code (source file != target file)
-    but does not seem to work
-  - free code
-  - not directly related to an attribute
-  - e.g. "page border must be smaller than page width and page height"
-  ? how to set/unset validation flag in UI (on which attribute for example)
-
-? "editable" attribute for all attribute types
-
-? persist DataModel in text/properties file, don't use object serialization
-  - pro: manual editing possible
-  - serialized Java objects should be forward-compatible through JRE versions
-
-=== LIB ===
-
-- document all library classes and methods
-
-- provide a simple and complete ProgressBarView
-
-- add demo projects
-  - simple calculator
-  - guess-the-number
-
-? simple logging framework
-
-? general utilities class (like safe String.setToMxLength())
-
-? general methods for look&feel selection / AutoLayout selection
-
-=== BUILD ===
-
-- check-l10n: only call with path, detect and sort relevant files automatically
