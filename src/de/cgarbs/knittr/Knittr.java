@@ -10,12 +10,12 @@ import java.util.Deque;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import javax.swing.UIManager;
-
 import de.cgarbs.knittr.data.Project;
 import de.cgarbs.knittr.ui.MainWindow;
 import de.cgarbs.lib.exception.DataException;
 import de.cgarbs.lib.ui.AutoLayout.Builder;
+import de.cgarbs.lib.ui.LookAndFeelChanger;
+import de.cgarbs.lib.ui.LookAndFeelChanger.LookAndFeel;
 import de.cgarbs.lib.ui.layout.BorderedDoubleVerticalLayout;
 import de.cgarbs.lib.ui.layout.BorderedVerticalLayout;
 import de.cgarbs.lib.ui.layout.DualColumnTabbedLayout;
@@ -36,13 +36,13 @@ public class Knittr
 		layoutBuilders.put("BorderedDoubleVerticalLayout", BorderedDoubleVerticalLayout.builder());
 	}
 
-	private static Map<String,String> lookAndFeels = new LinkedHashMap<String,String>();
+	private static Map<String,LookAndFeel> lookAndFeels = new LinkedHashMap<String,LookAndFeel>();
 	static {
-		lookAndFeels.put("Nimbus", "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-		lookAndFeels.put("Windows", "com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-		lookAndFeels.put("GTK", "com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
-		lookAndFeels.put("Motif", "com.sun.java.swing.plaf.motif.MotifLookAndFeel");
-		lookAndFeels.put("Metal", "javax.swing.plaf.metal.MetalLookAndFeel");
+		lookAndFeels.put("Nimbus", 	LookAndFeel.NIMBUS);
+		lookAndFeels.put("Windows", LookAndFeel.WINDOWS);
+		lookAndFeels.put("GTK", 	LookAndFeel.GTK);
+		lookAndFeels.put("Motif", 	LookAndFeel.MOTIF);
+		lookAndFeels.put("Metal", 	LookAndFeel.METAL);
 	};
 
 	static Project p;
@@ -55,7 +55,7 @@ public class Knittr
 	public static void main(String[] arguments)
 	{
 		// set defaults, overwrite later
-		tryAllLookAndFeels();
+		LookAndFeelChanger.setNiceLookAndFeel();
 		setLayout(0);
 
 		// process arguments
@@ -75,7 +75,7 @@ public class Knittr
 					showAllStyles();
 					System.exit(0);
 				}
-				setLookAndFeel(param);
+				LookAndFeelChanger.setLookAndFeel(lookAndFeels.get(param));
 			}
 			else if (peek.startsWith("--layout="))
 			{
@@ -160,35 +160,6 @@ public class Knittr
 				}
 			}
 		});
-	}
-
-	/**
-	 * UIManager.getSystemLookAndFeelClassName() does not return the GTK on my Ubuntu
-	 * so fiddle around manually :-(
-	 */
-	private static void tryAllLookAndFeels()
-	{
-		for (String key: lookAndFeels.keySet())
-		{
-			if (setLookAndFeel(key))
-			{
-				return;
-			}
-		}
-	}
-
-
-	private static boolean setLookAndFeel(String key)
-	{
-		try
-		{
-			UIManager.setLookAndFeel(lookAndFeels.get(key));
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
-		return true;
 	}
 
 	private static void setLayout(String key)
