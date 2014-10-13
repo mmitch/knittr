@@ -3,7 +3,6 @@ package de.cgarbs.knittr.render;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.awt.image.Raster;
 import java.io.File;
 import java.io.IOException;
 
@@ -22,7 +21,6 @@ public abstract class AbstractRenderer
 {
 	protected Project p;
 	protected BufferedImage bi;
-	protected Raster r;
 
 	// MAGIC CONSTANT - can this change? where does this come from?
 	protected double BATIK_DPI = 96;
@@ -36,7 +34,6 @@ public abstract class AbstractRenderer
 	{
 		p = project;
 		bi = getSourceImage();
-		r = bi.getRaster();
 	}
 
 	/**
@@ -62,7 +59,7 @@ public abstract class AbstractRenderer
 	 */
 	protected boolean ensurePortrait()
 	{
-		if (r.getHeight() < r.getWidth())
+		if (bi.getHeight() < bi.getWidth())
 		{
 			BufferedImage biNew = new BufferedImage(
 					bi.getHeight(),
@@ -76,7 +73,6 @@ public abstract class AbstractRenderer
 			g.drawImage(bi, at, null);
 
 			bi = biNew;
-			r = bi.getRaster();
 
 			return true;
 		}

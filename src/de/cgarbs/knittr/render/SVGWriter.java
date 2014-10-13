@@ -40,7 +40,7 @@ public class SVGWriter extends AbstractRenderer
 		{
 			// RENDER WHOLE PAGE
 			{
-				SVGGraphics2D svg = renderPage(0, 0, r.getWidth(), r.getHeight(), 0, 0, false);
+				SVGGraphics2D svg = renderPage(0, 0, bi.getWidth(), bi.getHeight(), 0, 0, false);
 
 				// write SVG to target file
 				svg.stream(((File)p.getValue(Project.TARGET_FILE)).getAbsolutePath(), true);
@@ -62,27 +62,27 @@ public class SVGWriter extends AbstractRenderer
 					pixelAspect = 1/pixelAspect;
 				}
 
-				int pageHeight = (int) Math.floor(r.getWidth() * pageAspect * pixelAspect);
+				int pageHeight = (int) Math.floor(bi.getWidth() * pageAspect * pixelAspect);
 				// calculate height of last page
-				int lastPageHeight = r.getHeight() % pageHeight;
+				int lastPageHeight = bi.getHeight() % pageHeight;
 				while (lastPageHeight > 0 && lastPageHeight < pageHeight * PAGEMINFILL)
 				{
 					// last page less than PAGEMINFILL % filled, rescale to get rid of it
 					// this could be calculated, but I don't want to think of a formula, just use a loop :-)
 					pageHeight++;
-					lastPageHeight = r.getHeight() % pageHeight;
+					lastPageHeight = bi.getHeight() % pageHeight;
 				}
 
 				int pageNo = 1;
 				int height = pageHeight;
-				for (int y=0; y<r.getHeight(); y+=pageHeight, pageNo++)
+				for (int y=0; y<bi.getHeight(); y+=pageHeight, pageNo++)
 				{
-					if (y + height > r.getHeight())
+					if (y + height > bi.getHeight())
 					{
-						height = r.getHeight() - y;
+						height = bi.getHeight() - y;
 					}
 
-					SVGGraphics2D svg = renderPage(0, y, r.getWidth(), height, 0, r.getHeight() - height - y, rotated);
+					SVGGraphics2D svg = renderPage(0, y, bi.getWidth(), height, 0, bi.getHeight() - height - y, rotated);
 
 					svg.stream(filename + "." + pageNo + ".svg", true);
 				}
@@ -119,7 +119,7 @@ public class SVGWriter extends AbstractRenderer
 	{
 
 		// init variables
-		int[] rgb = new int[4];
+		int rgb = 0;
 		SVGGraphics2D svg = initSVG();
 
 		// cache values
@@ -175,8 +175,8 @@ public class SVGWriter extends AbstractRenderer
 			Color lastColor = null;
 			for (int xs=X, xt=0; xs<X+W; xs++, xt+=SCALE_X)
 			{
-				rgb = r.getPixel(xs, ys, rgb);
-				Color newColor = new Color(rgb[0], rgb[1], rgb[2]);
+				rgb = bi.getRGB(xs, ys);
+				Color newColor = new Color(rgb);
 				if (newColor.equals(lastColor))
 				{
 					// just stack this for larger blocks
