@@ -40,6 +40,7 @@ public class Project extends DataModel
 	public static final String PAGEHEIGHT = "PAGEHEIGHT";
 	public static final String PAGEBORDER = "PAGEBORDER";
 	public static final String PAGEMINFILL = "PAGEMINFILL";
+	public static final String GREYSCALE = "GREYSCALE";
 
 	/**
 	 * generate a project with default settings
@@ -78,6 +79,7 @@ public class Project extends DataModel
 		addAttribute(PAGEHEIGHT, IntAttribute.builder().setNullable(false).setMinValue(1).build());
 		addAttribute(PAGEBORDER, IntAttribute.builder().setNullable(false).setMinValue(0).build());
 		addAttribute(PAGEMINFILL, IntAttribute.builder().setNullable(false).setMinValue(1).setMaxValue(99).build());
+		addAttribute(GREYSCALE, BooleanAttribute.builder().setNullable(false).build());
 
 		setValue(GRIDWIDTHSMALL, 0.5f);
 		setValue(GRIDWIDTHBIG, 2f);
@@ -92,6 +94,7 @@ public class Project extends DataModel
 		setValue(PAGEHEIGHT, 297);
 		setValue(PAGEBORDER, 10);
 		setValue(PAGEMINFILL, 10);
+		setValue(GREYSCALE, false);
 	}
 
 	@Override
@@ -125,5 +128,4 @@ public class Project extends DataModel
 		}
 
 	}
-
 }

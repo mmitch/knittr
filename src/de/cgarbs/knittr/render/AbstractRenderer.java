@@ -1,10 +1,12 @@
 package de.cgarbs.knittr.render;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 
@@ -19,6 +21,7 @@ import de.cgarbs.lib.exception.DataException;
  */
 public abstract class AbstractRenderer
 {
+	Colormap colormap;
 	protected Project p;
 	protected BufferedImage bi;
 
@@ -34,6 +37,15 @@ public abstract class AbstractRenderer
 	{
 		p = project;
 		bi = getSourceImage();
+
+		if (Boolean.TRUE.equals(p.getValue(Project.GREYSCALE)))
+		{
+			colormap = new Colormap(Colormap.Type.GREYSCALE, bi);
+		}
+		else
+		{
+			colormap = new Colormap(Colormap.Type.NORMAL, bi);
+		}
 	}
 
 	/**
@@ -104,4 +116,18 @@ public abstract class AbstractRenderer
 	{
 		return getTotalPageHeightMM() - (2 * getPageBordersMM());
 	}
+
+	/**
+	 * Creates the colormap to an image.  Currently normal colors
+	 * and greyscale conversion are supported.
+	 * @param img the image to convert
+	 * @param greyscale true: convert image to greyscale
+	 * @return colormap of the image
+	 */
+	public static Map<Integer, Color> getColormap(BufferedImage img, Boolean greyscale)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

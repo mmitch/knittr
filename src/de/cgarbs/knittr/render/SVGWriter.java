@@ -176,7 +176,7 @@ public class SVGWriter extends AbstractRenderer
 			for (int xs=X, xt=0; xs<X+W; xs++, xt+=SCALE_X)
 			{
 				rgb = bi.getRGB(xs, ys);
-				Color newColor = new Color(rgb);
+				Color newColor = colormap.get(rgb);
 				if (newColor.equals(lastColor))
 				{
 					// just stack this for larger blocks

@@ -67,6 +67,7 @@ public class MainWindow extends JFrame
 		Binding b_source_file = glue.addBinding(Project.SOURCE_FILE);
 		Binding b_target_file = glue.addBinding(Project.TARGET_FILE);
 		Binding b_source_image = glue.addListener(b_source_file, ImageBinding.class, R._("LBL_source_file_preview"));
+		Binding b_greyscale = glue.addBinding(Project.GREYSCALE);
 
 		Binding b_maschen = glue.addBinding(Project.MASCHEN);
 		Binding b_reihen = glue.addBinding(Project.REIHEN);
@@ -102,7 +103,7 @@ public class MainWindow extends JFrame
 
 		Container jthingie = layoutBuilder
 				.startNextGroup(R._("GRP_files"))  // FIXME move Resource to builder(), add "GRP_" automatically within Builder?
-				.addAttribute(b_source_file).addAttribute(b_target_file).addAttribute(b_source_image)
+				.addAttribute(b_source_file).addAttribute(b_target_file).addAttribute(b_source_image).addAttribute(b_greyscale)
 				.startNextGroup(R._("GRP_maschenprobe"))
 				.addAttribute(b_maschen).addAttribute(b_reihen)
 				.startNextGroup(R._("GRP_grid"))
