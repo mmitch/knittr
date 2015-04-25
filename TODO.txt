@@ -9,6 +9,6 @@ TODO:
 
 - build:
   - check-l10n: only call with path, detect and sort relevant files automatically
-  - remove hardcoded path from full build Ant XML 
+  - remove hardcoded path from full build Ant XML
 
 ? allow "print two pages wide"?
