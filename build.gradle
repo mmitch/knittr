@@ -2,12 +2,12 @@ apply plugin: 'java'
 apply plugin: 'jacoco'
 
 repositories {
-    mavenCentral()
+	mavenCentral()
 
 	/* this is for cgarbs-javalib */
 	maven {
 		url "http://www.cgarbs.de/maven2/"
-    }
+	}
 }
 
 jacocoTestReport {
@@ -17,6 +17,6 @@ jacocoTestReport {
 }
 
 dependencies {
-    compile 'org.apache.xmlgraphics:batik-rasterizer:1.7', 'de.cgarbs:cgarbs-javalib:0.1.0'
-    testCompile 'junit:junit:4.+'
+	compile 'org.apache.xmlgraphics:batik-rasterizer:1.7', 'de.cgarbs:cgarbs-javalib:0.1.0'
+	testCompile 'junit:junit:4.+'
 }
