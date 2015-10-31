@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<classpathentry kind="lib" path="import/batik-1.7/batik.jar" sourcepath="/home/mitch/workspace/batik-src-1.7.zip">
+	<classpathentry kind="src" path="src/main/java">
 		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/home/mitch/workspace/batik-docs-1.7.zip!/docs/javadoc"/>
+			<attribute name="FROM_GRADLE_MODEL" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="import/batik-1.7/lib/batik-dom.jar"/>
-	<classpathentry kind="lib" path="import/batik-1.7/lib/batik-svggen.jar" sourcepath="/home/mitch/workspace/batik-src-1.7.zip"/>
-	<classpathentry kind="lib" path="import/batik-1.7/lib/batik-transcoder.jar"/>
-	<classpathentry kind="lib" path="import/batik-1.7/lib/pdf-transcoder.jar"/>
-	<classpathentry kind="lib" path="import/batik-1.7/lib/batik-awt-util.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/cgarbs-javalib"/>
+	<classpathentry kind="src" path="src/main/resources">
+		<attributes>
+			<attribute name="FROM_GRADLE_MODEL" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" path="src/test/java">
+		<attributes>
+			<attribute name="FROM_GRADLE_MODEL" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

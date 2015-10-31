@@ -1,0 +1,13 @@
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+
+	maven {
+		url "http://www.cgarbs.de/maven2/"
+    }
+}
+
+dependencies {
+    compile 'org.apache.xmlgraphics:batik-rasterizer:1.7', 'de.cgarbs:cgarbs-javalib:0.1'
+}
