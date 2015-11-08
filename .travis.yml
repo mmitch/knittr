@@ -7,11 +7,11 @@ jdk:
 
 # Codecov.io test coverage report
 # see https://github.com/codecov/example-java
-#before_script:
-#  - pip install --user codecov
-#after_success:
-#  - gradle jacocoTestReport
-#  - codecov
+before_script:
+  - pip install --user codecov
+after_success:
+  - gradle jacocoTestReport
+  - codecov
 
 # Gradle specific cache handling
 # see http://docs.travis-ci.com/user/languages/java/#Caching

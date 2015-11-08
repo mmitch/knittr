@@ -1,11 +1,19 @@
 apply plugin: 'java'
+apply plugin: 'jacoco'
 
 repositories {
     mavenCentral()
 
+	/* this is for cgarbs-javalib */
 	maven {
 		url "http://www.cgarbs.de/maven2/"
     }
+}
+
+jacocoTestReport {
+	reports {
+		xml.enabled true
+	}
 }
 
 dependencies {
