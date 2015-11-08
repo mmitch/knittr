@@ -1,3 +1,5 @@
 /bin
 /export
 *~
+.settings/gradle.prefs
+.gradle/
