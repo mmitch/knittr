@@ -17,6 +17,6 @@ jacocoTestReport {
 }
 
 dependencies {
-    compile 'org.apache.xmlgraphics:batik-rasterizer:1.7', 'de.cgarbs:cgarbs-javalib:0.1'
+    compile 'org.apache.xmlgraphics:batik-rasterizer:1.7', 'de.cgarbs:cgarbs-javalib:0.1.0'
     testCompile 'junit:junit:4.+'
 }
