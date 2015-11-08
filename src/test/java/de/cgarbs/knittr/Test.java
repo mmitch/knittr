@@ -18,7 +18,8 @@ import de.cgarbs.lib.i18n.Resource;
 public class Test
 {
 
-	public static void main(String[] args)
+	@org.junit.Test
+	public void oldFatTest()
 	{
 		try
 		{
@@ -42,19 +43,19 @@ public class Test
 			System.out.println("...and read from disk again");
 
 
-			p.setValue(Project.SOURCE_FILE, "/home/mitch/Dropbox/schnucki/RainbowDashStrick/Rainbowdashvornefertig.png");
-			p.setValue(Project.TARGET_FILE, "/home/mitch/Dropbox/schnucki/RainbowDashStrick/Rainbowdashvornefertig.svg");
-			p.setValue(Project.MASCHEN, 24);
-			p.setValue(Project.REIHEN, 34);
-			new SVGWriter(p).render();
-			System.out.println("dash front rendered");
-
-			p.setValue(Project.SOURCE_FILE, "/home/mitch/Dropbox/schnucki/RainbowDashStrick/Rainbowdashhintenfertig.png");
-			p.setValue(Project.TARGET_FILE, "/home/mitch/Dropbox/schnucki/RainbowDashStrick/Rainbowdashhintenfertig.svg");
-			p.setValue(Project.MASCHEN, 24);
-			p.setValue(Project.REIHEN, 34);
-			new SVGWriter(p).render();
-			System.out.println("dash back rendered");
+//			p.setValue(Project.SOURCE_FILE, "/home/mitch/Dropbox/schnucki/RainbowDashStrick/Rainbowdashvornefertig.png");
+//			p.setValue(Project.TARGET_FILE, "/home/mitch/Dropbox/schnucki/RainbowDashStrick/Rainbowdashvornefertig.svg");
+//			p.setValue(Project.MASCHEN, 24);
+//			p.setValue(Project.REIHEN, 34);
+//			new SVGWriter(p).render();
+//			System.out.println("dash front rendered");
+//
+//			p.setValue(Project.SOURCE_FILE, "/home/mitch/Dropbox/schnucki/RainbowDashStrick/Rainbowdashhintenfertig.png");
+//			p.setValue(Project.TARGET_FILE, "/home/mitch/Dropbox/schnucki/RainbowDashStrick/Rainbowdashhintenfertig.svg");
+//			p.setValue(Project.MASCHEN, 24);
+//			p.setValue(Project.REIHEN, 34);
+//			new SVGWriter(p).render();
+//			System.out.println("dash back rendered");
 
 			System.out.println("resource tests:");
 			Resource R = new Resource("de.cgarbs.knittr.resource.Test");
