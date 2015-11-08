@@ -1,0 +1,23 @@
+language: java
+
+jdk:
+  - oraclejdk7
+  - oraclejdk8
+  - openjdk6
+
+# Codecov.io test coverage report
+# see https://github.com/codecov/example-java
+#before_script:
+#  - pip install --user codecov
+#after_success:
+#  - gradle jacocoTestReport
+#  - codecov
+
+# Gradle specific cache handling
+# see http://docs.travis-ci.com/user/languages/java/#Caching
+before_cache:
+  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
