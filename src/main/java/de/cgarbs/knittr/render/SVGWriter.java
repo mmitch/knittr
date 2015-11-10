@@ -3,14 +3,22 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Rectangle;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.batik.dom.GenericDOMImplementation;
 import org.apache.batik.dom.svg.SVGDOMImplementation;
 import org.apache.batik.svggen.SVGGraphics2D;
+import org.w3c.dom.DOMException;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 
 import de.cgarbs.knittr.data.Project;
 import de.cgarbs.lib.exception.DataException;
@@ -40,10 +48,10 @@ public class SVGWriter extends AbstractRenderer
 		{
 			// RENDER WHOLE PAGE
 			{
-				SVGGraphics2D svg = renderPage(0, 0, bi.getWidth(), bi.getHeight(), 0, 0, false);
+				SVGGraphics2D svgPage = renderPage(0, 0, bi.getWidth(), bi.getHeight(), 0, 0, false);
 
 				// write SVG to target file
-				svg.stream(((File)p.getValue(Project.TARGET_FILE)).getAbsolutePath(), true);
+				writeSVG(svgPage, ((File)p.getValue(Project.TARGET_FILE)).getAbsolutePath());
 			}
 
 			// RENDER MULTIPAGE
@@ -82,9 +90,9 @@ public class SVGWriter extends AbstractRenderer
 						height = bi.getHeight() - y;
 					}
 
-					SVGGraphics2D svg = renderPage(0, y, bi.getWidth(), height, 0, bi.getHeight() - height - y, rotated);
+					SVGGraphics2D svgPage = renderPage(0, y, bi.getWidth(), height, 0, bi.getHeight() - height - y, rotated);
 
-					svg.stream(filename + "." + pageNo + ".svg", true);
+					writeSVG(svgPage, filename + "." + pageNo + ".svg");
 				}
 			}
 		}
@@ -97,6 +105,34 @@ public class SVGWriter extends AbstractRenderer
 			e.printStackTrace();
 		}
 		catch (DataException e)
+		{
+			e.printStackTrace();
+		}
+		catch (ClassCastException e)
+		{
+			e.printStackTrace();
+		}
+		catch (DOMException e)
+		{
+			e.printStackTrace();
+		}
+		catch (ClassNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		catch (InstantiationException e)
+		{
+			e.printStackTrace();
+		}
+		catch (IllegalAccessException e)
+		{
+			e.printStackTrace();
+		}
+		catch (ParserConfigurationException e)
+		{
+			e.printStackTrace();
+		}
+		catch (SAXException e)
 		{
 			e.printStackTrace();
 		}
@@ -287,7 +323,7 @@ public class SVGWriter extends AbstractRenderer
 		return svg;
 	}
 
-	private SVGGraphics2D initSVG()
+	private SVGGraphics2D initSVG() throws DOMException, DataException
 	{
 		// Get a DOMImplementation.
 		DOMImplementation domImpl = GenericDOMImplementation
@@ -296,15 +332,6 @@ public class SVGWriter extends AbstractRenderer
 		// Create an instance of org.w3c.dom.Document.
 		String svgNS = SVGDOMImplementation.SVG_NAMESPACE_URI;
 		Document document = domImpl.createDocument(svgNS, "svg", null);
-
-		// add page size data
-		// scaling see here: http://stackoverflow.com/questions/1346922/
-		// after this, 1 unit is 1 mm and the printable area is 1 page
-		// FIXME: REMOVE
-//		Element root = document.getDocumentElement();
-//		root.setAttributeNS(null, "width", getTotalPageWidthMM()+"mm");
-//		root.setAttributeNS(null, "height", getTotalPageHeightMM()+"mm");
-//		root.setAttributeNS(null, "viewbox", "0 0 " + getTotalPageWidthMM() + "0 "+ getTotalPageHeightMM() + "0");
 
 		// Create an instance of the SVG Generator.
 		return new SVGGraphics2D(document);
@@ -323,4 +350,213 @@ public class SVGWriter extends AbstractRenderer
 		double value = (Integer) p.getValue(Project.REIHEN);
 		return scale / value;
 	}
+
+	/**
+	 * Write the SVG file.
+	 *
+	 * Because Batik does not seem to want to set the page size,
+	 * immediately reopen and fix the file through direct XML manipulation.
+	 * @param svg the SVG to write
+	 * @param filename the filename to use
+	 */
+	private void writeSVG(SVGGraphics2D svg, String filename) throws ClassCastException, ClassNotFoundException, InstantiationException, IllegalAccessException, DOMException, DataException, ParserConfigurationException, SAXException, IOException
+	{
+		// write SVG to file
+		svg.stream(filename, true);
+
+		/** DOM v3 thingie - TOO SLOW  ~16s for the 7k test file **/
+
+//		long time1 = System.currentTimeMillis();
+//
+//		// re-read written SVG as XML file
+//		DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
+//		DOMImplementationLS impl = (DOMImplementationLS)registry.getDOMImplementation("LS");
+//		LSParser builder = impl.createLSParser(DOMImplementationLS.MODE_SYNCHRONOUS, null);
+//
+//		// FIXME: this is ultra-slow - why??? switch to plain text processing?!
+//
+//		Document document = builder.parseURI(filename);
+//
+//		long time2 = System.currentTimeMillis();
+//
+
+		/** XERCES/DOM -- TOO SLOW! also ~16s **/
+
+//	    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+//	    DocumentBuilder dbuilder = factory.newDocumentBuilder();
+//	    document = dbuilder.parse(filename);
+//
+//		long time3 = System.currentTimeMillis();
+//
+//		System.err.printf("LSParser:  %6dms  DocBuilder:  %6dms\n", (time2-time1), (time3-time2));
+//
+//		// set width and height to page size
+//		Element root = document.getDocumentElement();
+//		root.setAttributeNS(null, "width", getTotalPageWidthMM()+"mm");
+//		root.setAttributeNS(null, "height", getTotalPageHeightMM()+"mm");
+//
+//		// write updated XML file
+//		LSSerializer writer = impl.createLSSerializer();
+//		writer.writeToURI(document, filename);
+
+
+//		/** SAX Parsing -- also TOO SLOW!  also ~16s **/
+//
+//		SAXParserFactory factory = SAXParserFactory.newInstance();
+//		SAXParser saxParser = factory.newSAXParser();
+//
+//		final OutputStreamWriter out = new OutputStreamWriter(System.out);
+//
+//		DefaultHandler handler = new DefaultHandler() {
+//
+//			private StringBuilder outputBuffer = new StringBuilder();
+//
+//			@Override
+//			public void characters(char[] ch, int start, int length)
+//					throws SAXException
+//			{
+//				outputBuffer.append(new String(ch, start, length));
+//			}
+//
+//			@Override
+//			public void endDocument() throws SAXException
+//			{
+//				flushOutputBuffer();
+//			}
+//
+//			@Override
+//			public void endElement(String uri, String localName, String qName)
+//					throws SAXException
+//			{
+//				String elementName = localName;
+//				if (elementName.isEmpty())
+//				{
+//					elementName = qName; // not namespace-aware
+//				}
+//
+//				outputBuffer.append("</").append(elementName).append(">");
+//
+//				// write inbetween (save some memory)
+//				if (outputBuffer.length() > 8192)
+//				{
+//					flushOutputBuffer();
+//				}
+//			}
+//
+//			@Override
+//			public void startDocument() throws SAXException
+//			{
+//				outputBuffer.append("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n"); // TODO is the charset correct? that's what the SVGWriter currently produces
+//				outputBuffer.append("<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.0//EN\" \"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd\">\n"); // TODO is the charset correct? that's what the SVGWriter currently produces
+//			}
+//
+//			@Override
+//			public void startElement(String uri, String localName,
+//					String qName, Attributes attributes) throws SAXException
+//			{
+//				String elementName = localName;
+//				if (elementName.isEmpty())
+//				{
+//					elementName = qName; // not namespace-aware
+//				}
+//				outputBuffer.append("<").append(elementName);
+//
+//				// BEWARE: OUR ONE AND ONLY TRANSFORMATION,
+//				// BECAUSE OF THESE TO ATTRIBUTES WE DO ALL
+//				// THIS SAX STUFF:
+//				if (elementName.equals("svg"))
+//				{
+//					try
+//					{
+//						outputBuffer.append(" width=\"").append(getTotalPageWidthMM()).append("mm\"");
+//						outputBuffer.append(" height=\"").append(getTotalPageHeightMM()).append("mm\"");
+//					}
+//					catch (DataException e)
+//					{
+//						throw new SAXException(e);
+//					}
+//				}
+//
+//
+//				if (attributes != null)
+//				{
+//					for (int i = 0; i < attributes.getLength(); i++)
+//					{
+//						String attributeName = attributes.getLocalName(i);
+//						if (attributeName.isEmpty())
+//						{
+//							attributeName = attributes.getQName(i); // not namespace-aware
+//						}
+//						outputBuffer.append(" ");
+//						outputBuffer.append(attributeName).append("=\"").append(attributes.getValue(i)).append("\"");
+//					}
+//				}
+//
+//				outputBuffer.append(">");
+//			}
+//
+//			/**
+//			 * wrap writes to convert exceptions
+//			 * @param outputBuffer
+//			 * @throws SAXException
+//			 */
+//			private void flushOutputBuffer() throws SAXException
+//			{
+//				try
+//				{
+//					out.write(outputBuffer.toString());
+//					out.flush();
+//					outputBuffer = new StringBuilder();
+//
+//				}
+//				catch (IOException e)
+//				{
+//					throw new SAXException(e);
+//				}
+//			}
+//		};
+//
+//		long timeA = System.currentTimeMillis();
+//		saxParser.parse(filename, handler);
+//		long timeB = System.currentTimeMillis();
+//
+//		System.err.printf("SAX passthrough:  %6dms\n", (timeB-timeA));
+
+		/** DO PLAIN TEXT PROCESSING - yucky, but blazing fast **/
+
+		// look out - weird logic and naming!
+		File finalFile = new File(filename + ".tmp");
+		File tempFile = new File(filename);
+
+		BufferedReader reader = new BufferedReader(new FileReader(tempFile));
+		BufferedWriter writer = new BufferedWriter(new FileWriter(finalFile));
+
+		String line;
+		while ((line = reader.readLine()) != null)
+		{
+			if (line.startsWith("<svg "))
+			{
+				writer.append(
+						String.format(
+							"<svg width=\"%dmm\" height=\"%dmm\" %s",
+							getTotalPageWidthMM(),
+							getTotalPageHeightMM(),
+							line.substring(5)
+							)
+						);
+			}
+			else
+			{
+				writer.append(line);
+			}
+			writer.newLine();
+		}
+
+		reader.close();
+		writer.close();
+
+		tempFile.delete(); // FIXME: check return code
+		finalFile.renameTo(tempFile); // FIXME: check return code
+	}
+
 }
