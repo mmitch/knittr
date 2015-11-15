@@ -24,6 +24,7 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import de.cgarbs.knittr.data.Project;
+import de.cgarbs.knittr.exception.RenderException;
 import de.cgarbs.knittr.render.SVGWriter;
 import de.cgarbs.lib.exception.DataException;
 import de.cgarbs.lib.exception.GlueException;
@@ -263,14 +264,14 @@ public class MainWindow extends JFrame
 							R._("TXT_render_success")
 							);
 				}
-				catch (IOException e)
+				catch (RenderException e)
 				{
-					showError(e.getMessage());
+					showError(e.getLocalizedMessage());
 					e.printStackTrace();
 				}
 				catch (DataException e)
 				{
-					showError(e.getMessage());
+					showError(e.getLocalizedMessage());
 					e.printStackTrace();
 				}
 				catch (ValidationErrorList e)
