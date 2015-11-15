@@ -21,6 +21,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import de.cgarbs.knittr.data.Project;
+import de.cgarbs.knittr.exception.RenderException;
 import de.cgarbs.lib.exception.DataException;
 
 /**
@@ -32,7 +33,7 @@ import de.cgarbs.lib.exception.DataException;
 public class SVGWriter extends AbstractRenderer
 {
 
-	public SVGWriter(Project project) throws IOException, DataException
+	public SVGWriter(Project project) throws RenderException
 	{
 		super(project);
 	}
@@ -42,7 +43,7 @@ public class SVGWriter extends AbstractRenderer
 	 * renders the whole project to a file in SVG format
 	 * @param p
 	 */
-	public void render()
+	public void render() throws RenderException
 	{
 		try
 		{
@@ -96,45 +97,41 @@ public class SVGWriter extends AbstractRenderer
 				}
 			}
 		}
-		catch (IllegalArgumentException e)
-		{
-			e.printStackTrace();
-		}
 		catch (IOException e)
 		{
-			e.printStackTrace();
+			wrapIOException(e);
 		}
 		catch (DataException e)
 		{
-			e.printStackTrace();
+			wrapRenderException(e);
 		}
 		catch (ClassCastException e)
 		{
-			e.printStackTrace();
+			wrapRenderException(e);
 		}
 		catch (DOMException e)
 		{
-			e.printStackTrace();
+			wrapRenderException(e);
 		}
 		catch (ClassNotFoundException e)
 		{
-			e.printStackTrace();
+			wrapRenderException(e);
 		}
 		catch (InstantiationException e)
 		{
-			e.printStackTrace();
+			wrapRenderException(e);
 		}
 		catch (IllegalAccessException e)
 		{
-			e.printStackTrace();
+			wrapRenderException(e);
 		}
 		catch (ParserConfigurationException e)
 		{
-			e.printStackTrace();
+			wrapRenderException(e);
 		}
 		catch (SAXException e)
 		{
-			e.printStackTrace();
+			wrapRenderException(e);
 		}
 	}
 
@@ -362,7 +359,7 @@ public class SVGWriter extends AbstractRenderer
 	private void writeSVG(SVGGraphics2D svg, String filename) throws ClassCastException, ClassNotFoundException, InstantiationException, IllegalAccessException, DOMException, DataException, ParserConfigurationException, SAXException, IOException
 	{
 		// write SVG to file
-		svg.stream(filename, true);
+		svg.stream(filename, false);
 
 		/** DOM v3 thingie - TOO SLOW  ~16s for the 7k test file **/
 

@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import de.cgarbs.knittr.data.Project;
+import de.cgarbs.knittr.exception.RenderException;
 import de.cgarbs.lib.exception.DataException;
 
 /**
@@ -33,18 +34,29 @@ public abstract class AbstractRenderer
 	 * @throws IOException
 	 * @throws DataException
 	 */
-	public AbstractRenderer(Project project) throws IOException, DataException
+	public AbstractRenderer(Project project) throws RenderException
 	{
-		p = project;
-		bi = getSourceImage();
+		try
+		{
+			p = project;
+			bi = getSourceImage();
 
-		if (Boolean.TRUE.equals(p.getValue(Project.GREYSCALE)))
-		{
-			colormap = new Colormap(Colormap.Type.GREYSCALE, bi);
+			if (Boolean.TRUE.equals(p.getValue(Project.GREYSCALE)))
+			{
+				colormap = new Colormap(Colormap.Type.GREYSCALE, bi);
+			}
+			else
+			{
+				colormap = new Colormap(Colormap.Type.NORMAL, bi);
+			}
 		}
-		else
+		catch (IOException e)
 		{
-			colormap = new Colormap(Colormap.Type.NORMAL, bi);
+			wrapIOException(e);
+		}
+		catch (DataException e)
+		{
+			wrapRenderException(e);
 		}
 	}
 
@@ -52,7 +64,7 @@ public abstract class AbstractRenderer
 	 * renders a whole project
 	 * @param p the project
 	 */
-	abstract public void render();
+	abstract public void render() throws RenderException;
 
 	/**
 	 * reads the source image from the project
@@ -130,4 +142,13 @@ public abstract class AbstractRenderer
 		return null;
 	}
 
+	protected void wrapIOException(Throwable t) throws RenderException
+	{
+		throw new RenderException(RenderException.ERROR.IO, t);
+	}
+
+	protected void wrapRenderException(Throwable t) throws RenderException
+	{
+		throw new RenderException(RenderException.ERROR.RENDER, t);
+	}
 }

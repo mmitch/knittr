@@ -11,6 +11,7 @@ import org.apache.batik.transcoder.TranscoderOutput;
 import org.apache.fop.svg.PDFTranscoder;
 
 import de.cgarbs.knittr.data.Project;
+import de.cgarbs.knittr.exception.RenderException;
 import de.cgarbs.knittr.render.SVGWriter;
 import de.cgarbs.lib.exception.DataException;
 import de.cgarbs.lib.i18n.Resource;
@@ -79,6 +80,10 @@ public class Test
 			e.printStackTrace();
 		}
 		catch (ClassNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		catch (RenderException e)
 		{
 			e.printStackTrace();
 		}
