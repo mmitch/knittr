@@ -8,7 +8,7 @@ import de.cgarbs.lib.data.type.BooleanAttribute;
 import de.cgarbs.lib.data.type.ColorAttribute;
 import de.cgarbs.lib.data.type.FileAttribute;
 import de.cgarbs.lib.data.type.FloatAttribute;
-import de.cgarbs.lib.data.type.IntAttribute;
+import de.cgarbs.lib.data.type.IntegerAttribute;
 import de.cgarbs.lib.data.type.StringAttribute;
 import de.cgarbs.lib.exception.DataException;
 import de.cgarbs.lib.exception.ValidationError;
@@ -57,9 +57,9 @@ public class Project extends DataModel
 		setValue(TARGET_FILE, "/tmp/test.svg");
 
 		// calculation
-		addAttribute(TOTALSCALE, IntAttribute.builder().setNullable(false).setMinValue(1).build());
-		addAttribute(MASCHEN, IntAttribute.builder().setNullable(false).setMinValue(1).build());
-		addAttribute(REIHEN, IntAttribute.builder().setNullable(false).setMinValue(1).build());
+		addAttribute(TOTALSCALE, IntegerAttribute.builder().setNullable(false).setMinValue(1).build());
+		addAttribute(MASCHEN, IntegerAttribute.builder().setNullable(false).setMinValue(1).build());
+		addAttribute(REIHEN, IntegerAttribute.builder().setNullable(false).setMinValue(1).build());
 
 		setValue(TOTALSCALE, 512);
 		setValue(MASCHEN, 24);
@@ -68,17 +68,17 @@ public class Project extends DataModel
 		// graphics
 		addAttribute(GRIDWIDTHSMALL, FloatAttribute.builder().setDecimals(2).build());
 		addAttribute(GRIDWIDTHBIG, FloatAttribute.builder().setDecimals(2).build());
-		addAttribute(GRIDTEXTMOD, IntAttribute.builder().setNullable(false).setMinValue(1).build());
+		addAttribute(GRIDTEXTMOD, IntegerAttribute.builder().setNullable(false).setMinValue(1).build());
 		addAttribute(GRIDCOLOR, ColorAttribute.builder().setNullable(false).build());
 		addAttribute(TEXTCOLOR, ColorAttribute.builder().setNullable(false).build());
 		addAttribute(FONTNAME, StringAttribute.builder().setNullable(false).setMinLength(1).build());
-		addAttribute(OFFSET, IntAttribute.builder().setNullable(false).setMinValue(1).build());
+		addAttribute(OFFSET, IntegerAttribute.builder().setNullable(false).setMinValue(1).build());
 		addAttribute(ROWMARK, BooleanAttribute.builder().setNullable(false).build());
 		addAttribute(ROWMARKCOLOR, ColorAttribute.builder().setNullable(false).build());
-		addAttribute(PAGEWIDTH, IntAttribute.builder().setNullable(false).setMinValue(1).build());
-		addAttribute(PAGEHEIGHT, IntAttribute.builder().setNullable(false).setMinValue(1).build());
-		addAttribute(PAGEBORDER, IntAttribute.builder().setNullable(false).setMinValue(0).build());
-		addAttribute(PAGEMINFILL, IntAttribute.builder().setNullable(false).setMinValue(1).setMaxValue(99).build());
+		addAttribute(PAGEWIDTH, IntegerAttribute.builder().setNullable(false).setMinValue(1).build());
+		addAttribute(PAGEHEIGHT, IntegerAttribute.builder().setNullable(false).setMinValue(1).build());
+		addAttribute(PAGEBORDER, IntegerAttribute.builder().setNullable(false).setMinValue(0).build());
+		addAttribute(PAGEMINFILL, IntegerAttribute.builder().setNullable(false).setMinValue(1).setMaxValue(99).build());
 		addAttribute(GREYSCALE, BooleanAttribute.builder().setNullable(false).build());
 
 		setValue(GRIDWIDTHSMALL, 0.5f);
