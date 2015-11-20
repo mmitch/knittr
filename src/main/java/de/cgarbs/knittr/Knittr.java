@@ -1,3 +1,7 @@
+/*
+ * Copyright 2014 (C)  Christian Garbs <mitch@cgarbs.de>
+ * Licensed under GNU GPL 3 (or later)
+ */
 package de.cgarbs.knittr;
 
 import java.awt.EventQueue;
