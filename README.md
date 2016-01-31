@@ -9,11 +9,17 @@ knittr
 about
 -----
 
-knittr is a tool to brush up knitting patterns for printing.
+knittr is a tool to brush up knitting patterns for printing.  You can
+for example start with a 16x16 pixel smilie icon and generate a
+full-page knitting pattern from it.
 
-You can for example start with a 16x16 pixel smilie icon and generate
-a knitting pattern from it featuring full-page size, a grid, column
-and row numbers.
+Features are:
+
+- scalable vector graphics output
+- multi-page output (eg. use full page width and generate multiple
+  pages vertically)
+- configurable grid, column and row numbers
+- mark every other row (distingish left and right rows)
 
 The project homepage is at <https://github.com/mmitch/knittr/>
 
