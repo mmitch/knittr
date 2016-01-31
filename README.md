@@ -30,12 +30,14 @@ lame and has certain drawbacks:
 - no row and column numbering
 - only square pixels (stitches are seldom square as I have learnt)
 
-So I wrote this program to overcome these limitations and make my wife
-happy.  In the end, I got some My Little Pony themed sweaters and
-pillows out of it as well as my own [Java GUI library][1] and multiple
-nights of coding.  Yaaaay!
+So I first wrote a [shell script][1] to overcome these limitations and
+make my wife happy.  In the end, things escalated, the shell script
+turned into this Java application, I got My Little Pony themed
+sweaters and pillows out of it as well as my own [Java GUI library][2]
+and multiple nights of coding.  Yaaaay!
 
-   [1]: <https://github.com/mmitch/cgarbs-javalib/>
+   [1]: <https://github.com/mmitch/mitchscripts/blob/master/bash/knit.sh>
+   [2]: <https://github.com/mmitch/cgarbs-javalib/>
 
 
 dependencies
