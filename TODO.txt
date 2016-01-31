@@ -17,6 +17,7 @@ TODO:
 
   - closing the window via window manager (eg. [X] under Windows) does not
     show the "unsaved changed - really quit?" dialog, but quits unconditionally
+    -> add a WindowEventListener and jump into the existing code
 
 - build:
 

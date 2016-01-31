@@ -330,6 +330,7 @@ public class MainWindow extends JFrame
 				}
 
 				MainWindow.this.dispose();
+				System.exit(0);
 			}
 		});
 
