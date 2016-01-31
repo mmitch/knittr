@@ -21,6 +21,15 @@ dependencies {
 	testCompile 'junit:junit:4.+'
 }
 
+jar {
+	manifest {
+		attributes(
+			'Main-Class': 'de.cgarbs.knittr.Knittr',
+			'Class-Path': '.'
+		)
+	}
+}
+
  /***
  **** my own tasks
  ***/
@@ -36,7 +45,7 @@ task publishDropbox(type: Copy, dependsOn: jar) {
 
 	from( jar.destinationDir ) {
 		include jar.archiveName
-		rename { jar.baseName + '.jar' }
+		rename { 'knittr-light.jar' }
 	}
 	into '/home/mitch/Dropbox/schnucki/knittr'
 }
