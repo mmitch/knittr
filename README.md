@@ -105,6 +105,8 @@ Building via ``build.gradle`` should be straightforward.
 
 There are some additional build targets available:
 
+* ``run`` directly starts the knittr UI
+
 * ``fullJar`` builds a jar containing all dependencies in
   ``build/libs/knittr-full.jar``
 

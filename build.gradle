@@ -9,6 +9,11 @@ jar {
 }
 
 
+apply plugin: 'application'
+/* provide a 'run' target to run the knittr UI */
+mainClassName = 'de.cgarbs.knittr.Knittr'
+
+
 apply plugin: 'jacoco'
 /* generate Java code coverage reports */
 jacocoTestReport {
@@ -53,7 +58,7 @@ dependencies {
 task fullJar(type: OneJar) {
 	description 'build a Jar including all dependencies'
 
-	mainClass = 'de.cgarbs.knittr.Knittr'
+	mainClass = mainClassName
 	archiveName = project.name + '-full.jar'
 }
 
