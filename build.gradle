@@ -6,7 +6,7 @@ repositories {
 
 	/* this is for cgarbs-javalib */
 	maven {
-		url "http://www.cgarbs.de/maven2/"
+		url "https://www.cgarbs.de/maven2/"
 	}
 }
 
