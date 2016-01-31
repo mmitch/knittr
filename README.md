@@ -46,7 +46,7 @@ dependencies
 
 - for building knittr:
   - Gradle build environment
-  - bash, perl for extended build tooling (both optional)
+  - bash, perl for extended build tools (both optional)
 
 
 usage
@@ -88,6 +88,22 @@ quickstart guide
    experimenting with different settings.
 
 7. Try out the settings in the other tabs!
+
+
+building knittr
+---------------
+
+Building via ``build.gradle`` should be straightforward.
+
+There are some additional build targets available:
+
+* ``fixit`` runs a bash script to fix line breaks and indentation on
+  empty lines.
+
+* ``checkl10n`` checks the .property files for missing translations
+
+* ``publishDropbox`` copies the generated knittr.jar to my Dropbox to
+  sync it to my wife's computer - this propably is of no use to you :-)
 
 
 copyright
