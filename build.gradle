@@ -52,12 +52,6 @@ task checkl10n() {
 		)
 }
 
-task version() {
-     description 'Show version that would be published'
-
-     println 'version=' + version
-}
-
 def checkl10nSingle(path, prefix) {
 	description 'Check one localization for missing property file keys.'
 
