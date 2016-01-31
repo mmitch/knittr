@@ -63,7 +63,7 @@ public class Knittr
 		setLayout(0);
 
 		// process arguments
-		// FIXME either user getopt library or move to de.cgarbs.lib package
+		// FIXME either use getopt library or move to de.cgarbs.lib package
 		Deque<String> args = new ArrayDeque<String>();
 		args.addAll(Arrays.asList(arguments));
 		while (!args.isEmpty() && args.getFirst().startsWith("--"))
