@@ -1,22 +1,27 @@
 TODO:
 
-=== build ===
-
-generate "lightweight" JARs
-
 === KNITTR ===
 
 - SVG render:
+
+  - fix fit-to-page on *both* Linux and Windows - Batik seems to
+    generate the files with specific, but different DPI values.
+    Perhaps hardcoding OS-specific guessed values can help?
+  
   - fix bug on rescale of last page when there is only one page left
     (then only 1 page is rendered and it is not scaled to fit)
+    
   - show progress bar during rendering (busy cursor is not enough)
 
 - main window:
+
   - closing the window via window manager (eg. [X] under Windows) does not
     show the "unsaved changed - really quit?" dialog, but quits unconditionally
 
 - build:
+
   - check-l10n: only call with path, detect and sort relevant files automatically
+  
   - remove hardcoded path from full build Ant XML
 
 ? allow "print two pages wide"?
