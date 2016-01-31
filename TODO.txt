@@ -1,5 +1,9 @@
 TODO:
 
+=== build ===
+
+generate "lightweight" JARs
+
 === KNITTR ===
 
 - SVG render:

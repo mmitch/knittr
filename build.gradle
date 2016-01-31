@@ -20,3 +20,53 @@ dependencies {
 	compile 'org.apache.xmlgraphics:batik-rasterizer:1.7', 'de.cgarbs:cgarbs-javalib:0.2.0'
 	testCompile 'junit:junit:4.+'
 }
+
+ /***
+ **** my own tasks
+ ***/
+
+task fixit(type: Exec) {
+	description 'Fixes line breaks and indentation on empty lines.'
+
+	commandLine 'tools/fixit.sh'
+}
+
+task publishDropbox(type: Copy, dependsOn: jar) {
+	description 'Deploy current JAR to Dropbox.'
+
+	from( jar.destinationDir ) {
+		include jar.archiveName
+		rename { jar.baseName + '.jar' }
+	}
+	into '/home/mitch/Dropbox/schnucki/knittr'
+}
+
+task checkl10n() {
+	description 'Check all localizations for missing property file keys.'
+
+	/* FIXME: all paths handcrafted, there should be a better way */
+	finalizedBy(
+		checkl10nSingle('src/main/resources/de/cgarbs/resources/MainWindow'),
+		checkl10nSingle('src/main/resources/de/cgarbs/resources/Projekt'),
+		checkl10nSingle('src/main/resources/de/cgarbs/resources/RenderException'),
+		)
+}
+
+task version() {
+     description 'Show version that would be published'
+
+     println 'version=' + version
+}
+
+def checkl10nSingle(path) {
+	description 'Check one localization for missing property file keys.'
+
+	return tasks.create("checkl10n /${path}", Exec) {
+		List args = [ 'tools/check-l10n.pl' ]
+		fileTree(dir: path).include('*.properties').each {
+			File file -> args.add(file as String)
+		}
+
+		commandLine args
+	}
+}
