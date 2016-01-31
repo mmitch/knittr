@@ -46,9 +46,9 @@ task checkl10n() {
 
 	/* FIXME: all paths handcrafted, there should be a better way */
 	finalizedBy(
-		checkl10nSingle('src/main/resources/de/cgarbs/resources/MainWindow'),
-		checkl10nSingle('src/main/resources/de/cgarbs/resources/Projekt'),
-		checkl10nSingle('src/main/resources/de/cgarbs/resources/RenderException'),
+		checkl10nSingle('src/main/resources/de/cgarbs/knittr/resource', 'MainWindow'),
+		checkl10nSingle('src/main/resources/de/cgarbs/knittr/resource', 'Project'),
+		checkl10nSingle('src/main/resources/de/cgarbs/knittr/resource', 'RenderException'),
 		)
 }
 
@@ -58,12 +58,12 @@ task version() {
      println 'version=' + version
 }
 
-def checkl10nSingle(path) {
+def checkl10nSingle(path, prefix) {
 	description 'Check one localization for missing property file keys.'
 
-	return tasks.create("checkl10n /${path}", Exec) {
+	return tasks.create("checkl10n /${path}/${prefix}", Exec) {
 		List args = [ 'tools/check-l10n.pl' ]
-		fileTree(dir: path).include('*.properties').each {
+		fileTree(dir: path).include("${prefix}*.properties").each {
 			File file -> args.add(file as String)
 		}
 
