@@ -92,8 +92,8 @@ quickstart guide
 7. Try out the settings in the other tabs!
 
 
-building knittr
----------------
+building with Gradle
+--------------------
 
 Building via ``build.gradle`` should be straightforward.
 
