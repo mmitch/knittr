@@ -77,11 +77,11 @@ quickstart guide
 3. Select a ``target file`` to contain the result of the conversion.
    Target file format is SVG.  This file will be overwritten!
 
-4. Go to the ``Maschenprobe`` tab and enter the ``Maschen`` and
-   ``Reihen`` values for your wool.  ``Maschen`` means the number of
-   horizontal stitches you need to knit 10cm, while ``Reihen`` means
-   the number of vertical rows you need to knit 10cm.  Both values
-   are used to provide proper scaling of your output.
+4. Go to the ``gauge swatch`` tab and enter the ``stitches`` and
+   ``rows`` values for your yarn.  ``stitches`` means the number of
+   horizontal stitches you need to knit 10cm (4in), while ``rows``
+   means the number of vertical rows you need to knit 10cm (4in).
+   Both values are used to provide proper scaling of your output.
 
 5. Select ``Render to SVG``.  Afterwards, open and print the generated
    SVG with your favourite SVG editor or viewer.
