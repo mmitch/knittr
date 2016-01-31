@@ -113,7 +113,7 @@ There are some additional build targets available:
 
 * ``checkl10n`` checks the .property files for missing translations
 
-* ``publishDropbox`` and ``publishDropboxFat`` copy the generated jars
+* ``publishDropbox`` and ``publishDropboxFull`` copy the generated jars
   to my Dropbox to sync them to my wife's computer - this propably is of
   no use to you :-)
 
