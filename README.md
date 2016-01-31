@@ -99,13 +99,17 @@ Building via ``build.gradle`` should be straightforward.
 
 There are some additional build targets available:
 
+* ``fullJar`` builds a jar containing all dependencies in
+  ``build/libs/knittr-full.jar``
+
 * ``fixit`` runs a bash script to fix line breaks and indentation on
   empty lines.
 
 * ``checkl10n`` checks the .property files for missing translations
 
-* ``publishDropbox`` copies the generated knittr.jar to my Dropbox to
-  sync it to my wife's computer - this propably is of no use to you :-)
+* ``publishDropbox`` and ``publishDropboxFat`` copy the generated jars
+  to my Dropbox to sync them to my wife's computer - this propably is of
+  no use to you :-)
 
 
 copyright

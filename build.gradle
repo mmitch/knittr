@@ -1,5 +1,35 @@
 apply plugin: 'java'
+/* we are a Java project, obviously */
+jar {
+	manifest {
+		attributes(
+			'Main-Class': 'de.cgarbs.knittr.Knittr'
+		)
+	}
+}
+
+
 apply plugin: 'jacoco'
+/* generate Java code coverage reports */
+jacocoTestReport {
+	reports {
+		xml.enabled true
+	}
+}
+
+
+apply plugin: 'gradle-one-jar'
+/* build a full jar containing all dependencies
+   source: https://github.com/rholder/gradle-one-jar */
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath 'com.github.rholder:gradle-one-jar:1.0.4'
+	}
+}
+
 
 repositories {
 	mavenCentral()
@@ -9,30 +39,23 @@ repositories {
 		url "https://www.cgarbs.de/maven2/"
 	}
 }
-
-jacocoTestReport {
-	reports {
-		xml.enabled true
-	}
-}
-
 dependencies {
 	compile 'org.apache.xmlgraphics:batik-rasterizer:1.7', 'de.cgarbs:cgarbs-javalib:0.2.0'
 	testCompile 'junit:junit:4.+'
 }
 
-jar {
-	manifest {
-		attributes(
-			'Main-Class': 'de.cgarbs.knittr.Knittr',
-			'Class-Path': '.'
-		)
-	}
-}
+
 
  /***
  **** my own tasks
  ***/
+
+task fullJar(type: OneJar) {
+	description 'build a Jar including all dependencies'
+
+	mainClass = 'de.cgarbs.knittr.Knittr'
+	archiveName = project.name + '-full.jar'
+}
 
 task fixit(type: Exec) {
 	description 'Fixes line breaks and indentation on empty lines.'
@@ -45,7 +68,17 @@ task publishDropbox(type: Copy, dependsOn: jar) {
 
 	from( jar.destinationDir ) {
 		include jar.archiveName
-		rename { 'knittr-light.jar' }
+		rename { project.name + '-light.jar' }
+	}
+	into '/home/mitch/Dropbox/schnucki/knittr'
+}
+
+task publishDropboxFull(type: Copy, dependsOn: fullJar) {
+	description 'Deploy current JAR to Dropbox.'
+
+	from( fullJar.destinationDir ) {
+		include fullJar.archiveName
+		rename { project.name + '.jar' }
 	}
 	into '/home/mitch/Dropbox/schnucki/knittr'
 }
