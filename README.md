@@ -50,7 +50,7 @@ dependencies
 ------------
 
 - for running knittr:
-  - Java runtime
+  - Java runtime (at least Java 6)
 
 - for building knittr:
   - Gradle build environment
@@ -62,7 +62,7 @@ usage
 
 	usage: knittr.jar [options ...] [--] [<inputfile>]
 	
-	available options:");
+	available options:
 	  --layout=<layout>    - set layout
 	  --style=<style>      - set look and feel
 	  --help               - show this help text
@@ -111,7 +111,7 @@ There are some additional build targets available:
   ``build/libs/knittr-full.jar``
 
 * ``fixit`` runs a bash script to fix line breaks and indentation on
-  empty lines.
+  empty lines
 
 * ``checkl10n`` checks the .property files for missing translations
 
@@ -125,6 +125,7 @@ copyright
 
 knittr - brush up knitting patterns for printing  
 Copyright (C) 2014  Christian Garbs <mitch@cgarbs.de>
+Licensed under GNU GPL v3 (or later)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
