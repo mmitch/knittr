@@ -45,8 +45,8 @@ repositories {
 	}
 }
 dependencies {
-	compile 'org.apache.xmlgraphics:batik-rasterizer:1.7', 'de.cgarbs:cgarbs-javalib:0.2.0'
-	testCompile 'junit:junit:4.+'
+	compile 'org.apache.xmlgraphics:batik-rasterizer:1.8', 'de.cgarbs:cgarbs-javalib:0.2.0'
+	testCompile 'junit:junit:4.+', 'org.apache.xmlgraphics:fop:2.1' /* only for PDFTranscoder, try to get rid of this! */
 }
 
 
