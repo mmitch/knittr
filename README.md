@@ -3,7 +3,7 @@ knittr
 
 [![Build Status](https://travis-ci.org/mmitch/knittr.svg?branch=master)](https://travis-ci.org/mmitch/knittr)
 [![Coverage Status](https://codecov.io/github/mmitch/knittr/coverage.svg?branch=master)](https://codecov.io/github/mmitch/knittr?branch=master)
-[![Dependencies](https://www.versioneye.com/user/projects/574b4da3ce8d0e004130d3c6/badge.svg)](https://www.versioneye.com/user/projects/574b4da3ce8d0e004130d3c6)
+[![Known Vulnerabilities](https://snyk.io/test/github/mmitch/knittr/badge.svg)](https://snyk.io/test/github/mmitch/knittr)
 [![GPL 3+](https://img.shields.io/badge/license-GPL%203%2B-blue.svg)](http://www.gnu.org/licenses/gpl-3.0-standalone.html)
 
 
