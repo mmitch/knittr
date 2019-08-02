@@ -2,9 +2,7 @@ language: java
 
 # test on mutiple java versions
 jdk:
-  - openjdk7
   - openjdk8
-  - oraclejdk8
 
 # Codecov.io test coverage report
 # see https://github.com/codecov/example-java
