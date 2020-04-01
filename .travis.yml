@@ -1,8 +1,13 @@
+---
 language: java
 
 # test on mutiple java versions
 jdk:
   - openjdk8
+
+script:
+  - gradle check
+  - gradle checkl10n
 
 # Codecov.io test coverage report
 # see https://github.com/codecov/example-java
