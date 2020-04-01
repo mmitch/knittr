@@ -3,12 +3,17 @@ use strict;
 
 # check for missing localizations
 #
-# give all relevant files as parameters
+# give all relevant files as parameter-globs
+
+my @files;
+foreach my $glob (@ARGV) {
+    push @files, glob $glob;
+}
 
 my $allkeys = {};
 my $filekeys = {};
 
-foreach my $file (@ARGV)
+foreach my $file (@files)
 {
     open FILE, '<', $file or die "can't open `$file': $!";
     while (my $line = <FILE>)
@@ -30,7 +35,7 @@ my $missing = 0;
 foreach my $key (@keys)
 {
     my @files;
-    foreach my $file (@ARGV)
+    foreach my $file (@files)
     {
 	if (not exists $filekeys->{$file}->{$key})
 	{

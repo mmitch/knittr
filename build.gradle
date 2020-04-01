@@ -88,26 +88,9 @@ task publishDropboxFull(type: Copy, dependsOn: fullJar) {
 	into '/home/mitch/Dropbox/schnucki/knittr'
 }
 
-task checkl10n() {
+task checkl10n(type: Exec) {
 	description 'Check all localizations for missing property file keys.'
 
 	/* FIXME: all paths handcrafted, there should be a better way */
-	finalizedBy(
-		checkl10nSingle('src/main/resources/de/cgarbs/knittr/resource', 'MainWindow'),
-		checkl10nSingle('src/main/resources/de/cgarbs/knittr/resource', 'Project'),
-		checkl10nSingle('src/main/resources/de/cgarbs/knittr/resource', 'RenderException'),
-		)
-}
-
-def checkl10nSingle(path, prefix) {
-	description 'Check one localization for missing property file keys.'
-
-	return tasks.create("checkl10n /${path}/${prefix}", Exec) {
-		List args = [ 'tools/check-l10n.pl' ]
-		fileTree(dir: path).include("${prefix}*.properties").each {
-			File file -> args.add(file as String)
-		}
-
-		commandLine args
-	}
+	commandLine 'tools/check-l10n.pl', 'src/main/resources/de/cgarbs/knittr/resource/*.properties'
 }
