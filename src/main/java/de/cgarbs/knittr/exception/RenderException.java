@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 (C)  Christian Garbs <mitch@cgarbs.de>
+ * Copyright 2015, 2020 (C)  Christian Garbs <mitch@cgarbs.de>
  * Licensed under GNU GPL 3 (or later)
  */
 package de.cgarbs.knittr.exception;
@@ -36,7 +36,7 @@ public class RenderException extends LocalizedException
 	{
 		super(
 				ERRORTEXT.get(error) + t.getMessage(),
-				R._(ERRORTEXT.get(error), t.getLocalizedMessage()),
+				R.get(ERRORTEXT.get(error), t.getLocalizedMessage()),
 				t);
 	}
 }

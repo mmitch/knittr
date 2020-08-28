@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 (C)  Christian Garbs <mitch@cgarbs.de>
+ * Copyright 2014, 2020 (C)  Christian Garbs <mitch@cgarbs.de>
  * Licensed under GNU GPL 3 (or later)
  */
 package de.cgarbs.knittr.ui;
@@ -71,7 +71,7 @@ public class MainWindow extends JFrame
 
 		Binding b_source_file = glue.addBinding(Project.SOURCE_FILE);
 		Binding b_target_file = glue.addBinding(Project.TARGET_FILE);
-		Binding b_source_image = glue.addListener(b_source_file, ImageBinding.class, R._("LBL_source_file_preview"));
+		Binding b_source_image = glue.addListener(b_source_file, ImageBinding.class, R.get("LBL_source_file_preview"));
 		Binding b_greyscale = glue.addBinding(Project.GREYSCALE);
 
 		Binding b_maschen = glue.addBinding(Project.MASCHEN);
@@ -93,7 +93,7 @@ public class MainWindow extends JFrame
 		Binding b_pageborder = glue.addBinding(Project.PAGEBORDER);
 		Binding b_pageminfill = glue.addBinding(Project.PAGEMINFILL);
 
-		setTitle(R._("TIT_mainwindow"));
+		setTitle(R.get("TIT_mainwindow"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setMinimumSize(new Dimension(500, 300));
 		contentPane = new JPanel();
@@ -104,20 +104,20 @@ public class MainWindow extends JFrame
 
 		JTextArea infoText = new JTextArea();
 		infoText.setEditable(false);
-		infoText.setText(R._("TXT_about"));
+		infoText.setText(R.get("TXT_about"));
 
 		Container jthingie = layoutBuilder
-				.startNextGroup(R._("GRP_files"))  // FIXME move Resource to builder(), add "GRP_" automatically within Builder?
+				.startNextGroup(R.get("GRP_files"))  // FIXME move Resource to builder(), add "GRP_" automatically within Builder?
 				.addAttribute(b_source_file).addAttribute(b_target_file).addAttribute(b_source_image).addAttribute(b_greyscale)
-				.startNextGroup(R._("GRP_maschenprobe"))
+				.startNextGroup(R.get("GRP_maschenprobe"))
 				.addAttribute(b_maschen).addAttribute(b_reihen)
-				.startNextGroup(R._("GRP_grid"))
+				.startNextGroup(R.get("GRP_grid"))
 				.addAttribute(b_gridtextmod).addAttribute(b_gridwidthbig).addAttribute(b_gridwidthsmall).addAttribute(b_gridcolor).addAttribute(b_rowmark).addAttribute(b_rowmarkcolor)
-				.startNextGroup(R._("GRP_font"))
+				.startNextGroup(R.get("GRP_font"))
 				.addAttribute(b_textcolor).addAttribute(b_fontname).addAttribute(b_offset)
-				.startNextGroup(R._("GRP_page"))
+				.startNextGroup(R.get("GRP_page"))
 				.addAttribute(b_pagewidth).addAttribute(b_pageheight).addAttribute(b_pageborder).addAttribute(b_pageminfill)
-				.startNextGroup(R._("GRP_about"))
+				.startNextGroup(R.get("GRP_about"))
 				.addComponent(infoText)
 				.build();
 
@@ -142,7 +142,7 @@ public class MainWindow extends JFrame
 		GridBagLayout gbl_pnlActions = new GridBagLayout();
 		pnlActions.setLayout(gbl_pnlActions);
 
-		JButton btnLoad = new JButton(R._("BTN_load"));
+		JButton btnLoad = new JButton(R.get("BTN_load"));
 		GridBagConstraints gbc_btnLoad = new GridBagConstraints();
 		gbc_btnLoad.insets = new Insets(0, 0, 0, 5);
 		gbc_btnLoad.gridx = 0;
@@ -163,16 +163,16 @@ public class MainWindow extends JFrame
 				if (glue.isDirty())
 				{
 					if (! getConfirmation(
-							R._("TXT_load_dirty"),
-							R._("BTN_load"),
-							R._("BTN_cancel")
+							R.get("TXT_load_dirty"),
+							R.get("BTN_load"),
+							R.get("BTN_cancel")
 							))
 					{
 						return;
 					}
 				}
 
-				File chosen = MainWindow.this.chooseFile(R._("BTN_load_project"));
+				File chosen = MainWindow.this.chooseFile(R.get("BTN_load_project"));
 				if (chosen != null)
 				{
 					currentFile = chosen;
@@ -182,18 +182,6 @@ public class MainWindow extends JFrame
 						glue.syncToView();
 						glue.resetDirty();
 					}
-					catch (FileNotFoundException e1)
-					{
-						e1.printStackTrace();
-					}
-					catch (IOException e1)
-					{
-						e1.printStackTrace();
-					}
-					catch (ClassNotFoundException e1)
-					{
-						e1.printStackTrace();
-					}
 					catch (DataException e1)
 					{
 						e1.printStackTrace();
@@ -202,7 +190,7 @@ public class MainWindow extends JFrame
 			}
 		});
 
-		JButton btnSave = new JButton(R._("BTN_save"));
+		JButton btnSave = new JButton(R.get("BTN_save"));
 		GridBagConstraints gbc_btnSave = new GridBagConstraints();
 		gbc_btnSave.insets = new Insets(0, 0, 0, 5);
 		gbc_btnSave.gridx = 1;
@@ -211,7 +199,7 @@ public class MainWindow extends JFrame
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
-				File chosen = MainWindow.this.chooseFile(R._("BTN_save_project"));
+				File chosen = MainWindow.this.chooseFile(R.get("BTN_save_project"));
 				if (chosen != null)
 				{
 					currentFile = chosen;
@@ -220,14 +208,6 @@ public class MainWindow extends JFrame
 						glue.syncToModel();
 						glue.getModel().writeToFile(chosen);
 						glue.resetDirty();
-					}
-					catch (FileNotFoundException e1)
-					{
-						e1.printStackTrace();
-					}
-					catch (IOException e1)
-					{
-						e1.printStackTrace();
 					}
 					catch (DataException e1)
 					{
@@ -244,7 +224,7 @@ public class MainWindow extends JFrame
 		gbc_spacer1.fill = GridBagConstraints.HORIZONTAL;
 		pnlActions.add(Box.createGlue(), gbc_spacer1);
 
-		JButton btnRender = new JButton(R._("BTN_render"));
+		JButton btnRender = new JButton(R.get("BTN_render"));
 		btnRender.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0)
 			{
@@ -265,7 +245,7 @@ public class MainWindow extends JFrame
 
 					JOptionPane.showMessageDialog(
 							MainWindow.this,
-							R._("TXT_render_success")
+							R.get("TXT_render_success")
 							);
 				}
 				catch (RenderException e)
@@ -299,7 +279,7 @@ public class MainWindow extends JFrame
 		gbc_spacer2.fill = GridBagConstraints.HORIZONTAL;
 		pnlActions.add(Box.createGlue(), gbc_spacer2);
 
-		JButton btnQuit = new JButton(R._("BTN_quit"));
+		JButton btnQuit = new JButton(R.get("BTN_quit"));
 		GridBagConstraints gbc_btnQuit = new GridBagConstraints();
 		gbc_btnQuit.insets = new Insets(0, 0, 0, 5);
 		gbc_btnQuit.gridx = 5;
@@ -320,9 +300,9 @@ public class MainWindow extends JFrame
 				if (glue.isDirty())
 				{
 					if (! getConfirmation(
-							R._("TXT_quit_dirty"),
-							R._("BTN_quit"),
-							R._("BTN_cancel")
+							R.get("TXT_quit_dirty"),
+							R.get("BTN_quit"),
+							R.get("BTN_cancel")
 							))
 					{
 						return;
@@ -343,7 +323,7 @@ public class MainWindow extends JFrame
 		JOptionPane.showMessageDialog(
 				this,
 				message,
-				R._("TIT_error"),
+				R.get("TIT_error"),
 				JOptionPane.ERROR_MESSAGE
 				);
 	}
@@ -354,7 +334,7 @@ public class MainWindow extends JFrame
 		return JOptionPane.showOptionDialog(
 				this,
 				message,
-				R._("TIT_confirmation"),
+				R.get("TIT_confirmation"),
 				JOptionPane.DEFAULT_OPTION,
 				JOptionPane.WARNING_MESSAGE,
 				null,
@@ -366,7 +346,7 @@ public class MainWindow extends JFrame
 	private File chooseFile(String label)
 	{
 		JFileChooser fc = new JFileChooser();
-		FileFilter knit = new FileNameExtensionFilter(R._("FLT_knittr_projects"), "knit");
+		FileFilter knit = new FileNameExtensionFilter(R.get("FLT_knittr_projects"), "knit");
 		fc.setFileFilter(knit);
 		if (currentFile != null)
 		{

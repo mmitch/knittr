@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 (C)  Christian Garbs <mitch@cgarbs.de>
+ * Copyright 2014, 2020 (C)  Christian Garbs <mitch@cgarbs.de>
  * Licensed under GNU GPL 3 (or later)
  */
 package de.cgarbs.knittr;
@@ -64,11 +64,11 @@ public class Test
 
 			System.out.println("resource tests:");
 			Resource R = new Resource("de.cgarbs.knittr.resource.Test");
-			System.out.println(R._("key1"));
-			System.out.println(R._("key2", "A", "B"));
-			System.out.println(R._("key2", "B", "A"));
-			System.out.println(R._("key3", "A", "A"));
-			System.out.println(R._("missingNO"));
+			System.out.println(R.get("key1"));
+			System.out.println(R.get("key2", "A", "B"));
+			System.out.println(R.get("key2", "B", "A"));
+			System.out.println(R.get("key3", "A", "A"));
+			System.out.println(R.get("missingNO"));
 
 			System.out.println("test end");
 		}

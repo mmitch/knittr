@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 (C)  Christian Garbs <mitch@cgarbs.de>
+ * Copyright 2014, 2020 (C)  Christian Garbs <mitch@cgarbs.de>
  * Licensed under GNU GPL 3 (or later)
  */
 package de.cgarbs.knittr.data;
@@ -54,8 +54,8 @@ public class Project extends DataModel
 		super(new Resource("de.cgarbs.knittr.resource.Project"));
 
 		// IO
-		addAttribute(SOURCE_FILE, FileAttribute.builder().setNullable(false).setMustExist(true).setMustRead(true).addFileFilter(getResource()._("FLT_source_files"), "gif", "png").build());
-		addAttribute(TARGET_FILE, FileAttribute.builder().setNullable(false).setMustWrite(true).addFileFilter(getResource()._("FLT_target_files"), "svg").build());
+		addAttribute(SOURCE_FILE, FileAttribute.builder().setNullable(false).setMustExist(true).setMustRead(true).addFileFilter(getResource().get("FLT_source_files"), "gif", "png").build());
+		addAttribute(TARGET_FILE, FileAttribute.builder().setNullable(false).setMustWrite(true).addFileFilter(getResource().get("FLT_target_files"), "svg").build());
 
 		setValue(SOURCE_FILE, "resource/image_test.png");
 		setValue(TARGET_FILE, "/tmp/test.svg");
@@ -122,7 +122,7 @@ public class Project extends DataModel
 				throw new ValidationError(
 						getAttribute(TARGET_FILE),
 						"target and source file are the same",
-						getResource()._("EXC_TARGET_SOURCE_SAME")
+						getResource().get("EXC_TARGET_SOURCE_SAME")
 						);
 			}
 		}

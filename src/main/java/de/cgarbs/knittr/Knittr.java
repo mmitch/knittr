@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 (C)  Christian Garbs <mitch@cgarbs.de>
+ * Copyright 2014, 2020 (C)  Christian Garbs <mitch@cgarbs.de>
  * Licensed under GNU GPL 3 (or later)
  */
 package de.cgarbs.knittr;
@@ -129,23 +129,8 @@ public class Knittr
 				}
 				else
 				{
-					try
-					{
-						p.readFromFile(f);
-						p.resetDirty();
-					}
-					catch (FileNotFoundException e)
-					{
-						e.printStackTrace();
-					}
-					catch (ClassNotFoundException e)
-					{
-						e.printStackTrace();
-					}
-					catch (IOException e)
-					{
-						e.printStackTrace();
-					}
+					p.readFromFile(f);
+					p.resetDirty();
 				}
 			}
 		}
