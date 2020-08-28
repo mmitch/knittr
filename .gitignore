@@ -1,8 +1,7 @@
 /bin
 /export
 *~
-.settings/gradle.prefs
-.settings/gradle
+.settings
 .gradle/
 .project
 .classpath
