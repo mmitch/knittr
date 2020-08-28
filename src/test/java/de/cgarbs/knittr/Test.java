@@ -84,10 +84,6 @@ public class Test
 		{
 			e.printStackTrace();
 		}
-		catch (ClassNotFoundException e)
-		{
-			e.printStackTrace();
-		}
 		catch (RenderException e)
 		{
 			e.printStackTrace();

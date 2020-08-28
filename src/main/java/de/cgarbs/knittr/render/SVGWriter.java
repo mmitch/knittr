@@ -14,15 +14,12 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.batik.anim.dom.SVGDOMImplementation;
 import org.apache.batik.dom.GenericDOMImplementation;
 import org.apache.batik.svggen.SVGGraphics2D;
-import org.w3c.dom.DOMException;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
 
 import de.cgarbs.knittr.data.Project;
 import de.cgarbs.knittr.exception.RenderException;
@@ -113,10 +110,6 @@ public class SVGWriter extends AbstractRenderer
 		{
 			wrapRenderException(e);
 		}
-		catch (DOMException e)
-		{
-			wrapRenderException(e);
-		}
 		catch (ClassNotFoundException e)
 		{
 			wrapRenderException(e);
@@ -126,14 +119,6 @@ public class SVGWriter extends AbstractRenderer
 			wrapRenderException(e);
 		}
 		catch (IllegalAccessException e)
-		{
-			wrapRenderException(e);
-		}
-		catch (ParserConfigurationException e)
-		{
-			wrapRenderException(e);
-		}
-		catch (SAXException e)
 		{
 			wrapRenderException(e);
 		}
@@ -324,7 +309,7 @@ public class SVGWriter extends AbstractRenderer
 		return svg;
 	}
 
-	private SVGGraphics2D initSVG() throws DOMException, DataException
+	private SVGGraphics2D initSVG() throws DataException
 	{
 		// Get a DOMImplementation.
 		DOMImplementation domImpl = GenericDOMImplementation
@@ -360,7 +345,7 @@ public class SVGWriter extends AbstractRenderer
 	 * @param svg the SVG to write
 	 * @param filename the filename to use
 	 */
-	private void writeSVG(SVGGraphics2D svg, String filename) throws ClassCastException, ClassNotFoundException, InstantiationException, IllegalAccessException, DOMException, DataException, ParserConfigurationException, SAXException, IOException
+	private void writeSVG(SVGGraphics2D svg, String filename) throws ClassCastException, ClassNotFoundException, InstantiationException, IllegalAccessException, DataException,IOException
 	{
 		// write SVG to file
 		svg.stream(filename, false);

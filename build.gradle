@@ -45,7 +45,10 @@ repositories {
 	}
 }
 dependencies {
-	compile 'org.apache.xmlgraphics:batik-rasterizer:1.10', 'de.cgarbs:cgarbs-javalib:0.3.0-SNAPSHOT'
+	compile('org.apache.xmlgraphics:batik-rasterizer:1.13') {
+	  exclude group: 'xml-apis', module: 'xml-apis' /* otherwise this breaks on JDK11 because org.w3c packages are duplicated between JDK and xml-apis */ 
+	}
+	compile 'de.cgarbs:cgarbs-javalib:0.3.0-SNAPSHOT'
 	testCompile 'junit:junit:4.+', 'org.apache.xmlgraphics:fop:2.2' /* only for PDFTranscoder, try to get rid of this! */
 }
 
