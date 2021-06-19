@@ -45,7 +45,7 @@ repositories {
 	}
 }
 dependencies {
-	compile('org.apache.xmlgraphics:batik-rasterizer:1.13') {
+	compile('org.apache.xmlgraphics:batik-rasterizer:1.14') {
 	  exclude group: 'xml-apis', module: 'xml-apis' /* otherwise this breaks on JDK11 because org.w3c packages are duplicated between JDK and xml-apis */ 
 	}
 	compile 'de.cgarbs:cgarbs-javalib:0.3.0-SNAPSHOT'
